@@ -1,6 +1,4 @@
-<span id="shopping" data-id="" style="top: -58px;"></span>
-
-# <a href="#shopping" data-id="">Shopping</a>
+# [Shopping](#shopping)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -17,25 +15,19 @@ True Positive Rate: 41.02%
 True Negative Rate: 90.55%
 ```
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
-
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
+## [How to Get Help](#how-to-get-help)
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
-
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
-
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 When users are shopping online, not all will end up purchasing
 something. Most visitors to an online shopping website, in fact, likely
@@ -81,20 +73,16 @@ guess no” classifier from before would have perfect specificity (1.0)
 but no sensitivity (0.0). Our goal is to build a classifier that
 performs reasonably on both metrics.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
+## [Getting Started](#getting-started)
 
-## <a href="#getting-started" data-id="">Getting Started</a>
-
--   <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/4/shopping.zip> and unzip
     it.
--   <span class="fa-li"></span>Run `pip3 install scikit-learn` to
+- Run `pip3 install scikit-learn` to
     install the `scikit-learn` package if it isn’t already installed,
     which you’ll need for this project.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
-
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 First, open up `shopping.csv`, the data set provided to you for this
 project. You can open it in a text editor, but you may find it easier to
@@ -137,9 +125,7 @@ model, before the results are ultimately printed to the terminal.
 The functions `load_data`, `train_model`, and `evaluate` are left blank.
 That’s where you come in!
 
-<span id="specification" data-id="" style="top: -58px;"></span>
-
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementation of `load_data`, `train_model`, and
 `evaluate` in `shopping.py`.
@@ -149,7 +135,7 @@ open that file, and return a tuple `(evidence, labels)`. `evidence`
 should be a list of all of the evidence for each of the data points, and
 `labels` should be a list of all of the labels for each data point.
 
--   <span class="fa-li"></span>Since you’ll have one piece of evidence
+- Since you’ll have one piece of evidence
     and one label for each row of the spreadsheet, the length of the
     `evidence` list and the length of the `labels` list should
     ultimately be equal to the number of rows in the CSV spreadsheet
@@ -157,35 +143,35 @@ should be a list of all of the evidence for each of the data points, and
     the order the users appear in the spreadsheet. That is to say,
     `evidence[0]` should be the evidence for the first user, and
     `labels[0]` should be the label for the first user.
--   <span class="fa-li"></span>Each element in the `evidence` list
+- Each element in the `evidence` list
     should itself be a list. The list should be of length 17: the number
     of columns in the spreadsheet excluding the final column (the label
     column).
--   <span class="fa-li"></span>The values in each `evidence` list should
+- The values in each `evidence` list should
     be in the same order as the columns that appear in the evidence
     spreadsheet. You may assume that the order of columns in
     `shopping.csv` will always be presented in that order.
--   <span class="fa-li"></span>Note that, to build a nearest-neighbor
+- Note that, to build a nearest-neighbor
     classifier, all of our data needs to be numeric. Be sure that your
     values have the following types:
-    -   <span class="fa-li"></span>`Administrative`, `Informational`,
+  - `Administrative`, `Informational`,
         `ProductRelated`, `Month`, `OperatingSystems`, `Browser`,
         `Region`, `TrafficType`, `VisitorType`, and `Weekend` should all
         be of type `int`
-    -   <span class="fa-li"></span>`Administrative_Duration`,
+  - `Administrative_Duration`,
         `Informational_Duration`, `ProductRelated_Duration`,
         `BounceRates`, `ExitRates`, `PageValues`, and `SpecialDay`
         should all be of type `float`.
-    -   <span class="fa-li"></span>`Month` should be `0` for January,
+  - `Month` should be `0` for January,
         `1` for February, `2` for March, etc. up to `11` for December.
-    -   <span class="fa-li"></span>`VisitorType` should be `1` for
+  - `VisitorType` should be `1` for
         returning visitors and `0` for non-returning visitors.
-    -   <span class="fa-li"></span>`Weekend` should be `1` if the user
+  - `Weekend` should be `1` if the user
         visited on a weekend and `0` otherwise.
--   <span class="fa-li"></span>Each value of `labels` should either be
+- Each value of `labels` should either be
     the integer `1`, if the user did go through with a purchase, or `0`
     otherwise.
--   <span class="fa-li"></span>For example, the value of the first
+- For example, the value of the first
     evidence list should be
     `[0, 0.0, 0, 0.0, 1, 0.0, 0.2, 0.2, 0.0, 0.0, 1, 1, 1, 1, 1, 1, 0]`
     and the value of the first label should be `0`.
@@ -195,7 +181,7 @@ of labels, and return a `scikit-learn` nearest-neighbor classifier (a
 k-nearest-neighbor classifier where `k = 1`) fitted on that training
 data.
 
--   <span class="fa-li"></span>Notice that we’ve already imported for
+- Notice that we’ve already imported for
     you `from sklearn.neighbors import KNeighborsClassifier`. You’ll
     want to use a `KNeighborsClassifier` in this function.
 
@@ -204,18 +190,18 @@ labels for the users in the testing set) and a list of `predictions`
 (the labels predicted by your classifier), and return two floating-point
 values `(sensitivity, specificity)`.
 
--   <span class="fa-li"></span>`sensitivity` should be a floating-point
+- `sensitivity` should be a floating-point
     value from 0 to 1 representing the “true positive rate”: the
     proportion of actual positive labels that were accurately
     identified.
--   <span class="fa-li"></span>`specificity` should be a floating-point
+- `specificity` should be a floating-point
     value from 0 to 1 representing the “true negative rate”: the
     proportion of actual negative labels that were accurately
     identified.
--   <span class="fa-li"></span>You may assume each label will be `1` for
+- You may assume each label will be `1` for
     positive results (users who did go through with a purchase) or `0`
     for negative results (users who did not go through with a purchase).
--   <span class="fa-li"></span>You may assume that the list of true
+- You may assume that the list of true
     labels will contain at least one positive label and at least one
     negative label.
 
@@ -226,17 +212,13 @@ modules. You may also import `numpy` or `pandas` or anything from
 `scikit-learn`, if familiar with them, but you should not use any other
 third-party Python modules. You should not modify `shopping.csv`.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
+## [Hints](#hints)
 
-## <a href="#hints" data-id="">Hints</a>
-
--   <span class="fa-li"></span>For information and examples about how to
+- For information and examples about how to
     load data from a CSV file, see Python’s [CSV
     documentation](https://docs.python.org/3/library/csv.html).
 
-<span id="testing" data-id="" style="top: -58px;"></span>
-
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -266,9 +248,7 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
-
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
@@ -281,16 +261,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/shopping
@@ -308,9 +288,7 @@ upload your entire directory!)
 Work should be graded within five minutes. You can then go to
 <https://cs50.me/cs50ai> to view your current progress!
 
-<span id="acknowledgements" data-id="" style="top: -58px;"></span>
-
-## <a href="#acknowledgements" data-id="">Acknowledgements</a>
+## [Acknowledgements](#acknowledgements)
 
 Data set provided by [Sakar, C.O., Polat, S.O., Katircioglu, M. et al.
 Neural Comput & Applic

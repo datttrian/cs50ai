@@ -1,6 +1,5 @@
-<span id="nim" data-id="" style="top: -58px;"></span>
 
-# <a href="#nim" data-id="">Nim</a>
+# [Nim](#nim)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -29,25 +28,19 @@ AI's Turn
 AI chose to take 1 from pile 2.
 ```
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
-
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
+## [How to Get Help](#how-to-get-help)
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
-
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
-
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 Recall that in the game Nim, we begin with some number of piles, each
 with some number of objects. Players take turns: on a player’s turn, the
@@ -99,16 +92,12 @@ for `Q(s, a)`. By applying this formula every time our AI takes a new
 action, over time our AI will start to learn which actions are better in
 any state.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
+## [Getting Started](#getting-started)
 
-## <a href="#getting-started" data-id="">Getting Started</a>
-
--   <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/4/nim.zip> and unzip it.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
-
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 First, open up `nim.py`. There are two classes defined in this file
 (`Nim` and `NimAI`) along with two functions (`train` and `play`).
@@ -170,9 +159,7 @@ simulated games against itself, returning the fully trained AI. The
 `play` function accepts a trained AI as input, and lets a human player
 play a game of Nim against the AI.
 
-<span id="specification" data-id="" style="top: -58px;"></span>
-
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementation of `get_q_value`, `update_q_value`,
 `best_future_reward`, and `choose_action` in `nim.py`. For each of these
@@ -184,12 +171,12 @@ and a number of objects `j`.
 The `get_q_value` function should accept as input a `state` and `action`
 and return the corresponding Q-value for that state/action pair.
 
--   <span class="fa-li"></span>Recall that Q-values are stored in the
+- Recall that Q-values are stored in the
     dictionary `self.q`. The keys of `self.q` should be in the form of
     `(state, action)` pairs, where `state` is a tuple of all piles sizes
     in order, and `action` is a tuple `(i, j)` representing a pile and a
     number.
--   <span class="fa-li"></span>If no Q-value for the state/action pair
+- If no Q-value for the state/action pair
     exists in `self.q`, then the function should return `0`.
 
 The `update_q_value` function takes a state `state`, an action `action`,
@@ -197,11 +184,11 @@ an existing Q value `old_q`, a current reward `reward`, and an estimate
 of future rewards `future_rewards`, and updates the Q-value for the
 state/action pair according to the Q-learning formula.
 
--   <span class="fa-li"></span>Recall that the Q-learning formula is:
+- Recall that the Q-learning formula is:
     `Q(s, a) <- old value estimate + alpha * (new value estimate - old value estimate)`
--   <span class="fa-li"></span>Recall that `alpha` is the learning rate
+- Recall that `alpha` is the learning rate
     associated with the `NimAI` object.
--   <span class="fa-li"></span>The old value estimate is just the
+- The old value estimate is just the
     existing Q-value for the state/action pair. The new value estimate
     should be the sum of the current reward and the estimated future
     reward.
@@ -210,25 +197,25 @@ The `best_future_reward` function accepts a `state` as input and returns
 the best possible reward for any available action in that state,
 according to the data in `self.q`.
 
--   <span class="fa-li"></span>For any action that doesn’t already exist
+- For any action that doesn’t already exist
     in `self.q` for the given state, you should assume it has a Q-value
     of 0.
--   <span class="fa-li"></span>If no actions are available in the state,
+- If no actions are available in the state,
     you should return 0.
 
 The `choose_action` function should accept a `state` as input (and
 optionally an `epsilon` flag for whether to use the epsilon-greedy
 algorithm), and return an available action in that state.
 
--   <span class="fa-li"></span>If `epsilon` is `False`, your function
+- If `epsilon` is `False`, your function
     should behave greedily and return the best possible action available
     in that state (i.e., the action that has the highest Q-value, using
     0 if no Q-value is known).
--   <span class="fa-li"></span>If `epsilon` is `True`, your function
+- If `epsilon` is `True`, your function
     should behave according to the epsilon-greedy algorithm, choosing a
     random available action with probability `self.epsilon` and
     otherwise choosing the best action available.
--   <span class="fa-li"></span>If multiple actions have the same
+- If multiple actions have the same
     Q-value, any of those options is an acceptable return value.
 
 You should not modify anything else in `nim.py` other than the functions
@@ -238,16 +225,12 @@ modules. You may also import `numpy` or `pandas`, if familiar with them,
 but you should not use any other third-party Python modules. You may
 modify `play.py` to test on your own.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
+## [Hints](#hints)
 
-## <a href="#hints" data-id="">Hints</a>
-
--   <span class="fa-li"></span>If `lst` is a list, then `tuple(lst)` can
+- If `lst` is a list, then `tuple(lst)` can
     be used to convert `lst` into a tuple.
 
-<span id="testing" data-id="" style="top: -58px;"></span>
-
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -277,9 +260,7 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
-
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
@@ -292,16 +273,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/nim
