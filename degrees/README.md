@@ -1,6 +1,4 @@
-
-
-# <a href="#degrees" data-id="">Degrees</a>
+# [Degrees](#degrees)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -22,21 +20,21 @@ Name: Jennifer Lawrence
 ```
 
 
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
+## [How to Get Help](#how-to-get-help)
 
 1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
 2.  Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
 
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 According to the [Six Degrees of Kevin
 Bacon](https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon) game,
@@ -59,14 +57,14 @@ two people we’re trying to connect. By using breadth-first search, we
 can find the shortest path from one actor to another.
 
 
-## <a href="#getting-started" data-id="">Getting Started</a>
+## [Getting Started](#getting-started)
 
 -   Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/0/degrees.zip> and unzip
     it.
 
 
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 The distribution code contains two sets of CSV data files: one set in
 the `large` directory and one set in the `small` directory. Each
@@ -119,7 +117,7 @@ The `shortest_path` function, however, is left unimplemented. That’s
 where you come in!
 
 
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementation of the `shortest_path` function such that it
 returns the shortest path from the person with id `source` to the person
@@ -149,7 +147,7 @@ You should not modify anything else in the file other than the
 and/or import other Python standard library modules.
 
 
-## <a href="#hints" data-id="">Hints</a>
+## [Hints](#hints)
 
 -   While the implementation of search in
     lecture checks for a goal when a node is popped off the frontier,
@@ -164,7 +162,7 @@ and/or import other Python standard library modules.
     (and modify if you’d like).
 
 
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -195,7 +193,7 @@ learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
 
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
@@ -237,7 +235,7 @@ Work should be graded within five minutes. You can then go to
 <https://cs50.me/cs50ai> to view your current progress!
 
 
-## <a href="#acknowledgements" data-id="">Acknowledgements</a>
+## [Acknowledgements](#acknowledgements)
 
 Information courtesy of [IMDb](https://www.imdb.com). Used with
 permission.
