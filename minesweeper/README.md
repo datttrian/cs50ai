@@ -1,6 +1,4 @@
-<span id="minesweeper" data-id="" style="top: -58px;"></span>
-
-# <a href="#minesweeper" data-id="">Minesweeper</a>
+# [Minesweeper](#minesweeper)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -10,29 +8,21 @@ Write an AI to play Minesweeper.
 
 ![Minesweeper Game](images/game.png)
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
-
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
+## [How to Get Help](#how-to-get-help)
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
-
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
+## [Background](#background)
 
-## <a href="#background" data-id="">Background</a>
-
-<span id="minesweeper-1" data-id="" style="top: -58px;"></span>
-
-### <a href="#minesweeper-1" data-id="">Minesweeper</a>
+### [Minesweeper](#minesweeper-1)
 
 Minesweeper is a puzzle game that consists of a grid of cells, where
 some of the cells contain hidden “mines.” Clicking on a cell that
@@ -59,9 +49,7 @@ many implementations of the game, including the one in this project, the
 player can flag a mine by right-clicking on a cell (or two-finger
 clicking, depending on the computer).
 
-<span id="propositional-logic" data-id="" style="top: -58px;"></span>
-
-### <a href="#propositional-logic" data-id="">Propositional Logic</a>
+### [Propositional Logic](#propositional-logic)
 
 Your goal in this project will be to build an AI that can play
 Minesweeper. Recall that knowledge-based agents make decisions by
@@ -119,10 +107,8 @@ models to check – far too many for a computer to compute in any
 reasonable amount of time. We need a better representation of knowledge
 for this problem.
 
-<span id="knowledge-representation" data-id=""
-style="top: -58px;"></span>
+### [Knowl](#knowledge-representation)
 
-### <a href="#knowledge-representation" data-id="">Knowledge
 Representation</a>
 
 Instead, we’ll represent each sentence of our AI’s knowledge like the
@@ -202,21 +188,17 @@ So using this method of representing knowledge, we can write an AI agent
 that can gather knowledge about the Minesweeper board, and hopefully
 select cells it knows to be safe!
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
+## [Getting Started](#getting-started)
 
-## <a href="#getting-started" data-id="">Getting Started</a>
-
--   <span class="fa-li"></span>Download the distribution code from
+- <span class="fa-li"></span>Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/1/minesweeper.zip> and
     unzip it.
--   <span class="fa-li"></span>Once in the directory for the project,
+- <span class="fa-li"></span>Once in the directory for the project,
     run `pip3 install -r requirements.txt` to install the required
     Python package (`pygame`) for this project if you don’t already have
     it installed.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
-
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 There are two main files in this project: `runner.py` and
 `minesweeper.py`. `minesweeper.py` contains all of the logic the game
@@ -263,9 +245,7 @@ safe cells instead.
 The remaining functions, `add_knowledge`, `make_safe_move`, and
 `make_random_move`, are left up to you!
 
-<span id="specification" data-id="" style="top: -58px;"></span>
-
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementations of the `Sentence` class and the
 `MinesweeperAI` class in `minesweeper.py`.
@@ -273,117 +253,113 @@ Complete the implementations of the `Sentence` class and the
 In the `Sentence` class, complete the implementations of `known_mines`,
 `known_safes`, `mark_mine`, and `mark_safe`.
 
--   <span class="fa-li"></span>The `known_mines` function should return
+- <span class="fa-li"></span>The `known_mines` function should return
     a set of all of the cells in `self.cells` that are known to be
     mines.
--   <span class="fa-li"></span>The `known_safes` function should return
+- <span class="fa-li"></span>The `known_safes` function should return
     a set of all the cells in `self.cells` that are known to be safe.
--   <span class="fa-li"></span>The `mark_mine` function should first
+- <span class="fa-li"></span>The `mark_mine` function should first
     check to see if `cell` is one of the cells included in the sentence.
-    -   <span class="fa-li"></span>If `cell` is in the sentence, the
+  - <span class="fa-li"></span>If `cell` is in the sentence, the
         function should update the sentence so that `cell` is no longer
         in the sentence, but still represents a logically correct
         sentence given that `cell` is known to be a mine.
-    -   <span class="fa-li"></span>If `cell` is not in the sentence,
+  - <span class="fa-li"></span>If `cell` is not in the sentence,
         then no action is necessary.
--   <span class="fa-li"></span>The `mark_safe` function should first
+- <span class="fa-li"></span>The `mark_safe` function should first
     check to see if `cell` is one of the cells included in the sentence.
-    -   <span class="fa-li"></span>If `cell` is in the sentence, the
+  - <span class="fa-li"></span>If `cell` is in the sentence, the
         function should update the sentence so that `cell` is no longer
         in the sentence, but still represents a logically correct
         sentence given that `cell` is known to be safe.
-    -   <span class="fa-li"></span>If `cell` is not in the sentence,
+  - <span class="fa-li"></span>If `cell` is not in the sentence,
         then no action is necessary.
 
 In the `MinesweeperAI` class, complete the implementations of
 `add_knowledge`, `make_safe_move`, and `make_random_move`.
 
--   <span class="fa-li"></span>`add_knowledge` should accept a `cell`
+- <span class="fa-li"></span>`add_knowledge` should accept a `cell`
     (represented as a tuple `(i, j)`) and its corresponding `count`, and
     update `self.mines`, `self.safes`, `self.moves_made`, and
     `self.knowledge` with any new information that the AI can infer,
     given that `cell` is known to be a safe cell with `count` mines
     neighboring it.
-    -   <span class="fa-li"></span>The function should mark the `cell`
+  - <span class="fa-li"></span>The function should mark the `cell`
         as one of the moves made in the game.
-    -   <span class="fa-li"></span>The function should mark the `cell`
+  - <span class="fa-li"></span>The function should mark the `cell`
         as a safe cell, updating any sentences that contain the `cell`
         as well.
-    -   <span class="fa-li"></span>The function should add a new
+  - <span class="fa-li"></span>The function should add a new
         sentence to the AI’s knowledge base, based on the value of
         `cell` and `count`, to indicate that `count` of the `cell`’s
         neighbors are mines. Be sure to only include cells whose state
         is still undetermined in the sentence.
-    -   <span class="fa-li"></span>If, based on any of the sentences in
+  - <span class="fa-li"></span>If, based on any of the sentences in
         `self.knowledge`, new cells can be marked as safe or as mines,
         then the function should do so.
-    -   <span class="fa-li"></span>If, based on any of the sentences in
+  - <span class="fa-li"></span>If, based on any of the sentences in
         `self.knowledge`, new sentences can be inferred (using the
         subset method described in the Background), then those sentences
         should be added to the knowledge base as well.
-    -   <span class="fa-li"></span>Note that any time that you make any
+  - <span class="fa-li"></span>Note that any time that you make any
         change to your AI’s knowledge, it may be possible to draw new
         inferences that weren’t possible before. Be sure that those new
         inferences are added to the knowledge base if it is possible to
         do so.
--   <span class="fa-li"></span>`make_safe_move` should return a move
+- <span class="fa-li"></span>`make_safe_move` should return a move
     `(i, j)` that is known to be safe.
-    -   <span class="fa-li"></span>The move returned must be known to be
+  - <span class="fa-li"></span>The move returned must be known to be
         safe, and not a move already made.
-    -   <span class="fa-li"></span>If no safe move can be guaranteed,
+  - <span class="fa-li"></span>If no safe move can be guaranteed,
         the function should return `None`.
-    -   <span class="fa-li"></span>The function should not modify
+  - <span class="fa-li"></span>The function should not modify
         `self.moves_made`, `self.mines`, `self.safes`, or
         `self.knowledge`.
--   <span class="fa-li"></span>`make_random_move` should return a random
+- <span class="fa-li"></span>`make_random_move` should return a random
     move `(i, j)`.
-    -   <span class="fa-li"></span>This function will be called if a
+  - <span class="fa-li"></span>This function will be called if a
         safe move is not possible: if the AI doesn’t know where to move,
         it will choose to move randomly instead.
-    -   <span class="fa-li"></span>The move must not be a move that has
+  - <span class="fa-li"></span>The move must not be a move that has
         already been made.
-    -   <span class="fa-li"></span>The move must not be a move that is
+  - <span class="fa-li"></span>The move must not be a move that is
         known to be a mine.
-    -   <span class="fa-li"></span>If no such moves are possible, the
+  - <span class="fa-li"></span>If no such moves are possible, the
         function should return `None`.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
+## [Hints](#hints)
 
-## <a href="#hints" data-id="">Hints</a>
-
--   <span class="fa-li"></span>Be sure you’ve thoroughly read the
+- <span class="fa-li"></span>Be sure you’ve thoroughly read the
     Background section to understand how knowledge is represented in
     this AI and how the AI can make inferences.
--   <span class="fa-li"></span>If feeling less comfortable with
+- <span class="fa-li"></span>If feeling less comfortable with
     object-oriented programming, you may find [Python’s documentation on
     classes](https://docs.python.org/3/tutorial/classes.html) helpful.
--   <span class="fa-li"></span>You can find some common `set` operations
+- <span class="fa-li"></span>You can find some common `set` operations
     in [Python’s documentation on
     sets](https://docs.python.org/3/library/stdtypes.html#set).
--   <span class="fa-li"></span>When implementing `known_mines` and
+- <span class="fa-li"></span>When implementing `known_mines` and
     `known_safes` in the `Sentence` class, consider: under what
     circumstances do you know for sure that a sentence’s cells are safe?
     Under what circumstances do you know for sure that a sentence’s
     cells are mines?
--   <span class="fa-li"></span>`add_knowledge` does quite a lot of work,
+- <span class="fa-li"></span>`add_knowledge` does quite a lot of work,
     and will likely be the longest function you write for this project
     by far. It will likely be helpful to implement this function’s
     behavior one step at a time.
--   <span class="fa-li"></span>You’re welcome to add new methods to any
+- <span class="fa-li"></span>You’re welcome to add new methods to any
     of the classes if you would like, but you should not modify any of
     the existing functions’ definitions or arguments.
--   <span class="fa-li"></span>When you run your AI (as by clicking “AI
+- <span class="fa-li"></span>When you run your AI (as by clicking “AI
     Move”), note that it will not always win! There will be some cases
     where the AI must guess, because it lacks sufficient information to
     make a safe move. This is to be expected. `runner.py` will print
     whether the AI is making a move it believes to be safe or whether it
     is making a random move.
--   <span class="fa-li"></span>Be careful not to modify a set while
+- <span class="fa-li"></span>Be careful not to modify a set while
     iterating over it. Doing so may result in errors!
 
-<span id="testing" data-id="" style="top: -58px;"></span>
-
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -413,9 +389,7 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
-
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
@@ -428,16 +402,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/minesweeper
