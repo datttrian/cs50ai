@@ -190,10 +190,10 @@ select cells it knows to be safe!
 
 ## [Getting Started](#getting-started)
 
-- <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/1/minesweeper.zip> and
     unzip it.
-- <span class="fa-li"></span>Once in the directory for the project,
+- Once in the directory for the project,
     run `pip3 install -r requirements.txt` to install the required
     Python package (`pygame`) for this project if you don’t already have
     it installed.
@@ -253,110 +253,110 @@ Complete the implementations of the `Sentence` class and the
 In the `Sentence` class, complete the implementations of `known_mines`,
 `known_safes`, `mark_mine`, and `mark_safe`.
 
-- <span class="fa-li"></span>The `known_mines` function should return
+- The `known_mines` function should return
     a set of all of the cells in `self.cells` that are known to be
     mines.
-- <span class="fa-li"></span>The `known_safes` function should return
+- The `known_safes` function should return
     a set of all the cells in `self.cells` that are known to be safe.
-- <span class="fa-li"></span>The `mark_mine` function should first
+- The `mark_mine` function should first
     check to see if `cell` is one of the cells included in the sentence.
-  - <span class="fa-li"></span>If `cell` is in the sentence, the
+  - If `cell` is in the sentence, the
         function should update the sentence so that `cell` is no longer
         in the sentence, but still represents a logically correct
         sentence given that `cell` is known to be a mine.
-  - <span class="fa-li"></span>If `cell` is not in the sentence,
+  - If `cell` is not in the sentence,
         then no action is necessary.
-- <span class="fa-li"></span>The `mark_safe` function should first
+- The `mark_safe` function should first
     check to see if `cell` is one of the cells included in the sentence.
-  - <span class="fa-li"></span>If `cell` is in the sentence, the
+  - If `cell` is in the sentence, the
         function should update the sentence so that `cell` is no longer
         in the sentence, but still represents a logically correct
         sentence given that `cell` is known to be safe.
-  - <span class="fa-li"></span>If `cell` is not in the sentence,
+  - If `cell` is not in the sentence,
         then no action is necessary.
 
 In the `MinesweeperAI` class, complete the implementations of
 `add_knowledge`, `make_safe_move`, and `make_random_move`.
 
-- <span class="fa-li"></span>`add_knowledge` should accept a `cell`
+- `add_knowledge` should accept a `cell`
     (represented as a tuple `(i, j)`) and its corresponding `count`, and
     update `self.mines`, `self.safes`, `self.moves_made`, and
     `self.knowledge` with any new information that the AI can infer,
     given that `cell` is known to be a safe cell with `count` mines
     neighboring it.
-  - <span class="fa-li"></span>The function should mark the `cell`
+  - The function should mark the `cell`
         as one of the moves made in the game.
-  - <span class="fa-li"></span>The function should mark the `cell`
+  - The function should mark the `cell`
         as a safe cell, updating any sentences that contain the `cell`
         as well.
-  - <span class="fa-li"></span>The function should add a new
+  - The function should add a new
         sentence to the AI’s knowledge base, based on the value of
         `cell` and `count`, to indicate that `count` of the `cell`’s
         neighbors are mines. Be sure to only include cells whose state
         is still undetermined in the sentence.
-  - <span class="fa-li"></span>If, based on any of the sentences in
+  - If, based on any of the sentences in
         `self.knowledge`, new cells can be marked as safe or as mines,
         then the function should do so.
-  - <span class="fa-li"></span>If, based on any of the sentences in
+  - If, based on any of the sentences in
         `self.knowledge`, new sentences can be inferred (using the
         subset method described in the Background), then those sentences
         should be added to the knowledge base as well.
-  - <span class="fa-li"></span>Note that any time that you make any
+  - Note that any time that you make any
         change to your AI’s knowledge, it may be possible to draw new
         inferences that weren’t possible before. Be sure that those new
         inferences are added to the knowledge base if it is possible to
         do so.
-- <span class="fa-li"></span>`make_safe_move` should return a move
+- `make_safe_move` should return a move
     `(i, j)` that is known to be safe.
-  - <span class="fa-li"></span>The move returned must be known to be
+  - The move returned must be known to be
         safe, and not a move already made.
-  - <span class="fa-li"></span>If no safe move can be guaranteed,
+  - If no safe move can be guaranteed,
         the function should return `None`.
-  - <span class="fa-li"></span>The function should not modify
+  - The function should not modify
         `self.moves_made`, `self.mines`, `self.safes`, or
         `self.knowledge`.
-- <span class="fa-li"></span>`make_random_move` should return a random
+- `make_random_move` should return a random
     move `(i, j)`.
-  - <span class="fa-li"></span>This function will be called if a
+  - This function will be called if a
         safe move is not possible: if the AI doesn’t know where to move,
         it will choose to move randomly instead.
-  - <span class="fa-li"></span>The move must not be a move that has
+  - The move must not be a move that has
         already been made.
-  - <span class="fa-li"></span>The move must not be a move that is
+  - The move must not be a move that is
         known to be a mine.
-  - <span class="fa-li"></span>If no such moves are possible, the
+  - If no such moves are possible, the
         function should return `None`.
 
 ## [Hints](#hints)
 
-- <span class="fa-li"></span>Be sure you’ve thoroughly read the
+- Be sure you’ve thoroughly read the
     Background section to understand how knowledge is represented in
     this AI and how the AI can make inferences.
-- <span class="fa-li"></span>If feeling less comfortable with
+- If feeling less comfortable with
     object-oriented programming, you may find [Python’s documentation on
     classes](https://docs.python.org/3/tutorial/classes.html) helpful.
-- <span class="fa-li"></span>You can find some common `set` operations
+- You can find some common `set` operations
     in [Python’s documentation on
     sets](https://docs.python.org/3/library/stdtypes.html#set).
-- <span class="fa-li"></span>When implementing `known_mines` and
+- When implementing `known_mines` and
     `known_safes` in the `Sentence` class, consider: under what
     circumstances do you know for sure that a sentence’s cells are safe?
     Under what circumstances do you know for sure that a sentence’s
     cells are mines?
-- <span class="fa-li"></span>`add_knowledge` does quite a lot of work,
+- `add_knowledge` does quite a lot of work,
     and will likely be the longest function you write for this project
     by far. It will likely be helpful to implement this function’s
     behavior one step at a time.
-- <span class="fa-li"></span>You’re welcome to add new methods to any
+- You’re welcome to add new methods to any
     of the classes if you would like, but you should not modify any of
     the existing functions’ definitions or arguments.
-- <span class="fa-li"></span>When you run your AI (as by clicking “AI
+- When you run your AI (as by clicking “AI
     Move”), note that it will not always win! There will be some cases
     where the AI must guess, because it lacks sufficient information to
     make a safe move. This is to be expected. `runner.py` will print
     whether the AI is making a move it believes to be safe or whether it
     is making a random move.
-- <span class="fa-li"></span>Be careful not to modify a set while
+- Be careful not to modify a set while
     iterating over it. Doing so may result in errors!
 
 ## [Testing](#testing)

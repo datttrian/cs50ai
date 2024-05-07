@@ -20,20 +20,17 @@ PageRank Results from Iteration
   4.html: 0.1307
 ```
 
-
 ## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-
 ## [How to Get Help](#how-to-get-help)
 
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
-
 
 ## [Background](#background)
 
@@ -61,7 +58,6 @@ other important websites, and links from less important websites have
 their links weighted less. This definition seems a bit circular, but it
 turns out that there are multiple strategies for calculating these
 rankings.
-
 
 ### [Random Surfer Model](#random-surfer-model)
 
@@ -127,7 +123,6 @@ random with probability `1 - d`. If we keep track of how many times each
 page has shown up as a sample, we can treat the proportion of states
 that were on a given page as its PageRank.
 
-
 ### [Iterative Algorithm](#iterative-algorithm)
 
 We can also define a page’s PageRank using a recursive mathematical
@@ -136,9 +131,9 @@ probability that a random surfer ends up on that page. How do we define
 `PR(p)`? Well, we know there are two ways that a random surfer could end
 up on the page:
 
-1.  With probability `1 - d`, the surfer chose a page at random and
+1. With probability `1 - d`, the surfer chose a page at random and
     ended up on page `p`.
-2.  With probability `d`, the surfer followed a link from a page `i` to
+2. With probability `d`, the surfer followed a link from a page `i` to
     page `p`.
 
 The first condition is fairly straightforward to express mathematically:
@@ -176,13 +171,11 @@ In this project, you’ll implement both such approaches for calculating
 PageRank – calculating both by sampling pages from a Markov Chain random
 surfer and by iteratively applying the PageRank formula.
 
-
 ## [Getting Started](#getting-started)
 
--   Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/2/pagerank.zip> and unzip
     it.
-
 
 ## [Understanding](#understanding)
 
@@ -215,7 +208,6 @@ formula method instead of by sampling. The return value is expected to
 be in the same format, and we would hope that the output of these two
 functions should be similar when given the same corpus!
 
-
 ## [Specification](#specification)
 
 Many students have had issues with the autograders on this assignment
@@ -230,28 +222,28 @@ The `transition_model` should return a dictionary representing the
 probability distribution over which page a random surfer would visit
 next, given a corpus of pages, a current page, and a damping factor.
 
--   The function accepts three arguments:
+- The function accepts three arguments:
     `corpus`, `page`, and `damping_factor`.
-    -   The `corpus` is a Python dictionary
+  - The `corpus` is a Python dictionary
         mapping a page name to a set of all pages linked to by that
         page.
-    -   The `page` is a string representing
+  - The `page` is a string representing
         which page the random surfer is currently on.
-    -   The `damping_factor` is a floating
+  - The `damping_factor` is a floating
         point number representing the damping factor to be used when
         generating the probabilities.
--   The return value of the function should
+- The return value of the function should
     be a Python dictionary with one key for each page in the corpus.
     Each key should be mapped to a value representing the probability
     that a random surfer would choose that page next. The values in this
     returned probability distribution should sum to `1`.
-    -   With probability `damping_factor`,
+  - With probability `damping_factor`,
         the random surfer should randomly choose one of the links from
         `page` with equal probability.
-    -   With probability
+  - With probability
         `1 - damping_factor`, the random surfer should randomly choose
         one of all pages in the corpus with equal probability.
--   For example, if the `corpus` were
+- For example, if the `corpus` were
     `{"1.html": {"2.html", "3.html"}, "2.html": {"3.html"}, "3.html": {"2.html"}}`,
     the `page` was `"1.html"`, and the `damping_factor` was `0.85`, then
     the output of `transition_model` should be
@@ -261,7 +253,7 @@ next, given a corpus of pages, a current page, and a damping factor.
     probability `0.425` to start), but every page gets an additional
     `0.05` because with probability `0.15` we choose randomly among all
     three of the pages.
--   If `page` has no outgoing links, then
+- If `page` has no outgoing links, then
     `transition_model` should return a probability distribution that
     chooses randomly among all pages with equal probability. (In other
     words, if a page has no links, we can pretend it has links to all
@@ -271,40 +263,40 @@ The `sample_pagerank` function should accept a corpus of web pages, a
 damping factor, and a number of samples, and return an estimated
 PageRank for each page.
 
--   The function accepts three arguments:
+- The function accepts three arguments:
     `corpus`, a `damping_factor`, and `n`.
-    -   The `corpus` is a Python dictionary
+  - The `corpus` is a Python dictionary
         mapping a page name to a set of all pages linked to by that
         page.
-    -   The `damping_factor` is a floating
+  - The `damping_factor` is a floating
         point number representing the damping factor to be used by the
         transition model.
-    -   `n` is an integer representing the
+  - `n` is an integer representing the
         number of samples that should be generated to estimate PageRank
         values.
--   The return value of the function should
+- The return value of the function should
     be a Python dictionary with one key for each page in the corpus.
     Each key should be mapped to a value representing that page’s
     estimated PageRank (i.e., the proportion of all the samples that
     corresponded to that page). The values in this dictionary should sum
     to `1`.
--   The first sample should be generated by
+- The first sample should be generated by
     choosing from a page at random.
--   For each of the remaining samples, the
+- For each of the remaining samples, the
     next sample should be generated from the previous sample based on
     the previous sample’s transition model.
-    -   You will likely want to pass the
+  - You will likely want to pass the
         previous sample into your `transition_model` function, along
         with the `corpus` and the `damping_factor`, to get the
         probabilities for the next sample.
-    -   For example, if the transition
+  - For example, if the transition
         probabilities are
         `{"1.html": 0.05, "2.html": 0.475, "3.html": 0.475}`, then 5% of
         the time the next sample generated should be `"1.html"`, 47.5%
         of the time the next sample generated should be `"2.html"`, and
         47.5% of the time the next sample generated should be
         `"3.html"`.
--   You may assume that `n` will be at least
+- You may assume that `n` will be at least
     `1`.
 
 The `iterate_pagerank` function should accept a corpus of web pages and
@@ -312,30 +304,30 @@ a damping factor, calculate PageRanks based on the iteration formula
 described above, and return each page’s PageRank accurate to within
 `0.001`.
 
--   The function accepts two arguments:
+- The function accepts two arguments:
     `corpus` and `damping_factor`.
-    -   The `corpus` is a Python dictionary
+  - The `corpus` is a Python dictionary
         mapping a page name to a set of all pages linked to by that
         page.
-    -   The `damping_factor` is a floating
+  - The `damping_factor` is a floating
         point number representing the damping factor to be used in the
         PageRank formula.
--   The return value of the function should
+- The return value of the function should
     be a Python dictionary with one key for each page in the corpus.
     Each key should be mapped to a value representing that page’s
     PageRank. The values in this dictionary should sum to `1`.
--   The function should begin by assigning
+- The function should begin by assigning
     each page a rank of `1 / N`, where `N` is the total number of pages
     in the corpus.
--   The function should then repeatedly
+- The function should then repeatedly
     calculate new rank values based on all of the current rank values,
     according to the PageRank formula in the “Background” section.
     (i.e., calculating a page’s PageRank based on the PageRanks of all
     pages that link to it).
-    -   A page that has no links at all
+  - A page that has no links at all
         should be interpreted as having one link for every page in the
         corpus (including itself).
--   This process should repeat until no
+- This process should repeat until no
     PageRank value changes by more than `0.001` between the current rank
     values and the new rank values.
 
@@ -345,13 +337,11 @@ may write additional functions and/or import other Python standard
 library modules. You may also import `numpy` or `pandas`, if familiar
 with them, but you should not use any other third-party Python modules.
 
-
 ## [Hints](#hints)
 
--   You may find the functions in Python’s
+- You may find the functions in Python’s
     [`random`](https://docs.python.org/3/library/random.html) module
     helpful for making decisions pseudorandomly.
-
 
 ## [Testing](#testing)
 
@@ -383,7 +373,6 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-
 ## [How to Submit](#how-to-submit)
 
 Beginning
@@ -397,16 +386,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/pagerank
