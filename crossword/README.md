@@ -1,6 +1,4 @@
-<span id="crossword" data-id="" style="top: -58px;"></span>
-
-# <a href="#crossword" data-id="">Crossword</a>
+# [Crossword](#crossword)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -23,25 +21,19 @@ $ python generate.py data/structure1.txt data/words1.txt output.png
 
 ![Crossword](images/crossword.png)
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
-
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
+## [How to Get Help](#how-to-get-help)
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
-
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
-
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 How might you go about generating a crossword puzzle? Given the
 structure of a crossword puzzle (i.e., which squares of the grid are
@@ -95,17 +87,13 @@ The challenge ahead, then, is write a program to find a satisfying
 assignment: a different word (from a given vocabulary list) for each
 variable such that all of the unary and binary constraints are met.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
+## [Getting Started](#getting-started)
 
-## <a href="#getting-started" data-id="">Getting Started</a>
-
--   <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/3/crossword.zip> and unzip
     it.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
-
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 There are two Python files in this project: `crossword.py` and
 `generate.py`. The first has been entirely written for you, the second
@@ -130,20 +118,20 @@ the project, and you’re welcome to create your own as well.
 Note in particular, that for any crossword object `crossword`, we store
 the following values:
 
--   <span class="fa-li"></span>`crossword.height` is an integer
+- `crossword.height` is an integer
     representing the height of the crossword puzzle.
--   <span class="fa-li"></span>`crossword.width` is an integer
+- `crossword.width` is an integer
     representing the width of the crossword puzzle.
--   <span class="fa-li"></span>`crossword.structure` is a 2D list
+- `crossword.structure` is a 2D list
     representing the structure of the puzzle. For any valid row `i` and
     column `j`, `crossword.structure[i][j]` will be `True` if the cell
     is blank (a character must be filled there) and will be `False`
     otherwise (no character is to be filled in that cell).
--   <span class="fa-li"></span>`crossword.words` is a set of all of the
+- `crossword.words` is a set of all of the
     words to draw from when constructing the crossword puzzle.
--   <span class="fa-li"></span>`crossword.variables` is a set of all of
+- `crossword.variables` is a set of all of
     the variables in the puzzle (each is a `Variable` object).
--   <span class="fa-li"></span>`crossword.overlaps` is a dictionary
+- `crossword.overlaps` is a dictionary
     mapping a pair of variables to their overlap. For any two distinct
     variables `v1` and `v2`, `crossword.overlaps[v1, v2]` will be `None`
     if the two variables have no overlap, and will be a pair of integers
@@ -191,9 +179,7 @@ The functions `enforce_node_consistency`, `ac3`, and `backtrack`,
 though, are not yet implemented (among other functions). That’s where
 you come in!
 
-<span id="specification" data-id="" style="top: -58px;"></span>
-
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementation of `enforce_node_consistency`, `revise`,
 `ac3`, `assignment_complete`, `consistent`, `order_domain_values`,
@@ -203,37 +189,37 @@ your AI generates complete crossword puzzles if it is possible to do so.
 The `enforce_node_consistency` function should update `self.domains`
 such that each variable is node consistent.
 
--   <span class="fa-li"></span>Recall that node consistency is achieved
+- Recall that node consistency is achieved
     when, for every variable, each value in its domain is consistent
     with the variable’s unary constraints. In the case of a crossword
     puzzle, this means making sure that every value in a variable’s
     domain has the same number of letters as the variable’s length.
--   <span class="fa-li"></span>To remove a value `x` from the domain of
+- To remove a value `x` from the domain of
     a variable `v`, since `self.domains` is a dictionary mapping
     variables to sets of values, you can call
     `self.domains[v].remove(x)`.
--   <span class="fa-li"></span>No return value is necessary for this
+- No return value is necessary for this
     function.
 
 The `revise` function should make the variable `x` arc consistent with
 the variable `y`.
 
--   <span class="fa-li"></span>`x` and `y` will both be `Variable`
+- `x` and `y` will both be `Variable`
     objects representing variables in the puzzle.
--   <span class="fa-li"></span>Recall that `x` is arc consistent with
+- Recall that `x` is arc consistent with
     `y` when every value in the domain of `x` has a possible value in
     the domain of `y` that does not cause a conflict. (A conflict in the
     context of the crossword puzzle is a square for which two variables
     disagree on what character value it should take on.)
--   <span class="fa-li"></span>To make `x` arc consistent with `y`,
+- To make `x` arc consistent with `y`,
     you’ll want to remove any value from the domain of `x` that does not
     have a corresponding possible value in the domain of `y`.
--   <span class="fa-li"></span>Recall that you can access
+- Recall that you can access
     `self.crossword.overlaps` to get the overlap, if any, between two
     variables.
--   <span class="fa-li"></span>The domain of `y` should be left
+- The domain of `y` should be left
     unmodified.
--   <span class="fa-li"></span>The function should return `True` if a
+- The function should return `True` if a
     revision was made to the domain of `x`; it should return `False` if
     no revision was made.
 
@@ -242,7 +228,7 @@ consistency on the problem. Recall that arc consistency is achieved when
 all the values in each variable’s domain satisfy that variable’s binary
 constraints.
 
--   <span class="fa-li"></span>Recall that the AC3 algorithm maintains a
+- Recall that the AC3 algorithm maintains a
     queue of arcs to process. This function takes an optional argument
     called `arcs`, representing an initial list of arcs to process. If
     `arcs` is `None`, your function should start with an initial queue
@@ -250,76 +236,76 @@ constraints.
     begin with an initial queue of only the arcs that are in the list
     `arcs` (where each arc is a tuple `(x, y)` of a variable `x` and a
     different variable `y`).
--   <span class="fa-li"></span>Recall that to implement AC3, you’ll
+- Recall that to implement AC3, you’ll
     revise each arc in the queue one at a time. Any time you make a
     change to a domain, though, you may need to add additional arcs to
     your queue to ensure that other arcs stay consistent.
--   <span class="fa-li"></span>You may find it helpful to call on the
+- You may find it helpful to call on the
     `revise` function in your implementation of `ac3`.
--   <span class="fa-li"></span>If, in the process of enforcing arc
+- If, in the process of enforcing arc
     consistency, you remove all of the remaining values from a domain,
     return `False` (this means it’s impossible to solve the problem,
     since there are no more possible values for the variable).
     Otherwise, return `True`.
--   <span class="fa-li"></span>You do not need to worry about enforcing
+- You do not need to worry about enforcing
     word uniqueness in this function (you’ll implement that check in the
     `consistent` function.)
 
 The `assignment_complete` function should (as the name suggests) check
 to see if a given `assignment` is complete.
 
--   <span class="fa-li"></span>An `assignment` is a dictionary where the
+- An `assignment` is a dictionary where the
     keys are `Variable` objects and the values are strings representing
     the words those variables will take on.
--   <span class="fa-li"></span>An assignment is complete if every
+- An assignment is complete if every
     crossword variable is assigned to a value (regardless of what that
     value is).
--   <span class="fa-li"></span>The function should return `True` if the
+- The function should return `True` if the
     assignment is complete and return `False` otherwise.
 
 The `consistent` function should check to see if a given `assignment` is
 consistent.
 
--   <span class="fa-li"></span>An `assignment` is a dictionary where the
+- An `assignment` is a dictionary where the
     keys are `Variable` objects and the values are strings representing
     the words those variables will take on. Note that the assignment may
     not be complete: not all variables will necessarily be present in
     the assignment.
--   <span class="fa-li"></span>An assignment is consistent if it
+- An assignment is consistent if it
     satisfies all of the constraints of the problem: that is to say, all
     values are distinct, every value is the correct length, and there
     are no conflicts between neighboring variables.
--   <span class="fa-li"></span>The function should return `True` if the
+- The function should return `True` if the
     assignment is consistent and return `False` otherwise.
 
 The `order_domain_values` function should return a list of all of the
 values in the domain of `var`, ordered according to the
 least-constraining values heuristic.
 
--   <span class="fa-li"></span>`var` will be a `Variable` object,
+- `var` will be a `Variable` object,
     representing a variable in the puzzle.
--   <span class="fa-li"></span>Recall that the least-constraining values
+- Recall that the least-constraining values
     heuristic is computed as the number of values ruled out for
     neighboring unassigned variables. That is to say, if assigning `var`
     to a particular value results in eliminating `n` possible choices
     for neighboring variables, you should order your results in
     ascending order of `n`.
--   <span class="fa-li"></span>Note that any variable present in
+- Note that any variable present in
     `assignment` already has a value, and therefore shouldn’t be counted
     when computing the number of values ruled out for neighboring
     unassigned variables.
--   <span class="fa-li"></span>For domain values that eliminate the same
+- For domain values that eliminate the same
     number of possible choices for neighboring variables, any ordering
     is acceptable.
--   <span class="fa-li"></span>Recall that you can access
+- Recall that you can access
     `self.crossword.overlaps` to get the overlap, if any, between two
     variables.
--   <span class="fa-li"></span>It may be helpful to first implement this
+- It may be helpful to first implement this
     function by returning a list of values in any arbitrary order (which
     should still generate correct crossword puzzles). Once your
     algorithm is working, you can then go back and ensure that the
     values are returned in the correct order.
--   <span class="fa-li"></span>You may find it helpful to
+- You may find it helpful to
     [`sort`](https://docs.python.org/3/howto/sorting.html) a list
     according to a particular `key`: Python contains some helpful
     functions for achieving this.
@@ -329,23 +315,23 @@ variable in the crossword puzzle that is not yet assigned by
 `assignment`, according to the minimum remaining value heuristic and
 then the degree heuristic.
 
--   <span class="fa-li"></span>An `assignment` is a dictionary where the
+- An `assignment` is a dictionary where the
     keys are `Variable` objects and the values are strings representing
     the words those variables will take on. You may assume that the
     assignment will not be complete: not all variables will be present
     in the assignment.
--   <span class="fa-li"></span>Your function should return a `Variable`
+- Your function should return a `Variable`
     object. You should return the variable with the fewest number of
     remaining values in its domain. If there is a tie between variables,
     you should choose among whichever among those variables has the
     largest degree (has the most neighbors). If there is a tie in both
     cases, you may choose arbitrarily among tied variables.
--   <span class="fa-li"></span>It may be helpful to first implement this
+- It may be helpful to first implement this
     function by returning any arbitrary unassigned variable (which
     should still generate correct crossword puzzles). Once your
     algorithm is working, you can then go back and ensure that you are
     returning a variable according to the heuristics.
--   <span class="fa-li"></span>You may find it helpful to
+- You may find it helpful to
     [`sort`](https://docs.python.org/3/howto/sorting.html) a list
     according to a particular `key`: Python contains some helpful
     functions for achieving this.
@@ -354,17 +340,17 @@ The `backtrack` function should accept a partial assignment `assignment`
 as input and, using backtracking search, return a complete satisfactory
 assignment of variables to values if it is possible to do so.
 
--   <span class="fa-li"></span>An `assignment` is a dictionary where the
+- An `assignment` is a dictionary where the
     keys are `Variable` objects and the values are strings representing
     the words those variables will take on. The input assignment may not
     be complete (not all variables will necessarily have values).
--   <span class="fa-li"></span>If it is possible to generate a
+- If it is possible to generate a
     satisfactory crossword puzzle, your function should return the
     complete assignment: a dictionary where each variable is a key and
     the value is the word that the variable should take on. If no
     satisfying assignment is possible, the function should return
     `None`.
--   <span class="fa-li"></span>If you would like, you may find that your
+- If you would like, you may find that your
     algorithm is more efficient if you interleave search with inference
     (as by maintaining arc consistency every time you make a new
     assignment). You are not required to do this, but you are permitted
@@ -379,16 +365,14 @@ modules. You may also import `numpy` or `pandas`, if familiar with them,
 but you should not use any other third-party Python modules. You should
 not modify anything in `crossword.py`.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
+## [Hints](#hints)
 
-## <a href="#hints" data-id="">Hints</a>
-
--   <span class="fa-li"></span>For `order_domain_values` and
+- For `order_domain_values` and
     `select_unassigned_variable`, it may be helpful to implement them
     first without worrying about the heuristics, and then add heuristics
     later. Your algorithm will still work: it just may end up exploring
     more assignments than it needs to before finding a solution.
--   <span class="fa-li"></span>To run your program, you can run a
+- To run your program, you can run a
     command like
     `python generate.py data/structure1.txt data/words1.txt`, specifying
     a structure file and a words file. If an assignment is possible, you
@@ -397,15 +381,13 @@ not modify anything in `crossword.py`.
     `python generate.py data/structure1.txt data/words1.txt output.png`,
     to generate an image representation of the resulting crossword
     puzzle as well.
--   <span class="fa-li"></span>The `Crossword` class has a `neighbors`
+- The `Crossword` class has a `neighbors`
     function you can use to access all of the neighbors (i.e.,
     overlapping variables) of a particular variable. Feel free to use
     that any time you need to determine the neighbors of a particular
     variable!
 
-<span id="testing" data-id="" style="top: -58px;"></span>
-
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -435,9 +417,7 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
-
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
@@ -450,16 +430,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/crossword
