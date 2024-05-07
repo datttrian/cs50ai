@@ -18,3 +18,17 @@
 ## Week 3 Optimization
 
 - Crossword
+
+## Week 4 Learning
+
+- Shopping
+- Nim
+
+## Week 5 Neural Networks
+
+- Traffic
+
+## Week 6 Language
+
+- Parser
+- Attention
