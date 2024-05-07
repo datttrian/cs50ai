@@ -1,5 +1,3 @@
-
-
 # [Tic-Tac-Toe](#tic-tac-toe)
 
 The latest version of Python you should use in this course is Python

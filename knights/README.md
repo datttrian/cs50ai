@@ -1,5 +1,3 @@
-<span id="knights" data-id="" style="top: -58px;"></span>
-
 # <a href="#knights" data-id="">Knights</a>
 
 The latest version of Python you should use in this course is Python
@@ -8,23 +6,17 @@ Python modules used in this course.
 
 Write a program to solve logic puzzles.
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
-
 ## <a href="#when-to-do-it" data-id="">When to Do It</a>
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
-
 ## <a href="#how-to-get-help" data-id="">How to Get Help</a>
 
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
-
-<span id="background" data-id="" style="top: -58px;"></span>
 
 ## <a href="#background" data-id="">Background</a>
 
@@ -57,15 +49,11 @@ determine how to represent these puzzles using propositional logic, such
 that an AI running a model-checking algorithm could solve these puzzles
 for us.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
-
 ## <a href="#getting-started" data-id="">Getting Started</a>
 
--   <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/1/knights.zip> and unzip
     it.
-
-<span id="understanding" data-id="" style="top: -58px;"></span>
 
 ## <a href="#understanding" data-id="">Understanding</a>
 
@@ -101,30 +89,28 @@ model checking to compute, given the knowledge for that puzzle, whether
 each character is a knight or a knave, printing out any conclusions that
 the model checking algorithm is able to make.
 
-<span id="specification" data-id="" style="top: -58px;"></span>
-
 ## <a href="#specification" data-id="">Specification</a>
 
 Add knowledge to knowledge bases `knowledge0`, `knowledge1`,
 `knowledge2`, and `knowledge3` to solve the following puzzles.
 
--   <span class="fa-li"></span>Puzzle 0 is the puzzle from the
+- Puzzle 0 is the puzzle from the
     Background. It contains a single character, A.
-    -   <span class="fa-li"></span>A says “I am both a knight and a
+  - A says “I am both a knight and a
         knave.”
--   <span class="fa-li"></span>Puzzle 1 has two characters: A and B.
-    -   <span class="fa-li"></span>A says “We are both knaves.”
-    -   <span class="fa-li"></span>B says nothing.
--   <span class="fa-li"></span>Puzzle 2 has two characters: A and B.
-    -   <span class="fa-li"></span>A says “We are the same kind.”
-    -   <span class="fa-li"></span>B says “We are of different kinds.”
--   <span class="fa-li"></span>Puzzle 3 has three characters: A, B, and
+- Puzzle 1 has two characters: A and B.
+  - A says “We are both knaves.”
+  - B says nothing.
+- Puzzle 2 has two characters: A and B.
+  - A says “We are the same kind.”
+  - B says “We are of different kinds.”
+- Puzzle 3 has three characters: A, B, and
     C.
-    -   <span class="fa-li"></span>A says either “I am a knight.” or “I
+  - A says either “I am a knight.” or “I
         am a knave.”, but you don’t know which.
-    -   <span class="fa-li"></span>B says “A said ‘I am a knave.’”
-    -   <span class="fa-li"></span>B then says “C is a knave.”
-    -   <span class="fa-li"></span>C says “A is a knight.”
+  - B says “A said ‘I am a knave.’”
+  - B then says “C is a knave.”
+  - C says “A is a knight.”
 
 In each of the above puzzles, each character is either a knight or a
 knave. Every sentence spoken by a knight is true, and every sentence
@@ -133,35 +119,31 @@ spoken by a knave is false.
 Once you’ve completed the knowledge base for a problem, you should be
 able to run `python puzzle.py` to see the solution to the puzzle.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
-
 ## <a href="#hints" data-id="">Hints</a>
 
--   <span class="fa-li"></span>For each knowledge base, you’ll likely
+- For each knowledge base, you’ll likely
     want to encode two different types of information: (1) information
     about the structure of the problem itself (i.e., information given
     in the definition of a Knight and Knave puzzle), and (2) information
     about what the characters actually said.
--   <span class="fa-li"></span>Consider what it means if a sentence is
+- Consider what it means if a sentence is
     spoken by a character. Under what conditions is that sentence true?
     Under what conditions is that sentence false? How can you express
     that as a logical sentence?
--   <span class="fa-li"></span>There are multiple possible knowledge
+- There are multiple possible knowledge
     bases for each puzzle that will compute the correct result. You
     should attempt to choose a knowledge base that offers the most
     direct translation of the information in the puzzle, rather than
     performing logical reasoning on your own. You should also consider
     what the most concise representation of the information in the
     puzzle would be.
-    -   <span class="fa-li"></span>For instance, for Puzzle 0, setting
+  - For instance, for Puzzle 0, setting
         `knowledge0 = AKnave` would result in correct output, since
         through our own reasoning we know A must be a knave. But doing
         so would be against the spirit of this problem: the goal is to
         have your AI do the reasoning for you.
--   <span class="fa-li"></span>You should not need to (nor should you)
+- You should not need to (nor should you)
     modify `logic.py` at all to complete this problem.
-
-<span id="testing" data-id="" style="top: -58px;"></span>
 
 ## <a href="#testing" data-id="">Testing</a>
 
@@ -196,8 +178,6 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
-
 ## <a href="#how-to-submit" data-id="">How to Submit</a>
 
 Beginning
@@ -211,16 +191,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/knights
