@@ -1,6 +1,4 @@
-<span id="pagerank" data-id="" style="top: -58px;"></span>
-
-# <a href="#pagerank" data-id="">PageRank</a>
+# [PageRank](#pagerank)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -22,25 +20,22 @@ PageRank Results from Iteration
   4.html: 0.1307
 ```
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
 
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
+## [How to Get Help](#how-to-get-help)
 
 1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
 2.  Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
 
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 When search engines like Google display search results, they do so by
 placing more “important” and higher-quality pages higher in the search
@@ -67,9 +62,8 @@ their links weighted less. This definition seems a bit circular, but it
 turns out that there are multiple strategies for calculating these
 rankings.
 
-<span id="random-surfer-model" data-id="" style="top: -58px;"></span>
 
-### <a href="#random-surfer-model" data-id="">Random Surfer Model</a>
+### [Random Surfer Model](#random-surfer-model)
 
 One way to think about PageRank is with the random surfer model, which
 considers the behavior of a hypothetical surfer on the internet who
@@ -133,9 +127,8 @@ random with probability `1 - d`. If we keep track of how many times each
 page has shown up as a sample, we can treat the proportion of states
 that were on a given page as its PageRank.
 
-<span id="iterative-algorithm" data-id="" style="top: -58px;"></span>
 
-### <a href="#iterative-algorithm" data-id="">Iterative Algorithm</a>
+### [Iterative Algorithm](#iterative-algorithm)
 
 We can also define a page’s PageRank using a recursive mathematical
 expression. Let `PR(p)` be the PageRank of a given page `p`: the
@@ -183,17 +176,15 @@ In this project, you’ll implement both such approaches for calculating
 PageRank – calculating both by sampling pages from a Markov Chain random
 surfer and by iteratively applying the PageRank formula.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
 
-## <a href="#getting-started" data-id="">Getting Started</a>
+## [Getting Started](#getting-started)
 
--   <span class="fa-li"></span>Download the distribution code from
+-   Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/2/pagerank.zip> and unzip
     it.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
 
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 Open up `pagerank.py`. Notice first the definition of two constants at
 the top of the file: `DAMPING` represents the damping factor and is
@@ -224,9 +215,8 @@ formula method instead of by sampling. The return value is expected to
 be in the same format, and we would hope that the output of these two
 functions should be similar when given the same corpus!
 
-<span id="specification" data-id="" style="top: -58px;"></span>
 
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Many students have had issues with the autograders on this assignment
 because of how their dictionaries are constructed (that is to say,
@@ -240,28 +230,28 @@ The `transition_model` should return a dictionary representing the
 probability distribution over which page a random surfer would visit
 next, given a corpus of pages, a current page, and a damping factor.
 
--   <span class="fa-li"></span>The function accepts three arguments:
+-   The function accepts three arguments:
     `corpus`, `page`, and `damping_factor`.
-    -   <span class="fa-li"></span>The `corpus` is a Python dictionary
+    -   The `corpus` is a Python dictionary
         mapping a page name to a set of all pages linked to by that
         page.
-    -   <span class="fa-li"></span>The `page` is a string representing
+    -   The `page` is a string representing
         which page the random surfer is currently on.
-    -   <span class="fa-li"></span>The `damping_factor` is a floating
+    -   The `damping_factor` is a floating
         point number representing the damping factor to be used when
         generating the probabilities.
--   <span class="fa-li"></span>The return value of the function should
+-   The return value of the function should
     be a Python dictionary with one key for each page in the corpus.
     Each key should be mapped to a value representing the probability
     that a random surfer would choose that page next. The values in this
     returned probability distribution should sum to `1`.
-    -   <span class="fa-li"></span>With probability `damping_factor`,
+    -   With probability `damping_factor`,
         the random surfer should randomly choose one of the links from
         `page` with equal probability.
-    -   <span class="fa-li"></span>With probability
+    -   With probability
         `1 - damping_factor`, the random surfer should randomly choose
         one of all pages in the corpus with equal probability.
--   <span class="fa-li"></span>For example, if the `corpus` were
+-   For example, if the `corpus` were
     `{"1.html": {"2.html", "3.html"}, "2.html": {"3.html"}, "3.html": {"2.html"}}`,
     the `page` was `"1.html"`, and the `damping_factor` was `0.85`, then
     the output of `transition_model` should be
@@ -271,7 +261,7 @@ next, given a corpus of pages, a current page, and a damping factor.
     probability `0.425` to start), but every page gets an additional
     `0.05` because with probability `0.15` we choose randomly among all
     three of the pages.
--   <span class="fa-li"></span>If `page` has no outgoing links, then
+-   If `page` has no outgoing links, then
     `transition_model` should return a probability distribution that
     chooses randomly among all pages with equal probability. (In other
     words, if a page has no links, we can pretend it has links to all
@@ -281,40 +271,40 @@ The `sample_pagerank` function should accept a corpus of web pages, a
 damping factor, and a number of samples, and return an estimated
 PageRank for each page.
 
--   <span class="fa-li"></span>The function accepts three arguments:
+-   The function accepts three arguments:
     `corpus`, a `damping_factor`, and `n`.
-    -   <span class="fa-li"></span>The `corpus` is a Python dictionary
+    -   The `corpus` is a Python dictionary
         mapping a page name to a set of all pages linked to by that
         page.
-    -   <span class="fa-li"></span>The `damping_factor` is a floating
+    -   The `damping_factor` is a floating
         point number representing the damping factor to be used by the
         transition model.
-    -   <span class="fa-li"></span>`n` is an integer representing the
+    -   `n` is an integer representing the
         number of samples that should be generated to estimate PageRank
         values.
--   <span class="fa-li"></span>The return value of the function should
+-   The return value of the function should
     be a Python dictionary with one key for each page in the corpus.
     Each key should be mapped to a value representing that page’s
     estimated PageRank (i.e., the proportion of all the samples that
     corresponded to that page). The values in this dictionary should sum
     to `1`.
--   <span class="fa-li"></span>The first sample should be generated by
+-   The first sample should be generated by
     choosing from a page at random.
--   <span class="fa-li"></span>For each of the remaining samples, the
+-   For each of the remaining samples, the
     next sample should be generated from the previous sample based on
     the previous sample’s transition model.
-    -   <span class="fa-li"></span>You will likely want to pass the
+    -   You will likely want to pass the
         previous sample into your `transition_model` function, along
         with the `corpus` and the `damping_factor`, to get the
         probabilities for the next sample.
-    -   <span class="fa-li"></span>For example, if the transition
+    -   For example, if the transition
         probabilities are
         `{"1.html": 0.05, "2.html": 0.475, "3.html": 0.475}`, then 5% of
         the time the next sample generated should be `"1.html"`, 47.5%
         of the time the next sample generated should be `"2.html"`, and
         47.5% of the time the next sample generated should be
         `"3.html"`.
--   <span class="fa-li"></span>You may assume that `n` will be at least
+-   You may assume that `n` will be at least
     `1`.
 
 The `iterate_pagerank` function should accept a corpus of web pages and
@@ -322,30 +312,30 @@ a damping factor, calculate PageRanks based on the iteration formula
 described above, and return each page’s PageRank accurate to within
 `0.001`.
 
--   <span class="fa-li"></span>The function accepts two arguments:
+-   The function accepts two arguments:
     `corpus` and `damping_factor`.
-    -   <span class="fa-li"></span>The `corpus` is a Python dictionary
+    -   The `corpus` is a Python dictionary
         mapping a page name to a set of all pages linked to by that
         page.
-    -   <span class="fa-li"></span>The `damping_factor` is a floating
+    -   The `damping_factor` is a floating
         point number representing the damping factor to be used in the
         PageRank formula.
--   <span class="fa-li"></span>The return value of the function should
+-   The return value of the function should
     be a Python dictionary with one key for each page in the corpus.
     Each key should be mapped to a value representing that page’s
     PageRank. The values in this dictionary should sum to `1`.
--   <span class="fa-li"></span>The function should begin by assigning
+-   The function should begin by assigning
     each page a rank of `1 / N`, where `N` is the total number of pages
     in the corpus.
--   <span class="fa-li"></span>The function should then repeatedly
+-   The function should then repeatedly
     calculate new rank values based on all of the current rank values,
     according to the PageRank formula in the “Background” section.
     (i.e., calculating a page’s PageRank based on the PageRanks of all
     pages that link to it).
-    -   <span class="fa-li"></span>A page that has no links at all
+    -   A page that has no links at all
         should be interpreted as having one link for every page in the
         corpus (including itself).
--   <span class="fa-li"></span>This process should repeat until no
+-   This process should repeat until no
     PageRank value changes by more than `0.001` between the current rank
     values and the new rank values.
 
@@ -355,17 +345,15 @@ may write additional functions and/or import other Python standard
 library modules. You may also import `numpy` or `pandas`, if familiar
 with them, but you should not use any other third-party Python modules.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
 
-## <a href="#hints" data-id="">Hints</a>
+## [Hints](#hints)
 
--   <span class="fa-li"></span>You may find the functions in Python’s
+-   You may find the functions in Python’s
     [`random`](https://docs.python.org/3/library/random.html) module
     helpful for making decisions pseudorandomly.
 
-<span id="testing" data-id="" style="top: -58px;"></span>
 
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -395,9 +383,8 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
 
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
