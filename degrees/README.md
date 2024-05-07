@@ -19,20 +19,17 @@ Name: Jennifer Lawrence
 3: Michael Fassbender and Jennifer Lawrence starred in X-Men: First Class
 ```
 
-
 ## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-
 ## [How to Get Help](#how-to-get-help)
 
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
-
 
 ## [Background](#background)
 
@@ -56,13 +53,11 @@ for this problem). Our initial state and goal state are defined by the
 two people we’re trying to connect. By using breadth-first search, we
 can find the shortest path from one actor to another.
 
-
 ## [Getting Started](#getting-started)
 
--   Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/0/degrees.zip> and unzip
     it.
-
 
 ## [Understanding](#understanding)
 
@@ -116,28 +111,27 @@ people, and prints out the path.
 The `shortest_path` function, however, is left unimplemented. That’s
 where you come in!
 
-
 ## [Specification](#specification)
 
 Complete the implementation of the `shortest_path` function such that it
 returns the shortest path from the person with id `source` to the person
 with the id `target`.
 
--   Assuming there is a path from the
+- Assuming there is a path from the
     `source` to the `target`, your function should return a list, where
     each list item is the next `(movie_id, person_id)` pair in the path
     from the source to the target. Each pair should be a tuple of two
     strings.
-    -   For example, if the return value of
+  - For example, if the return value of
         `shortest_path` were `[(1, 2), (3, 4)]`, that would mean that
         the source starred in movie 1 with person 2, person 2 starred in
         movie 3 with person 4, and person 4 is the target.
--   If there are multiple paths of minimum
+- If there are multiple paths of minimum
     length from the source to the target, your function can return any
     of them.
--   If there is no possible path between two
+- If there is no possible path between two
     actors, your function should return `None`.
--   You may call the `neighbors_for_person`
+- You may call the `neighbors_for_person`
     function, which accepts a person’s id as input, and returns a set of
     `(movie_id, person_id)` pairs for all people who starred in a movie
     with a given person.
@@ -146,21 +140,19 @@ You should not modify anything else in the file other than the
 `shortest_path` function, though you may write additional functions
 and/or import other Python standard library modules.
 
-
 ## [Hints](#hints)
 
--   While the implementation of search in
+- While the implementation of search in
     lecture checks for a goal when a node is popped off the frontier,
     you can improve the efficiency of your search by checking for a goal
     as nodes are added to the frontier: if you detect a goal node, no
     need to add it to the frontier, you can simply return the solution
     immediately.
--   You’re welcome to borrow and adapt any
+- You’re welcome to borrow and adapt any
     code from the lecture examples. We’ve already provided you with a
     file `util.py` that contains the lecture implementations for `Node`,
     `StackFrontier`, and `QueueFrontier`, which you’re welcome to use
     (and modify if you’d like).
-
 
 ## [Testing](#testing)
 
@@ -192,7 +184,6 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-
 ## [How to Submit](#how-to-submit)
 
 Beginning
@@ -206,16 +197,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/degrees
@@ -233,7 +224,6 @@ specification above.
 
 Work should be graded within five minutes. You can then go to
 <https://cs50.me/cs50ai> to view your current progress!
-
 
 ## [Acknowledgements](#acknowledgements)
 

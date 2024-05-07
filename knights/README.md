@@ -1,4 +1,4 @@
-# <a href="#knights" data-id="">Knights</a>
+# [Knights](#knights)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -6,19 +6,19 @@ Python modules used in this course.
 
 Write a program to solve logic puzzles.
 
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
+## [How to Get Help](#how-to-get-help)
 
 1. Ask questions via [Ed](https://cs50.edx.org/ed)!
 2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 In 1978, logician Raymond Smullyan published “What is the name of this
 book?”, a book of logical puzzles. Among the puzzles in the book were a
@@ -49,13 +49,13 @@ determine how to represent these puzzles using propositional logic, such
 that an AI running a model-checking algorithm could solve these puzzles
 for us.
 
-## <a href="#getting-started" data-id="">Getting Started</a>
+## [Getting Started](#getting-started)
 
 - Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/1/knights.zip> and unzip
     it.
 
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 Take a look at `logic.py`, which you may recall from Lecture 1. No need
 to understand everything in this file, but notice that this file defines
@@ -89,7 +89,7 @@ model checking to compute, given the knowledge for that puzzle, whether
 each character is a knight or a knave, printing out any conclusions that
 the model checking algorithm is able to make.
 
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Add knowledge to knowledge bases `knowledge0`, `knowledge1`,
 `knowledge2`, and `knowledge3` to solve the following puzzles.
@@ -119,7 +119,7 @@ spoken by a knave is false.
 Once you’ve completed the knowledge base for a problem, you should be
 able to run `python puzzle.py` to see the solution to the puzzle.
 
-## <a href="#hints" data-id="">Hints</a>
+## [Hints](#hints)
 
 - For each knowledge base, you’ll likely
     want to encode two different types of information: (1) information
@@ -145,7 +145,7 @@ able to run `python puzzle.py` to see the solution to the puzzle.
 - You should not need to (nor should you)
     modify `logic.py` at all to complete this problem.
 
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 Unlike most other problems in the course, you must get Knights 100%
 correct in order to pass.
@@ -178,7 +178,7 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
