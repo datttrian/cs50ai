@@ -109,8 +109,10 @@ def shortest_path(source, target):
         # Pop a node from the frontier
         current_node = frontier.remove()
 
-        # If current node corresponds to the target actor, reconstruct and return the path
+        # If current node corresponds to the target actor
         if current_node.state == target:
+
+            # Reconstruct and return the path
             path = []
             while current_node.parent is not None:
                 path.append((current_node.action, current_node.state))
