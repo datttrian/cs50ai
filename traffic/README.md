@@ -1,6 +1,4 @@
-<span id="traffic" data-id="" style="top: -58px;"></span>
-
-# <a href="#traffic" data-id="">Traffic</a>
+# [Traffic](#traffic)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -34,25 +32,19 @@ Epoch 10/10
 333/333 - 5s - loss: 0.1616 - accuracy: 0.9535
 ```
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
-
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
+## [How to Get Help](#how-to-get-help)
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
-
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](../../../communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
-
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 As research continues in the development of self-driving cars, one of
 the key challenges is [computer
@@ -73,25 +65,21 @@ Benchmark](http://benchmark.ini.rub.de/?section=gtsrb&subsection=news)
 (GTSRB) dataset, which contains thousands of images of 43 different
 kinds of road signs.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
+## [Getting Started](#getting-started)
 
-## <a href="#getting-started" data-id="">Getting Started</a>
-
--   <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/5/traffic.zip> and unzip
     it.
--   <span class="fa-li"></span>Download the [data
+- Download the [data
     set](https://cdn.cs50.net/ai/2023/x/projects/5/gtsrb.zip) for this
     project and unzip it. Move the resulting `gtsrb` directory inside of
     your `traffic` directory.
--   <span class="fa-li"></span>Inside of the `traffic` directory, run
+- Inside of the `traffic` directory, run
     `pip3 install -r requirements.txt` to install this project’s
     dependencies: `opencv-python` for image processing, `scikit-learn`
     for ML-related functions, and `tensorflow` for neural networks.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
-
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 First, take a look at the data set by opening the `gtsrb` directory.
 You’ll notice 43 subdirectories in this dataset, numbered `0` through
@@ -111,34 +99,32 @@ provided, the trained model is saved to disk.
 
 The `load_data` and `get_model` functions are left to you to implement.
 
-<span id="specification" data-id="" style="top: -58px;"></span>
-
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementation of `load_data` and `get_model` in
 `traffic.py`.
 
--   <span class="fa-li"></span>The `load_data` function should accept as
+- The `load_data` function should accept as
     an argument `data_dir`, representing the path to a directory where
     the data is stored, and return image arrays and labels for each
     image in the data set.
-    -   <span class="fa-li"></span>You may assume that `data_dir` will
+  - You may assume that `data_dir` will
         contain one directory named after each category, numbered `0`
         through `NUM_CATEGORIES - 1`. Inside each category directory
         will be some number of image files.
-    -   <span class="fa-li"></span>Use the OpenCV-Python module (`cv2`)
+  - Use the OpenCV-Python module (`cv2`)
         to read each image as a `numpy.ndarray` (a `numpy`
         multidimensional array). To pass these images into a neural
         network, the images will need to be the same size, so be sure to
         resize each image to have width `IMG_WIDTH` and height
         `IMG_HEIGHT`.
-    -   <span class="fa-li"></span>The function should return a tuple
+  - The function should return a tuple
         `(images, labels)`. `images` should be a list of all of the
         images in the data set, where each image is represented as a
         `numpy.ndarray` of the appropriate size. `labels` should be a
         list of integers, representing the category number for each of
         the corresponding images in the `images` list.
-    -   <span class="fa-li"></span>Your function should be
+  - Your function should be
         platform-independent: that is to say, it should work regardless
         of operating system. Note that on macOS, the `/` character is
         used to separate path components, while the `\` character is
@@ -147,29 +133,29 @@ Complete the implementation of `load_data` and `get_model` in
         [`os.path.join`](https://docs.python.org/3/library/os.path.html#os.path.join)
         as needed instead of using your platform’s specific separator
         character.
--   <span class="fa-li"></span>The `get_model` function should return a
+- The `get_model` function should return a
     compiled neural network model.
-    -   <span class="fa-li"></span>You may assume that the input to the
+  - You may assume that the input to the
         neural network will be of the shape `(IMG_WIDTH, IMG_HEIGHT, 3)`
         (that is, an array representing an image of width `IMG_WIDTH`,
         height `IMG_HEIGHT`, and `3` values for each pixel for red,
         green, and blue).
-    -   <span class="fa-li"></span>The output layer of the neural
+  - The output layer of the neural
         network should have `NUM_CATEGORIES` units, one for each of the
         traffic sign categories.
-    -   <span class="fa-li"></span>The number of layers and the types of
+  - The number of layers and the types of
         layers you include in between are up to you. You may wish to
         experiment with:
-        -   <span class="fa-li"></span>different numbers of
+    - different numbers of
             convolutional and pooling layers
-        -   <span class="fa-li"></span>different numbers and sizes of
+    - different numbers and sizes of
             filters for convolutional layers
-        -   <span class="fa-li"></span>different pool sizes for pooling
+    - different pool sizes for pooling
             layers
-        -   <span class="fa-li"></span>different numbers and sizes of
+    - different numbers and sizes of
             hidden layers
-        -   <span class="fa-li"></span>dropout
--   <span class="fa-li"></span>In a separate file called *README.md*,
+    - dropout
+- In a separate file called *README.md*,
     document (in at least a paragraph or two) your experimentation
     process. What did you try? What worked well? What didn’t work well?
     What did you notice?
@@ -186,30 +172,26 @@ but you should not use any other third-party Python modules. You may
 modify the global variables defined at the top of the file to test your
 program with other values.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
+## [Hints](#hints)
 
-## <a href="#hints" data-id="">Hints</a>
-
--   <span class="fa-li"></span>Check out the official [Tensorflow Keras
+- Check out the official [Tensorflow Keras
     overview](https://www.tensorflow.org/guide/keras/overview) for some
     guidelines for the syntax of building neural network layers. You may
     find the lecture source code useful as well.
--   <span class="fa-li"></span>The
+- The
     [OpenCV-Python](https://docs.opencv.org/4.5.2/d2/d96/tutorial_py_table_of_contents_imgproc.html)
     documentation may prove helpful for reading images as arrays and
     then resizing them.
--   <span class="fa-li"></span>Once you’ve resized an image `img`, you
+- Once you’ve resized an image `img`, you
     can verify its dimensions by printing the value of `img.shape`. If
     you’ve resized the image correctly, its shape should be
     `(30, 30, 3)` (assuming `IMG_WIDTH` and `IMG_HEIGHT` are both `30`).
--   <span class="fa-li"></span>If you’d like to practice with a smaller
+- If you’d like to practice with a smaller
     data set, you can download a [modified
     dataset](https://cdn.cs50.net/ai/2023/x/projects/5/gtsrb-small.zip)
     that contains only 3 different types of road signs instead of 43.
 
-<span id="testing" data-id="" style="top: -58px;"></span>
-
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -239,9 +221,7 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
-
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
@@ -254,16 +234,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/traffic
@@ -281,9 +261,7 @@ deal with it.) `submit50` will automatically exclude this for you.
 Work should be graded within five minutes. You can then go to
 <https://cs50.me/cs50ai> to view your current progress!
 
-<span id="acknowledgements" data-id="" style="top: -58px;"></span>
-
-## <a href="#acknowledgements" data-id="">Acknowledgements</a>
+## [Acknowledgements](#acknowledgements)
 
 Data provided by [J. Stallkamp, M. Schlipsing, J. Salmen, and C. Igel.
 The German Traffic Sign Recognition Benchmark: A multi-class
