@@ -94,27 +94,42 @@ def shortest_path(source, target):
 
     # TODO
     # raise NotImplementedError
-    start = Node(state=source, parent=None, action=None)
-    frontier = QueueFrontier()
-    frontier.add(start)
-    explored = set()
-    while True:
-        if frontier.empty():
-            return None
-        node = frontier.remove()
-        explored.add(node.state)
+    # Initialize starting node
+    start_node = Node(state=source, parent=None, action=None)
 
-        for movie_id, person_id in neighbors_for_person(node.state):
-            if not frontier.contains_state(person_id) and person_id not in explored:
-                child = Node(state=person_id, parent=node, action=movie_id)
-                if person_id == target:
-                    path = []
-                    while child.parent is not None:
-                        path.append((child.action, child.state))
-                        child = child.parent
-                    path.reverse()
-                    return path
-                frontier.add(child)
+    # Initialize frontier using a queue
+    frontier = QueueFrontier()
+    frontier.add(start_node)
+
+    # Initialize an empty explored set
+    explored = set()
+
+    # Keep searching until frontier is empty
+    while not frontier.empty():
+        # Pop a node from the frontier
+        current_node = frontier.remove()
+
+        # If current node corresponds to the target actor, reconstruct and return the path
+        if current_node.state == target:
+            path = []
+            while current_node.parent is not None:
+                path.append((current_node.action, current_node.state))
+                current_node = current_node.parent
+            path.reverse()
+            return path
+
+        # Add current node to explored set
+        explored.add(current_node.state)
+
+        # Expand current node by getting its neighbors
+        neighbors = neighbors_for_person(current_node.state)
+        for movie_id, person_id in neighbors:
+            if person_id not in explored and not frontier.contains_state(person_id):
+                child_node = Node(state=person_id, parent=current_node, action=movie_id)
+                frontier.add(child_node)
+
+    # If no path found, return None
+    return None
 
 
 def person_id_for_name(name):
