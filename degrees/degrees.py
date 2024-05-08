@@ -94,6 +94,7 @@ def shortest_path(source, target):
 
     # TODO
     # raise NotImplementedError
+
     # Initialize starting node
     start_node = Node(state=source, parent=None, action=None)
 
@@ -111,7 +112,6 @@ def shortest_path(source, target):
 
         # If current node corresponds to the target actor
         if current_node.state == target:
-
             # Reconstruct and return the path
             path = []
             while current_node.parent is not None:
