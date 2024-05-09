@@ -81,6 +81,18 @@ def shortest_path(source, target):
     # TODO
     # raise NotImplementedError
 
+    # Initialize starting node
+    start_node = Node(state=source, parent=None, action=None)
+
+    # Initialize frontier using a queue
+    frontier = QueueFrontier()
+    frontier.add(start_node)
+
+    # Initialize an empty explored set
+    explored = set()
+
+    # Keep searching until frontier is empty
+
 
 def person_id_for_name(name):
     """
