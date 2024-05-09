@@ -32,7 +32,7 @@ def load_data(directory):
                 names[row["name"].lower()].add(row["id"])
 
     # Load movies
-    with open(f"{directoy}/movies.csv", encoding="utf-8") as f:
+    with open(f"{directory}/movies.csv", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             movies[row["id"]] = {
@@ -58,6 +58,9 @@ def main():
     directory = sys.argv[1] if len(sys.argv) == 2 else "large"
 
     # Load data from files into memory
+    print("Loading data...")
+    load_data(directory)
+    print("Data loaded.")
 
 
 def shortest_path(source, target):
