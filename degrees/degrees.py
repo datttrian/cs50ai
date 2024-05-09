@@ -79,9 +79,9 @@ def main():
         path = [(None, source)] + path
         for i in range(degrees):
             person1 = people[path[i][1]]["name"]
-            person2 = people[path[i+1][1]]["name"]
-            movie = movies[path[i+1][0]]["title"]
-            print(f"{i+1}: {person1} and {person2} starred in {movie}")
+            person2 = people[path[i + 1][1]]["name"]
+            movie = movies[path[i + 1][0]]["title"]
+            print(f"{i + 1}: {person1} and {person2} starred in {movie}")
 
 
 def shortest_path(source, target):
@@ -115,7 +115,7 @@ def shortest_path(source, target):
             # Reconstruct and return the path
             path = []
             while current_node.parent is not None:
-                path.append((current_node.action, current_node_state))
+                path.append((current_node.action, current_node.state))
                 current_node = current_node.parent
             path.reverse()
             return path

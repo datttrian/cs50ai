@@ -6,7 +6,7 @@ Python modules used in this course.
 
 Using Minimax, implement an AI to play Tic-Tac-Toe optimally.
 
-![Tic-Tac-Toe Game](images/game.png)
+![Tic-Tac-Toe Game](https://cs50.harvard.edu/ai/2024/projects/0/tictactoe/images/game.png)
 
 ## [When to Do It](#when-to-do-it)
 
