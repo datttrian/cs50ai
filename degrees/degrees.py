@@ -92,15 +92,25 @@ def shortest_path(source, target):
     explored = set()
 
     # Keep searching until frontier is empty
-
+    while not frontier.empty():
         # Pop a node from the frontier
+        current_node = frontier.remove()
 
         # If current node corresponds to the target actor
+        if current_node.state == target:
             # Reconstruct and return the path
+            path =[]
+            while current_node.parent is not None:
+                path.append((current_node.action, current_node_state))
+                current_node = current_node.parent
+            path.reverse()
+            return path
 
         # Add current node to explored set
+        explored.add(current_node.state)
 
         # Expand current node by getting its neighbors
+        neighbors = neighbors_
 
 
 def person_id_for_name(name):
