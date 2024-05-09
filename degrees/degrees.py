@@ -93,6 +93,15 @@ def shortest_path(source, target):
 
     # Keep searching until frontier is empty
 
+        # Pop a node from the frontier
+
+        # If current node corresponds to the target actor
+            # Reconstruct and return the path
+
+        # Add current node to explored set
+
+        # Expand current node by getting its neighbors
+
 
 def person_id_for_name(name):
     """
@@ -125,6 +134,13 @@ def neighbors_for_person(person_id):
     Returns (movie_id, person_id) pairs for people
     who starred with a given person.
     """
+    movie_ids = people[person_id]["movies"]:
+    neighbors = set()
+    for movie_id in movie_ids:
+        for person_id in movies[movie_id]["stars"]:
+            neighbors.add(movie_id, person_id)
+    return neighbors
+
 
 
 if __name__ == "__main__":
