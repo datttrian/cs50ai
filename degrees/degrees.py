@@ -109,8 +109,10 @@ def shortest_path(source, target):
         # Add current node to explored set
         explored.add(current_node.state)
 
-        # Expand current node by getting its neighbors
-        neighbors = neighbors_
+        print(explored)
+
+        # # Expand current node by getting its neighbors
+        # neighbors = neighbors_
 
 
 def person_id_for_name(name):
@@ -144,7 +146,7 @@ def neighbors_for_person(person_id):
     Returns (movie_id, person_id) pairs for people
     who starred with a given person.
     """
-    movie_ids = people[person_id]["movies"]:
+    movie_ids = people[person_id]["movies"]
     neighbors = set()
     for movie_id in movie_ids:
         for person_id in movies[movie_id]["stars"]:
