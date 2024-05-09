@@ -101,6 +101,9 @@ def minimax(board):
     """
     current_player = player(board)
 
+    if terminal(board):
+        return None
+
     def max_value(board):
         if terminal(board):
             return utility(board)

@@ -3,7 +3,7 @@
 ## Week 0 Search
 
 - [Degrees](degrees)
-- Tic-Tac-Toe
+- [Tic-Tac-Toe](tictactoe)
 
 ## Week 1 Knowledge
 
