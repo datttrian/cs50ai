@@ -62,6 +62,13 @@ def main():
     load_data(directory)
     print("Data loaded.")
 
+    source = person_id_for_name(input("Name: "))
+    if source is None:
+        sys.exit("Person not found.")
+    target = person_id_for_name(input("Name: "))
+    if target is None:
+        sys.exit("Person not found.")
+
 
 def shortest_path(source, target):
     """
@@ -93,7 +100,12 @@ def person_id_for_name(name):
         try:
             person_id = input("Intended Person ID: ")
             if person_id in person_ids:
-                
+                return person_id
+        except ValueError:
+            pass
+        return None
+    else:
+        return person_ids[0]
 
 
 def neighbors_for_person(person_id):
