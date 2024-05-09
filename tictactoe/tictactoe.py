@@ -13,9 +13,7 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
 
 
 def player(board):
@@ -79,8 +77,9 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    return winner(board) is not None or all(all(cell is not EMPTY for cell in row) for row in board)
-
+    return winner(board) is not None or all(
+        all(cell is not EMPTY for cell in row) for row in board
+    )
 
 
 def utility(board):
