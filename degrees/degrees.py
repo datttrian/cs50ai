@@ -32,6 +32,7 @@ def load_data(directory):
                 names[row["name"].lower()].add(row["id"])
 
     # Load movies
+    with open(f"{}")
 
     # Load stars
 
