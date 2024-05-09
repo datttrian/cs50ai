@@ -62,8 +62,6 @@ def main():
     load_data(directory)
     print("Data loaded.")
 
-    print(names)
-
 
 def shortest_path(source, target):
     """
@@ -82,8 +80,20 @@ def person_id_for_name(name):
     Returns the IMDB id for a person's name,
     resolving ambiguities as needed.
     """
-    # person_ids = list(names.get(name.lower(), set()))
-    # if len
+    person_ids = list(names.get(name.lower(), set()))
+    if len(person_ids) == 0:
+        return None
+    elif len(person_ids) > 1:
+        print(f"Which '{name}'?")
+        for person_id in person_ids:
+            person = people[person_id]
+            name = person["name"]
+            birth = person["birth"]
+            print(f"ID: {person_id}, Name: {name}, Birth: {birth}")
+        try:
+            person_id = input("Intended Person ID: ")
+            if person_id in person_ids:
+                
 
 
 def neighbors_for_person(person_id):
