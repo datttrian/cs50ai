@@ -99,7 +99,7 @@ def shortest_path(source, target):
         # If current node corresponds to the target actor
         if current_node.state == target:
             # Reconstruct and return the path
-            path =[]
+            path = []
             while current_node.parent is not None:
                 path.append((current_node.action, current_node_state))
                 current_node = current_node.parent
@@ -109,10 +109,15 @@ def shortest_path(source, target):
         # Add current node to explored set
         explored.add(current_node.state)
 
-        print(explored)
+        # Expand current node by getting its neighbors
+        neighbors = neighbors_for_person(current_node.state)
+        for movie_id, person_id in neighbors:
+            if person_id not in explored and not frontier.contains_state(person_id):
+                child_node = Node(state=person_id, parent=current_node, action=movie_id)
+                frontier.add(child_node)
 
-        # # Expand current node by getting its neighbors
-        # neighbors = neighbors_
+    # If no path found, return None
+    return None
 
 
 def person_id_for_name(name):
@@ -152,7 +157,6 @@ def neighbors_for_person(person_id):
         for person_id in movies[movie_id]["stars"]:
             neighbors.add(movie_id, person_id)
     return neighbors
-
 
 
 if __name__ == "__main__":
