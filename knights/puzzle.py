@@ -34,8 +34,8 @@ knowledge0 = And(
 knowledge1 = And(
     # TODO
     knowledgeBase,
-    Implication(AKnight, And(AKnight, BKnave)),
-    Implication(AKnave, Not(And(AKnight, BKnave))),
+    Implication(AKnight, And(AKnave, BKnave)),
+    Implication(AKnave, Not(And(AKnave, BKnave))),
 )
 
 # Puzzle 2
