@@ -80,14 +80,22 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    return winner(board) is not None or all(
+        all(cell is not EMPTY for cell in row) for row in board
+    )
 
 
 def utility(board):
     """
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
-    raise NotImplementedError
+    winner_player = winner(board)
+    if winner_player == X:
+        return 1
+    elif winner_player == O:
+        return -1
+    else:
+        return 0
 
 
 def minimax(board):
