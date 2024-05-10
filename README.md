@@ -7,7 +7,7 @@
 
 ## Week 1 Knowledge
 
-- Knights
+- [Knights](knights)
 - Minesweeper
 
 ## Week 2 Uncertainty
