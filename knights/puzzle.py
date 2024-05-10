@@ -25,7 +25,7 @@ knowledge0 = And(
     # TODO
     knowledgeBase,
     Implication(AKnight, And(AKnight, AKnave)),
-    Implication(AKnave, Not(And(AKnight, AKnave)))
+    Implication(AKnave, Not(And(AKnight, AKnave))),
 )
 
 # Puzzle 1
@@ -64,22 +64,18 @@ knowledge3 = And(
     Implication(AKnight, Or(AKnight, AKnave)),
     Implication(AKnave, Not(Or(AKnight, AKnave))),
     # B says "A said 'I am a knave'."
-    Implication(BKnight, And(
-        Implication(AKnight, AKnave),
-        Implication(AKnave, Not(AKnave))
-    )),
-
-    Implication(BKnave, Not(And(
-        Implication(AKnight, AKnave),
-        Implication(AKnave, Not(AKnave))
-    ))),
+    Implication(
+        BKnight, And(Implication(AKnight, AKnave), Implication(AKnave, Not(AKnave)))
+    ),
+    Implication(
+        BKnave, Not(And(Implication(AKnight, AKnave), Implication(AKnave, Not(AKnave))))
+    ),
     # B says "C is a knave."
     Implication(BKnight, CKnave),
     Implication(BKnave, Not(CKnave)),
-
     # C says "A is a knight."
     Implication(CKnight, AKnight),
-    Implication(CKnave, Not(AKnight))
+    Implication(CKnave, Not(AKnight)),
 )
 
 
@@ -89,7 +85,7 @@ def main():
         ("Puzzle 0", knowledge0),
         ("Puzzle 1", knowledge1),
         ("Puzzle 2", knowledge2),
-        ("Puzzle 3", knowledge3)
+        ("Puzzle 3", knowledge3),
     ]
     for puzzle, knowledge in puzzles:
         print(puzzle)
