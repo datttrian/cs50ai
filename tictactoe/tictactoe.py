@@ -22,8 +22,8 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    num_X = sum(row.cound(X) for row in board)
-    num_O = sum(row.cound(X) for row in board)
+    num_X = sum(row.count(X) for row in board)
+    num_O = sum(row.count(X) for row in board)
     return X if num_X == num_O else O
 
 
@@ -120,7 +120,7 @@ def minimax(board):
             return utility(board)
         v = float('inf')
         for action in actions(board):
-            v = min(v, max_valie(result(board, action)))
+            v = min(v, max_value(result(board, action)))
         return v
 
     if current_player == X:
