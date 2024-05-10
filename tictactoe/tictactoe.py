@@ -13,9 +13,7 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
 
 
 def player(board):
@@ -23,7 +21,7 @@ def player(board):
     Returns player who has the next turn on a board.
     """
     num_X = sum(row.count(X) for row in board)
-    num_O = sum(row.count(X) for row in board)
+    num_O = sum(row.count(O) for row in board)
     return X if num_X == num_O else O
 
 
@@ -35,7 +33,7 @@ def actions(board):
     for i in range(3):
         for j in range(3):
             if board[i][j] is EMPTY:
-                possible_actions.add((i,j))
+                possible_actions.add((i, j))
     return possible_actions
 
 
@@ -45,12 +43,13 @@ def result(board, action):
     """
     i, j = action
     current_player = player(board)
+    if not (0 <= i < 3 and 0 <= j < 3):
+        raise Exception("Action out of bounds")
     if board[i][j] is not EMPTY:
         raise Exception("Invalid action")
     new_board = [row[:] for row in board]
-    newboard[i][j] = current_player
+    new_board[i][j] = current_player
     return new_board
-
 
 
 def winner(board):
@@ -110,7 +109,7 @@ def minimax(board):
     def max_value(board):
         if terminal(board):
             return utility(board)
-        v = float('-inf')
+        v = float("-inf")
         for action in actions(board):
             v = max(v, min_value(result(board, action)))
         return v
@@ -118,7 +117,7 @@ def minimax(board):
     def min_value(board):
         if terminal(board):
             return utility(board)
-        v = float('inf')
+        v = float("inf")
         for action in actions(board):
             v = min(v, max_value(result(board, action)))
         return v
