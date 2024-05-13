@@ -41,6 +41,7 @@ class Not(Sentence):
     def symbols(self):
         return self.operand.symbols()
 
+
 class And(Sentence):
     def __init__(self, *conjuncts):
         for conjunct in conjuncts:
@@ -58,4 +59,56 @@ class Or(Sentence):
     def __init__(self, *disjuncts):
         for disjunct in disjuncts:
             Sentence.validate(disjunct)
-            self.dusjuncts = list(disjuncts)
+            self.disjuncts = list(disjuncts)
+
+    def evaluate(self, model):
+        return any(disjunct.evaluate(model) for disjunct in self.disjuncts)
+
+    def symbols(self):
+        return set.union(*[disjunct.symbols() for disjunct in self.disjuncts])
+
+
+class Implication(Sentence):
+    def __init__(self, antecedent, consequent):
+        Sentence.validate(antecedent)
+        Sentence.validate(consequent)
+        self.antecedent = antecedent
+        self.consequent = consequent
+
+    def evaluate(self, model):
+        return (not self.antecedent.evaluate(model)) or self.consequent.evaluate(model)
+
+
+def model_check(knowledge, query):
+    """Checks if knowledge base entails query, given a particular model."""
+
+    def check_all(knowledge, query, symbols, model):
+        # If model has an assignment for each symbol
+        if not symbols:
+            # If knowledge base is true in model, then query must also be true
+            if knowledge.evaluate(model):
+                return query.evaluate(model)
+            return True
+        else:
+            # Choose one of the remaining unused symbols
+            remaining = symbols.copy()
+            p = remaining.pop()
+
+            # Create a model where the symbol is true
+            model_true = model.copy()
+            model_true[p] = True
+
+            # Create a model where the symbol is false
+            model_false = model.copy()
+            model_false[p] = False
+
+            # Ensure entailment holds in both models
+            return check_all(knowledge, query, remaining, model_true) and check_all(
+                knowledge, query, remaining, model_false
+            )
+
+    # Get all symbols in both knowledge and query
+    symbols = set.union(knowledge.symbols(), query.symbols())
+
+    # Check that knowledge entails query
+    return check_all(knowledge, query, symbols, dict())
