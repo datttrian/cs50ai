@@ -56,16 +56,8 @@ class Not(Sentence):
         Sentence.validate(operand)
         self.operand = operand
 
-
-
-
-
-
-
     def evaluate(self, model):
         return not self.operand.evaluate(model)
-
-
 
 
 class And(Sentence):
@@ -74,12 +66,8 @@ class And(Sentence):
             Sentence.validate(conjunct)
         self.conjuncts = list(conjuncts)
 
-
-
     def evaluate(self, model):
         return all(conjunct.evaluate(model) for conjunct in self.conjuncts)
-
-
 
     def symbols(self):
         return set.union(*[conjunct.symbols() for conjunct in self.conjuncts])
@@ -90,8 +78,6 @@ class Or(Sentence):
         for disjunct in disjuncts:
             Sentence.validate(disjunct)
         self.disjuncts = list(disjuncts)
-
-
 
     def evaluate(self, model):
         return any(disjunct.evaluate(model) for disjunct in self.disjuncts)
@@ -114,45 +100,8 @@ class Implication(Sentence):
         self.antecedent = antecedent
         self.consequent = consequent
 
-
-
-
-
     def evaluate(self, model):
         return (not self.antecedent.evaluate(model)) or self.consequent.evaluate(model)
-
-
-
-
-
-
-class Biconditional(Sentence):
-    def __init__(self, left, right):
-        Sentence.validate(left)
-        Sentence.validate(right)
-        self.left = left
-        self.right = right
-
-
-
-    def __hash__(self):
-        return hash(("biconditional", hash(self.left), hash(self.right)))
-
-    def __repr__(self):
-        return f"Biconditional({self.left}, {self.right})"
-
-    def evaluate(self, model):
-        return (self.left.evaluate(model) and self.right.evaluate(model)) or (
-            not self.left.evaluate(model) and not self.right.evaluate(model)
-        )
-
-    def formula(self):
-        left = Sentence.parenthesize(str(self.left))
-        right = Sentence.parenthesize(str(self.right))
-        return f"{left} <=> {right}"
-
-    def symbols(self):
-        return set.union(self.left.symbols(), self.right.symbols())
 
 
 def model_check(knowledge, query):
