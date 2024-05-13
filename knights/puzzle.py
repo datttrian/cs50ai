@@ -11,9 +11,9 @@ CKnave = Symbol("C is a Knave")
 
 # TODO
 knowledgeBase = And(
-    Or(AKnight, AKanve),
-    Or(BKnight, BKanve),
-    Or(CKnight, CKanve),
+    Or(AKnight, AKnave),
+    Or(BKnight, BKnave),
+    Or(CKnight, CKnave),
     Not(And(AKnight, AKnave)),
     Not(And(BKnight, BKnave)),
     Not(And(CKnight, CKnave)),
@@ -46,9 +46,9 @@ knowledge2 = And(
     knowledgeBase,
     # A says "We are the same kind."
     Implication(AKnight, Or(And(AKnight, BKnight), And(AKnave, BKnave))),
-    Implication(AKnight, Not(Or(And(AKnight, BKnight), ANd(AKnave, BKnave)))),
+    Implication(AKnight, Not(Or(And(AKnight, BKnight), And(AKnave, BKnave)))),
     # B says "We are of different kinds."
-    Implication(BKnight, Or(And(BKnight, AKnave), And(BKanve, AKnave))),
+    Implication(BKnight, Or(And(BKnight, AKnave), And(BKnave, AKnave))),
     Implication(BKnave, Not(Or(And(BKnight, AKnave), And(BKnave, AKnave)))),
 )
 
@@ -59,7 +59,17 @@ knowledge2 = And(
 # C says "A is a knight."
 knowledge3 = And(
     # TODO
-
+    knowledgeBase,
+    # A says either "I am a knight." or "I am a knave.", but you don't know which.
+    Implication(AKnight, Or(AKnight, AKnave)),
+    Implication(AKnave, Not(Or(AKnight, AKnave))),
+    # B says "A said 'I am a knave'."
+    # B says "C is a knave."
+    Implication(BKnight, CKnave),
+    Implication(BKnave, Not(CKnave)),
+    # C says "A is a knight."
+    Implication(CKnight, AKnight),
+    Implication(CKnave, Not(AKnight)),
 )
 
 
