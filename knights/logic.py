@@ -1,5 +1,5 @@
 class Sentence:
-    def symbol(self):
+    def symbols(self):
         """Returns a set of all symbols in the logical sentence."""
         return set()
 
@@ -48,5 +48,14 @@ class Symbol(Sentence):
 
     def symbols(self):
         return {self.name}
+
+
+class Not(Sentence):
+    def __init__(self, operand):
+        Sentence.validate(operand)
+        self.operand = operand
+
+    def evaluate(self, model):
+        return not self.operand.evaluate(model)
 
 
