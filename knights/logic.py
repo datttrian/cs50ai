@@ -1,4 +1,8 @@
 class Sentence:
+    def evaluate(self, model):
+        """Evaluates the logical sentence."""
+        raise Exception("nothing to evaluate")
+
     def symbols(self):
         """Returns a set of all symbols in the logical sentence."""
         return set()
@@ -33,6 +37,7 @@ class Sentence:
         else:
             return f"({s})"
 
+
 class Symbol(Sentence):
     def __init__(self, name):
         self.name = name
@@ -58,4 +63,5 @@ class Not(Sentence):
     def evaluate(self, model):
         return not self.operand.evaluate(model)
 
-
+    def symbols(self):
+        return self.operand.symbols()
