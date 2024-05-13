@@ -1,5 +1,5 @@
 class Sentence:
-    def symbols(self):
+    def symbol(self):
         """Returns a set of all symbols in the logical sentence."""
         return set()
 
@@ -10,7 +10,7 @@ class Sentence:
 
     @classmethod
     def parenthesize(cls, s):
-        """Parenthesizes an expression if not already parenthesized."""
+        """Parenthesize an expression if not already parenthesized."""
 
         def balanced(s):
             """Checks if a string has balanced parentheses."""
@@ -32,20 +32,3 @@ class Sentence:
             return s
         else:
             return f"({s})"
-
-
-class Symbol(Sentence):
-    def __init__(self, name):
-        self.name = name
-
-    def __repr__(self):
-        return self.name
-
-    def evaluate(self, model):
-        try:
-            return bool(model[self.name])
-        except KeyError:
-            raise Exception(f"variable {self.name} not in model")
-
-    def symbols(self):
-        return {self.name}
