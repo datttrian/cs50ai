@@ -6,7 +6,7 @@ Python modules used in this course.
 
 Write an AI to play Minesweeper.
 
-![Minesweeper Game](images/game.png)
+![Minesweeper Game](https://cs50.harvard.edu/ai/2024/projects/1/minesweeper/images/game.png)
 
 ## [When to Do It](#when-to-do-it)
 
@@ -37,7 +37,7 @@ that each of those cells has one neighboring cell that is a mine. The
 four `0` values indicate that each of those cells has no neighboring
 mine.
 
-![Sample safe cell numbers](images/safe_cells.png)
+![Sample safe cell numbers](https://cs50.harvard.edu/ai/2024/projects/1/minesweeper/images/safe_cells.png)
 
 Given this information, a logical player could conclude that there must
 be a mine in the lower-right cell and that there is no mine in the
@@ -66,7 +66,7 @@ that cell. Consider the following Minesweeper board, where the middle
 cell has been revealed, and the other cells have been labeled with an
 identifying letter for the sake of discussion.
 
-![Middle cell with labeled neighbors](images/middle_safe.png)
+![Middle cell with labeled neighbors](https://cs50.harvard.edu/ai/2024/projects/1/minesweeper/images/middle_safe.png)
 
 What information do we have now? It appears we now know that one of the
 eight neighboring cells is a mine. Therefore, we could write a logical
@@ -107,9 +107,7 @@ models to check – far too many for a computer to compute in any
 reasonable amount of time. We need a better representation of knowledge
 for this problem.
 
-### [Knowl](#knowledge-representation)
-
-Representation</a>
+### [Knowledge Representation](#knowledge-representation)
 
 Instead, we’ll represent each sentence of our AI’s knowledge like the
 below.
@@ -128,7 +126,7 @@ Why is this a useful representation? In part, it lends itself well to
 certain types of inference. Consider the game below.
 
 ![Minesweeper game where cells can be inferred as
-safe](images/infer_safe.png)
+safe](https://cs50.harvard.edu/ai/2024/projects/1/minesweeper/images/infer_safe.png)
 
 Using the knowledge from the lower-left number, we could construct the
 sentence `{D, E, G} = 0` to mean that out of cells D, E, and G, exactly
@@ -140,7 +138,7 @@ be safe.
 Similarly, consider the game below.
 
 ![Minesweeper game where cells can be inferred as
-mines](images/infer_mines.png)
+mines](https://cs50.harvard.edu/ai/2024/projects/1/minesweeper/images/infer_mines.png)
 
 Our AI would construct the sentence `{E, F, H} = 3`. Intuitively, we can
 infer that all of E, F, and H are mines. More generally, any time the
@@ -169,7 +167,7 @@ If we’re being even more clever, there’s one final type of inference we
 can do.
 
 ![Minesweeper game where inference by subsets is
-possible](images/subset_inference.png)
+possible](https://cs50.harvard.edu/ai/2024/projects/1/minesweeper/images/subset_inference.png)
 
 Consider just the two sentences our AI would know based on the top
 middle cell and the bottom middle cell. From the top middle cell, we
