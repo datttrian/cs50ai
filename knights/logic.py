@@ -49,5 +49,3 @@ class Symbol(Sentence):
 
     def symbols(self):
         return {self.name}
-
-
