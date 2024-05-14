@@ -12,7 +12,7 @@
 
 ## Week 2 Uncertainty
 
-- PageRank
+- [PageRank](pagerank)
 - Heredity
 
 ## Week 3 Optimization
