@@ -206,6 +206,20 @@ class MinesweeperAI():
 
         self.knowledge.append(new_sentence)
 
+        for sentence in self.knowledge:
+            if sentence.known_mines():
+                for cell in sentence.known_mines().copy():
+                    self.mark_mine(cell)
+            if sentence.known_safe():
+                for cell in sentence.known_safes().copy():
+                    self.mark_safe(cell)
+
+        for sentence in self.knowledge:
+            if new_sentence.cells.issubset(sentence.cells) and self.count > 0 and new_sentence.count > 0 and new_sentence:
+                new_subset = sentence.cells.difference(new_sentence.cells)
+                new_sentence_subset = Sentence(list(new_subset), sentence.count - new_sentence.count)
+                self.knowledge.append(new_sentence_subset)
+
     def make_safe_move(self):
         """
         Returns a safe cell to choose on the Minesweeper board.
