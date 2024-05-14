@@ -66,7 +66,7 @@ considers the behavior of a hypothetical surfer on the internet who
 clicks on links at random. Consider the corpus of web pages below, where
 an arrow between two pages indicates a link from one page to another.
 
-![Corpus of web pages](images/corpus.png)
+![Corpus of web pages](https://cs50.harvard.edu/ai/2024/projects/2/pagerank/images/corpus.png)
 
 The random surfer model imagines a surfer who starts with a web page at
 random, and then randomly chooses links to follow. If the surfer is on
@@ -99,7 +99,7 @@ were on each page might be an estimate for that page’s rank.
 However, this definition of PageRank proves slightly problematic, if we
 consider a network of pages like the below.
 
-![Disconnected corpus of web pages](https://cs50.harvard.edu/ai/2024/projects/2/pagerank/images/corpus.png)
+![Disconnected corpus of web pages](https://cs50.harvard.edu/ai/2024/projects/2/pagerank/images/network_disconnected.png)
 
 Imagine we randomly started by sampling Page 5. We’d then have no choice
 but to go to Page 6, and then no choice but to go to Page 5 after that,
@@ -152,7 +152,7 @@ we were on page `i` and chose the link to page `p`.
 
 This gives us the following definition for the PageRank for a page `p`.
 
-![PageRank formula](images/formula.png)
+![PageRank formula](https://cs50.harvard.edu/ai/2024/projects/2/pagerank/images/formula.png)
 
 In this formula, `d` is the damping factor, `N` is the total number of
 pages in the corpus, `i` ranges over all pages that link to page `p`,
