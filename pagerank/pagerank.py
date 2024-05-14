@@ -57,7 +57,21 @@ def transition_model(corpus, page, damping_factor):
     linked to by `page`. With probability `1 - damping_factor`, choose
     a link at random chosen from all pages in the corpus.
     """
-    raise NotImplementedError
+    N = len(corpus)
+    probabilities = dict.fromkeys(corpus.keys(), 0)
+
+    if corpus[page]:  # If the page has outgoing links
+        linked_pages = corpus[page]
+        num_links = len(linked_pages)
+        for p in probabilities:
+            probabilities[p] = (1 - damping_factor) / N
+            if p in linked_pages:
+                probabilities[p] += damping_factor / num_links
+    else:  # If the page has no outgoing links
+        for p in probabilities:
+            probabilities[p] = 1 / N
+
+    return probabilities
 
 
 def sample_pagerank(corpus, damping_factor, n):
@@ -69,7 +83,23 @@ def sample_pagerank(corpus, damping_factor, n):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
+    page_rank = dict.fromkeys(corpus.keys(), 0)
+    pages = list(corpus.keys())
+
+    # Choose an initial page at random
+    current_page = random.choice(pages)
+
+    for _ in range(n):
+        page_rank[current_page] += 1
+        next_page_distribution = transition_model(corpus, current_page, damping_factor)
+        next_page = random.choices(list(next_page_distribution.keys()), weights=next_page_distribution.values(), k=1)[0]
+        current_page = next_page
+
+    # Normalize the page ranks
+    for page in page_rank:
+        page_rank[page] /= n
+
+    return page_rank
 
 
 def iterate_pagerank(corpus, damping_factor):
@@ -81,7 +111,30 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
+    N = len(corpus)
+    page_rank = dict.fromkeys(corpus.keys(), 1 / N)
+    new_page_rank = dict.fromkeys(corpus.keys(), 0)
+    converged = False
+
+    while not converged:
+        converged = True
+
+        for page in corpus:
+            rank_sum = 0
+            for possible_page in corpus:
+                if page in corpus[possible_page]:
+                    rank_sum += page_rank[possible_page] / len(corpus[possible_page])
+                if not corpus[possible_page]:
+                    rank_sum += page_rank[possible_page] / N
+            new_page_rank[page] = (1 - damping_factor) / N + damping_factor * rank_sum
+
+        for page in page_rank:
+            if abs(new_page_rank[page] - page_rank[page]) > 0.001:
+                converged = False
+            page_rank[page] = new_page_rank[page]
+
+    return page_rank
+
 
 
 if __name__ == "__main__":
