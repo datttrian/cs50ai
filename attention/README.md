@@ -36,7 +36,7 @@ data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 
 1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
 2.  Ask questions via any of CS50’s
-    [communities](../../../communities/)!
+    [communities](https://cs50.harvard.edu/ai/2024/communities/)!
 
 <span id="background" data-id="" style="top: -58px;"></span>
 

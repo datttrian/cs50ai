@@ -30,7 +30,7 @@ data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 
 1. Ask questions via [Ed](https://cs50.edx.org/ed)!
 2. Ask questions via any of CS50’s
-    [communities](../../../communities/)!
+    [communities](https://cs50.harvard.edu/ai/2024/communities/)!
 
 ## [Background](#background)
 
@@ -99,7 +99,7 @@ were on each page might be an estimate for that page’s rank.
 However, this definition of PageRank proves slightly problematic, if we
 consider a network of pages like the below.
 
-![Disconnected corpus of web pages](images/network_disconnected.png)
+![Disconnected corpus of web pages](https://cs50.harvard.edu/ai/2024/projects/2/pagerank/images/corpus.png)
 
 Imagine we randomly started by sampling Page 5. We’d then have no choice
 but to go to Page 6, and then no choice but to go to Page 5 after that,
