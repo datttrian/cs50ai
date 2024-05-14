@@ -2,13 +2,12 @@ import itertools
 import random
 
 
-class Minesweeper():
+class Minesweeper:
     """
     Minesweeper game representation
     """
 
     def __init__(self, height=8, width=8, mines=8):
-
         # Set initial width, height, and number of mines
         self.height = height
         self.width = width
@@ -65,7 +64,6 @@ class Minesweeper():
         # Loop over all cells within one row and column
         for i in range(cell[0] - 1, cell[0] + 2):
             for j in range(cell[1] - 1, cell[1] + 2):
-
                 # Ignore the cell itself
                 if (i, j) == cell:
                     continue
@@ -84,7 +82,7 @@ class Minesweeper():
         return self.mines_found == self.mines
 
 
-class Sentence():
+class Sentence:
     """
     Logical statement about a Minesweeper game
     A sentence consists of a set of board cells,
@@ -135,13 +133,12 @@ class Sentence():
             self.cells.remove(cell)
 
 
-class MinesweeperAI():
+class MinesweeperAI:
     """
     Minesweeper game player
     """
 
     def __init__(self, height=8, width=8):
-
         # Set initial height and width
         self.height = height
         self.width = width
@@ -237,11 +234,16 @@ class MinesweeperAI():
             new_sentences = []
             for sentence1 in self.knowledge:
                 for sentence2 in self.knowledge:
-                    if sentence1 != sentence2 and sentence1.cells.issubset(sentence2.cells):
+                    if sentence1 != sentence2 and sentence1.cells.issubset(
+                        sentence2.cells
+                    ):
                         new_cells = sentence2.cells - sentence1.cells
                         new_count = sentence2.count - sentence1.count
                         new_sentence = Sentence(new_cells, new_count)
-                        if new_sentence not in self.knowledge and new_sentence not in new_sentences:
+                        if (
+                            new_sentence not in self.knowledge
+                            and new_sentence not in new_sentences
+                        ):
                             new_sentences.append(new_sentence)
             if new_sentences:
                 self.knowledge.extend(new_sentences)
@@ -268,8 +270,12 @@ class MinesweeperAI():
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        possible_moves = [(i, j) for i in range(self.height) for j in range(self.width)
-                          if (i, j) not in self.moves_made and (i, j) not in self.mines]
+        possible_moves = [
+            (i, j)
+            for i in range(self.height)
+            for j in range(self.width)
+            if (i, j) not in self.moves_made and (i, j) not in self.mines
+        ]
         if possible_moves:
             return random.choice(possible_moves)
         return None
