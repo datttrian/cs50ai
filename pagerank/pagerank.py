@@ -40,10 +40,7 @@ def crawl(directory):
 
     # Only include links to other pages in the corpus
     for filename in pages:
-        pages[filename] = set(
-            link for link in pages[filename]
-            if link in pages
-        )
+        pages[filename] = set(link for link in pages[filename] if link in pages)
 
     return pages
 
@@ -60,14 +57,14 @@ def transition_model(corpus, page, damping_factor):
     N = len(corpus)
     probabilities = dict.fromkeys(corpus.keys(), 0)
 
-    if corpus[page]:  # If the page has outgoing links
+    if corpus[page]:
         linked_pages = corpus[page]
         num_links = len(linked_pages)
         for p in probabilities:
             probabilities[p] = (1 - damping_factor) / N
             if p in linked_pages:
                 probabilities[p] += damping_factor / num_links
-    else:  # If the page has no outgoing links
+    else:
         for p in probabilities:
             probabilities[p] = 1 / N
 
@@ -86,16 +83,18 @@ def sample_pagerank(corpus, damping_factor, n):
     page_rank = dict.fromkeys(corpus.keys(), 0)
     pages = list(corpus.keys())
 
-    # Choose an initial page at random
     current_page = random.choice(pages)
 
     for _ in range(n):
         page_rank[current_page] += 1
         next_page_distribution = transition_model(corpus, current_page, damping_factor)
-        next_page = random.choices(list(next_page_distribution.keys()), weights=next_page_distribution.values(), k=1)[0]
+        next_page = random.choices(
+            list(next_page_distribution.keys()),
+            weights=next_page_distribution.values(),
+            k=1,
+        )[0]
         current_page = next_page
 
-    # Normalize the page ranks
     for page in page_rank:
         page_rank[page] /= n
 
@@ -134,7 +133,6 @@ def iterate_pagerank(corpus, damping_factor):
             page_rank[page] = new_page_rank[page]
 
     return page_rank
-
 
 
 if __name__ == "__main__":
