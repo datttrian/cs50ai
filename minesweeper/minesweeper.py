@@ -1,3 +1,4 @@
+import itertools
 import random
 
 
@@ -104,34 +105,27 @@ class Sentence():
         """
         Returns the set of all cells in self.cells known to be mines.
         """
-        if len(self.cells) == self.count and self.count != 0:
-            return self.cells
-        return set()
+        raise NotImplementedError
 
     def known_safes(self):
         """
         Returns the set of all cells in self.cells known to be safe.
         """
-        if self.count == 0:
-            return self.cells
-        return set()
+        raise NotImplementedError
 
     def mark_mine(self, cell):
         """
         Updates internal knowledge representation given the fact that
         a cell is known to be a mine.
         """
-        if cell in self.cells:
-            self.cells.remove(cell)
-            self.count -= 1
+        raise NotImplementedError
 
     def mark_safe(self, cell):
         """
         Updates internal knowledge representation given the fact that
         a cell is known to be safe.
         """
-        if cell in self.cells:
-            self.cells.remove(cell)
+        raise NotImplementedError
 
 
 class MinesweeperAI():
@@ -188,37 +182,7 @@ class MinesweeperAI():
             5) add any new sentences to the AI's knowledge base
                if they can be inferred from existing knowledge
         """
-        self.moves_made.add(cell)
-
-        self.mark_safe(cell)
-
-        undetermined_cells = []
-        count_mines = 0
-
-        for i in range(cell[0] - 1, cell[0] + 2):
-            for j in range(cell[1] - 1, cell[1] + 2):
-                if (i, j) in self.mines:
-                    count_mines += 1
-                if 0 <= i < self.height and 0 <= j < self.width and (i, j) not in self.safes and (i, j) not in self.mines:
-                    undetermined_cells.append((i, j))
-
-        new_sentence = Sentence(undetermined_cells, count - count_mines)
-
-        self.knowledge.append(new_sentence)
-
-        for sentence in self.knowledge:
-            if sentence.known_mines():
-                for cell in sentence.known_mines().copy():
-                    self.mark_mine(cell)
-            if sentence.known_safe():
-                for cell in sentence.known_safes().copy():
-                    self.mark_safe(cell)
-
-        for sentence in self.knowledge:
-            if new_sentence.cells.issubset(sentence.cells) and self.count > 0 and new_sentence.count > 0 and new_sentence:
-                new_subset = sentence.cells.difference(new_sentence.cells)
-                new_sentence_subset = Sentence(list(new_subset), sentence.count - new_sentence.count)
-                self.knowledge.append(new_sentence_subset)
+        raise NotImplementedError
 
     def make_safe_move(self):
         """
@@ -229,10 +193,7 @@ class MinesweeperAI():
         This function may use the knowledge in self.mines, self.safes
         and self.moves_made, but should not modify any of those values.
         """
-        for cell in self.safes:
-            if cell in self.moves_made:
-                return cell
-        return None
+        raise NotImplementedError
 
     def make_random_move(self):
         """
@@ -241,11 +202,4 @@ class MinesweeperAI():
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        possible_moves = []
-        for i in range(self.height):
-            for j in range(self.width):
-                if (i, j) not in self.moves_made and (i, j) not in self.mines:
-                    possible_moves.append((i, j))
-        if len(possible_moves) != 0:
-            return random.choice(possible_moves)
-        return None
+        raise NotImplementedError
