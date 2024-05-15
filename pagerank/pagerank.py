@@ -12,20 +12,13 @@ def main():
         sys.exit("Usage: python pagerank.py corpus")
     corpus = crawl(sys.argv[1])
     ranks = sample_pagerank(corpus, DAMPING, SAMPLES)
-    print(ranks)
     print(f"PageRank Results from Sampling (n = {SAMPLES})")
-
-    pages = list(corpus.keys())
-    current_page = random.choice(pages)
-    next_page_distribution = transition_model(corpus, current_page, DAMPING)
-    print(next_page_distribution)
-
-    # for page in sorted(ranks):
-    #     print(f"  {page}: {ranks[page]:.4f}")
-    # ranks = iterate_pagerank(corpus, DAMPING)
-    # print(f"PageRank Results from Iteration")
-    # for page in sorted(ranks):
-    #     print(f"  {page}: {ranks[page]:.4f}")
+    for page in sorted(ranks):
+        print(f"  {page}: {ranks[page]:.4f}")
+    ranks = iterate_pagerank(corpus, DAMPING)
+    print(f"PageRank Results from Iteration")
+    for page in sorted(ranks):
+        print(f"  {page}: {ranks[page]:.4f}")
 
 
 def crawl(directory):
@@ -168,19 +161,28 @@ def iterate_pagerank(corpus, damping_factor):
             rank_sum = 0
 
             # Iterate over all possible pages to calculate the rank contribution
-            for poss
+            for possible_page in corpus:
                 # Check if possible_page links to the current page
+                if page in corpus[possible_page]:
+                    rank_sum += page_rank[possible_page] / N
 
                 # If possible_page has no outgoing links, treat it as linking to all pages equally
+                new_page_rank[page] = (1 - damping_factor) / N + damping_factor * rank_sum
 
             # Calculate the new PageRank value for the current page using the damping factor
+            new_page_rank[page] = (1 - damping_factor) / N + damping_factor * rank_sum
 
         # Check for convergence by comparing old and new PageRank values
+        for page in page_rank:
                 # If the change is larger than the threshold, continue iterating
+                if abs(new_page_rank[page] - page_rank[page]) > 0.001:
+                    converged = False
 
             # Update the old PageRank values with the new ones
+            page_rank[page] = new_page_rank[page]
 
     # Return the dictionary containing the final PageRank values
+    return page_rank
 
 
 if __name__ == "__main__":
