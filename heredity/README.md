@@ -312,9 +312,7 @@ may write additional functions and/or import other Python standard
 library modules. You may also import `numpy` or `pandas`, if familiar
 with them, but you should not use any other third-party Python modules.
 
-### [Example J](#example-joint-probability)
-
-Probability</a>
+### [Example Joint Probability](#example-joint-probability)
 
 To help you think about how to calculate joint probabilities, we’ve
 included below an example.
