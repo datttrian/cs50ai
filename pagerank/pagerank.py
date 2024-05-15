@@ -164,11 +164,11 @@ def iterate_pagerank(corpus, damping_factor):
 
         # Iterate over each page in the corpus
         for page in corpus:
-            
-
             # Variable to store the sum of ranks from linking pages
+            rank_sum = 0
 
             # Iterate over all possible pages to calculate the rank contribution
+            for poss
                 # Check if possible_page links to the current page
 
                 # If possible_page has no outgoing links, treat it as linking to all pages equally
