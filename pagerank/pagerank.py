@@ -91,24 +91,38 @@ def sample_pagerank(corpus, damping_factor, n):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
+    # Initialize the PageRank dictionary. Each page starts with a PageRank of 0.
     page_rank = dict.fromkeys(corpus.keys(), 0)
+
+    # Get a list of all pages in the corpus.
     pages = list(corpus.keys())
 
+    # Choose a random starting page from the list of pages.
     current_page = random.choice(pages)
 
+    # Perform n samples to estimate the PageRank.
     for _ in range(n):
+        # Increase the count for the current page, indicating it was visited.
         page_rank[current_page] += 1
+
+        # Get the transition model for the current page, which gives the probability distribution of the next page.
         next_page_distribution = transition_model(corpus, current_page, damping_factor)
+
+        # Choose the next page based on the transition model probabilities.
         next_page = random.choices(
             list(next_page_distribution.keys()),
             weights=next_page_distribution.values(),
             k=1,
         )[0]
+
+        # Move to the next page.
         current_page = next_page
 
+    # Convert the counts to probabilities by dividing by the total number of samples (n).
     for page in page_rank:
         page_rank[page] /= n
 
+    # Return the dictionary containing the PageRank values.
     return page_rank
 
 
