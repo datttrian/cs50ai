@@ -54,20 +54,28 @@ def transition_model(corpus, page, damping_factor):
     linked to by `page`. With probability `1 - damping_factor`, choose
     a link at random chosen from all pages in the corpus.
     """
-    # Update probabilities for pages with outgoing links
-    N = len(corpus)
+    # Get the number of pages in the corpus
+
+
+    # Initialize the probabilities dictionary with each page set to 0
     probabilities = dict.fromkeys(corpus.keys(), 0)
+
+    # Update probabilities to linked pages from the current page
     if corpus[page]:
         linked_pages = corpus[page]
         num_links = len(linked_pages)
         for p in probabilities:
+            # Assign a base probability to all pages
             probabilities[p] = (1 - damping_factor) / N
+            # Add the transition probability for linked pages
             if p in linked_pages:
                 probabilities[p] += damping_factor / num_links
     else:
+        # If the current page has no outgoing links, distribute the probability equally among all pages
         for p in probabilities:
             probabilities[p] = 1 / N
 
+    # Return the dictionary of probabilities
     return probabilities
 
 
