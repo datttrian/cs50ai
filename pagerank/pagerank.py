@@ -145,35 +145,42 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
-    raise NotImplementedError
-    # The number of pages in the corpus.
+    # The number of pages in the corpus
+    N = len(corpus)
 
-    # Initialize the PageRank dictionary. Each page starts with an equal PageRank value of 1/N.
+    # Initialize the PageRank dictionary. Each page starts with an equal PageRank value of 1/N
+    page_rank = dict.fromkeys(corpus.keys(), 1 / N)
 
-    # Initialize a new PageRank dictionary to store updated PageRank values.
+    # Initialize a new PageRank dictionary to store updated PageRank values
+    new_page_rank = dict.fromkeys(corpus.keys(), 0)
 
-    # Initialize the convergence flag.
+    # Initialize the convergence flag
+    converged = False
 
-    # Iterate until the PageRank values converge.
-        # Assume the PageRank values have converged until proven otherwise.
+    # Iterate until the PageRank values converge
+    while not converged:
+        # Assume the PageRank values have converged until proven otherwise
+        converged = True
 
-        # Iterate over each page in the corpus.
+        # Iterate over each page in the corpus
+        for page in corpus:
+            
 
-            # Variable to store the sum of ranks from linking pages.
+            # Variable to store the sum of ranks from linking pages
 
-            # Iterate over all possible pages to calculate the rank contribution.
-                # Check if possible_page links to the current page.
+            # Iterate over all possible pages to calculate the rank contribution
+                # Check if possible_page links to the current page
 
-                # If possible_page has no outgoing links, treat it as linking to all pages equally.
+                # If possible_page has no outgoing links, treat it as linking to all pages equally
 
-            # Calculate the new PageRank value for the current page using the damping factor.
+            # Calculate the new PageRank value for the current page using the damping factor
 
-        # Check for convergence by comparing old and new PageRank values.
-                # If the change is larger than the threshold, continue iterating.
+        # Check for convergence by comparing old and new PageRank values
+                # If the change is larger than the threshold, continue iterating
 
-            # Update the old PageRank values with the new ones.
+            # Update the old PageRank values with the new ones
 
-    # Return the dictionary containing the final PageRank values.
+    # Return the dictionary containing the final PageRank values
 
 
 if __name__ == "__main__":
