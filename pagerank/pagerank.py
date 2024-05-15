@@ -135,28 +135,48 @@ def iterate_pagerank(corpus, damping_factor):
     their estimated PageRank value (a value between 0 and 1). All
     PageRank values should sum to 1.
     """
+    # The number of pages in the corpus.
     N = len(corpus)
+
+    # Initialize the PageRank dictionary. Each page starts with an equal PageRank value of 1/N.
     page_rank = dict.fromkeys(corpus.keys(), 1 / N)
+
+    # Initialize a new PageRank dictionary to store updated PageRank values.
     new_page_rank = dict.fromkeys(corpus.keys(), 0)
+
+    # Initialize the convergence flag.
     converged = False
 
+    # Iterate until the PageRank values converge.
     while not converged:
+        # Assume the PageRank values have converged until proven otherwise.
         converged = True
 
+        # Iterate over each page in the corpus.
         for page in corpus:
-            rank_sum = 0
+            rank_sum = 0  # Variable to store the sum of ranks from linking pages.
+
+            # Iterate over all possible pages to calculate the rank contribution.
             for possible_page in corpus:
-                if page in corpus[possible_page]:
+                if page in corpus[possible_page]:  # Check if possible_page links to the current page.
                     rank_sum += page_rank[possible_page] / len(corpus[possible_page])
+
+                # If possible_page has no outgoing links, treat it as linking to all pages equally.
                 if not corpus[possible_page]:
                     rank_sum += page_rank[possible_page] / N
+
+            # Calculate the new PageRank value for the current page using the damping factor.
             new_page_rank[page] = (1 - damping_factor) / N + damping_factor * rank_sum
 
+        # Check for convergence by comparing old and new PageRank values.
         for page in page_rank:
             if abs(new_page_rank[page] - page_rank[page]) > 0.001:
-                converged = False
+                converged = False  # If the change is larger than the threshold, continue iterating.
+
+            # Update the old PageRank values with the new ones.
             page_rank[page] = new_page_rank[page]
 
+    # Return the dictionary containing the final PageRank values.
     return page_rank
 
 
