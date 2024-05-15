@@ -1,6 +1,6 @@
-<span id="heredity" data-id="" style="top: -58px;"></span>
 
-# <a href="#heredity" data-id="">Heredity</a>
+
+# [Heredity](#heredity)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -37,25 +37,22 @@ Lily:
     False: 1.0000
 ```
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
 
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
+## [How to Get Help](#how-to-get-help)
 
 1. Ask questions via [Ed](https://cs50.edx.org/ed)!
 2. Ask questions via any of CS50’s
     [communities](https://cs50.harvard.edu/ai/2024/communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
 
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 Mutated versions of the [GJB2
 gene](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1285178/) are one of
@@ -84,7 +81,7 @@ We can attempt to model all of these relationships by forming a Bayesian
 Network of all the relevant variables, as in the one below, which
 considers a family of two parents and a single child.
 
-![Bayesian Network for genetic traits](images/gene_network.png)
+![Bayesian Network for genetic traits](https://cs50.harvard.edu/ai/2020/projects/2/heredity/images/gene_network.png)
 
 Each person in the family has a `Gene` random variable representing how
 many copies of a particular gene (e.g., the hearing impairment version
@@ -105,17 +102,15 @@ caused by a given gene, your AI will infer the probability distribution
 for each person’s genes, as well as the probability distribution for
 whether any person will exhibit the trait in question.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
 
-## <a href="#getting-started" data-id="">Getting Started</a>
+## [Getting Started](#getting-started)
 
-- <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/2/heredity.zip> and unzip
     it.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
 
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 Take a look at one of the sample data sets in the `data` directory by
 opening up `data/family0.csv` (you can open it up in a text editor, or
@@ -204,9 +199,8 @@ compute a joint probability, `update` to add the newly computed joint
 probability to the existing probability distribution, and then
 `normalize` to ensure all probability distributions sum to 1 at the end.
 
-<span id="specification" data-id="" style="top: -58px;"></span>
 
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementations of `joint_probability`, `update`, and
 `normalize`.
@@ -216,100 +210,100 @@ people, along with data about who has how many copies of each of the
 genes, and who exhibits the trait. The function should return the joint
 probability of all of those events taking place.
 
-- <span class="fa-li"></span>The function accepts four values as
+- The function accepts four values as
     input: `people`, `one_gene`, `two_genes`, and `have_trait`.
-  - <span class="fa-li"></span>`people` is a dictionary of people as
+  - `people` is a dictionary of people as
         described in the “Understanding” section. The keys represent
         names, and the values are dictionaries that contain `mother` and
         `father` keys. You may assume that either `mother` and `father`
         are both blank (no parental information in the data set), or
         `mother` and `father` will both refer to other people in the
         `people` dictionary.
-  - <span class="fa-li"></span>`one_gene` is a set of all people for
+  - `one_gene` is a set of all people for
         whom we want to compute the probability that they have one copy
         of the gene.
-  - <span class="fa-li"></span>`two_genes` is a set of all people
+  - `two_genes` is a set of all people
         for whom we want to compute the probability that they have two
         copies of the gene.
-  - <span class="fa-li"></span>`have_trait` is a set of all people
+  - `have_trait` is a set of all people
         for whom we want to compute the probability that they have the
         trait.
-  - <span class="fa-li"></span>For any person not in `one_gene` or
+  - For any person not in `one_gene` or
         `two_genes`, we would like to calculate the probability that
         they have no copies of the gene; and for anyone not in
         `have_trait`, we would like to calculate the probability that
         they do not have the trait.
-- <span class="fa-li"></span>For example, if the family consists of
+- For example, if the family consists of
     Harry, James, and Lily, then calling this function where
     `one_gene = {"Harry"}`, `two_genes = {"James"}`, and
     `trait = {"Harry", "James"}` should calculate the probability that
     Lily has zero copies of the gene, Harry has one copy of the gene,
     James has two copies of the gene, Harry exhibits the trait, James
     exhibits the trait, and Lily does not exhibit the trait.
-- <span class="fa-li"></span>For anyone with no parents listed in the
+- For anyone with no parents listed in the
     data set, use the probability distribution `PROBS["gene"]` to
     determine the probability that they have a particular number of the
     gene.
-- <span class="fa-li"></span>For anyone with parents in the data set,
+- For anyone with parents in the data set,
     each parent will pass one of their two genes on to their child
     randomly, and there is a `PROBS["mutation"]` chance that it mutates
     (goes from being the gene to not being the gene, or vice versa).
-- <span class="fa-li"></span>Use the probability distribution
+- Use the probability distribution
     `PROBS["trait"]` to compute the probability that a person does or
     does not have a particular trait.
 
 The `update` function adds a new joint distribution probability to the
 existing probability distributions in `probabilities`.
 
-- <span class="fa-li"></span>The function accepts five values as
+- The function accepts five values as
     input: `probabilities`, `one_gene`, `two_genes`, `have_trait`, and
     `p`.
-  - <span class="fa-li"></span>`probabilities` is a dictionary of
+  - `probabilities` is a dictionary of
         people as described in the “Understanding” section. Each person
         is mapped to a `"gene"` distribution and a `"trait"`
         distribution.
-  - <span class="fa-li"></span>`one_gene` is a set of people with
+  - `one_gene` is a set of people with
         one copy of the gene in the current joint distribution.
-  - <span class="fa-li"></span>`two_genes` is a set of people with
+  - `two_genes` is a set of people with
         two copies of the gene in the current joint distribution.
-  - <span class="fa-li"></span>`have_trait` is a set of people with
+  - `have_trait` is a set of people with
         the trait in the current joint distribution.
-  - <span class="fa-li"></span>`p` is the probability of the joint
+  - `p` is the probability of the joint
         distribution.
-- <span class="fa-li"></span>For each person `person` in
+- For each person `person` in
     `probabilities`, the function should update the
     `probabilities[person]["gene"]` distribution and
     `probabilities[person]["trait"]` distribution by adding `p` to the
     appropriate value in each distribution. All other values should be
     left unchanged.
-- <span class="fa-li"></span>For example, if `"Harry"` were in both
+- For example, if `"Harry"` were in both
     `two_genes` and in `have_trait`, then `p` would be added to
     `probabilities["Harry"]["gene"][2]` and to
     `probabilities["Harry"]["trait"][True]`.
-- <span class="fa-li"></span>The function should not return any value:
+- The function should not return any value:
     it just needs to update the `probabilities` dictionary.
 
 The `normalize` function updates a dictionary of probabilities such that
 each probability distribution is normalized (i.e., sums to 1, with
 relative proportions the same).
 
-- <span class="fa-li"></span>The function accepts a single value:
+- The function accepts a single value:
     `probabilities`.
-  - <span class="fa-li"></span>`probabilities` is a dictionary of
+  - `probabilities` is a dictionary of
         people as described in the “Understanding” section. Each person
         is mapped to a `"gene"` distribution and a `"trait"`
         distribution.
-- <span class="fa-li"></span>For both of the distributions for each
+- For both of the distributions for each
     person in `probabilities`, this function should normalize that
     distribution so that the values in the distribution sum to 1, and
     the relative values in the distribution are the same.
-- <span class="fa-li"></span>For example, if
+- For example, if
     `probabilities["Harry"]["trait"][True]` were equal to `0.1` and
     `probabilities["Harry"]["trait"][False]` were equal to `0.3`, then
     your function should update the former value to be `0.25` and the
     latter value to be `0.75`: the numbers now sum to 1, and the latter
     value is still three times larger than the former value.
-- <span class="fa-li"></span>The function should not return any value:
+- The function should not return any value:
     it just needs to update the `probabilities` dictionary.
 
 You should not modify anything else in `heredity.py` other than the
@@ -318,10 +312,7 @@ may write additional functions and/or import other Python standard
 library modules. You may also import `numpy` or `pandas`, if familiar
 with them, but you should not use any other third-party Python modules.
 
-<span id="example-joint-probability" data-id=""
-style="top: -58px;"></span>
-
-### <a href="#example-joint-probability" data-id="">Example Joint
+### [Example J](#example-joint-probability)
 
 Probability</a>
 
@@ -330,7 +321,7 @@ included below an example.
 
 Consider the following value for `people`:
 
-``` highlight
+``` python
 {
   'Harry': {'name': 'Harry', 'mother': 'Lily', 'father': 'James', 'trait': None},
   'James': {'name': 'James', 'mother': None, 'father': None, 'trait': True},
@@ -383,19 +374,17 @@ Therefore, the entire joint probability is just the result of
 multiplying all of these values for each of the three people:
 `0.9504 * 0.0065 * 0.431288 = 0.0026643247488`.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
 
-## <a href="#hints" data-id="">Hints</a>
+## [Hints](#hints)
 
-- <span class="fa-li"></span>Recall that to compute a joint
+- Recall that to compute a joint
     probability of multiple events, you can do so by multiplying those
     probabilities together. But remember that for any child, the
     probability of them having a certain number of genes is conditional
     on what genes their parents have.
 
-<span id="testing" data-id="" style="top: -58px;"></span>
 
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -425,9 +414,8 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
 
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
