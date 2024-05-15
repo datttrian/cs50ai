@@ -14,6 +14,12 @@ def main():
     ranks = sample_pagerank(corpus, DAMPING, SAMPLES)
     print(ranks)
     print(f"PageRank Results from Sampling (n = {SAMPLES})")
+
+    pages = list(corpus.keys())
+    current_page = random.choice(pages)
+    next_page_distribution = transition_model(corpus, current_page, DAMPING)
+    print(next_page_distribution)
+
     # for page in sorted(ranks):
     #     print(f"  {page}: {ranks[page]:.4f}")
     # ranks = iterate_pagerank(corpus, DAMPING)
