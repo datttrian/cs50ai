@@ -19,7 +19,7 @@ $ python generate.py data/structure1.txt data/words1.txt output.png
 ██████████████
 ```
 
-![Crossword](images/crossword.png)
+![Crossword](https://cs50.harvard.edu/ai/2020/projects/3/crossword/images/crossword.png)
 
 ## [When to Do It](#when-to-do-it)
 
@@ -45,7 +45,7 @@ variable, for which we need to decide on its value (which word in the
 domain of possible words will fill in that sequence). Consider the
 following crossword puzzle structure.
 
-![Crossword Structure](images/structure.png)
+![Crossword Structure](https://cs50.harvard.edu/ai/2020/projects/3/crossword/images/structure.png)
 
 In this structure, we have four variables, representing the four words
 we need to fill into this crossword puzzle (each indicated by a number
