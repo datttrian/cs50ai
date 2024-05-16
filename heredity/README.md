@@ -35,20 +35,17 @@ Lily:
     False: 1.0000
 ```
 
-
 ## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-
 ## [How to Get Help](#how-to-get-help)
 
 1. Ask questions via [Ed](https://cs50.edx.org/ed)!
 2. Ask questions via any of CS50’s
     [communities](https://cs50.harvard.edu/ai/2024/communities/)!
-
 
 ## [Background](#background)
 
@@ -100,13 +97,11 @@ caused by a given gene, your AI will infer the probability distribution
 for each person’s genes, as well as the probability distribution for
 whether any person will exhibit the trait in question.
 
-
 ## [Getting Started](#getting-started)
 
 - Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/2/heredity.zip> and unzip
     it.
-
 
 ## [Understanding](#understanding)
 
@@ -196,7 +191,6 @@ to implement three functions to do just that: `joint_probability` to
 compute a joint probability, `update` to add the newly computed joint
 probability to the existing probability distribution, and then
 `normalize` to ensure all probability distributions sum to 1 at the end.
-
 
 ## [Specification](#specification)
 
@@ -370,7 +364,6 @@ Therefore, the entire joint probability is just the result of
 multiplying all of these values for each of the three people:
 `0.9504 * 0.0065 * 0.431288 = 0.0026643247488`.
 
-
 ## [Hints](#hints)
 
 - Recall that to compute a joint
@@ -378,7 +371,6 @@ multiplying all of these values for each of the three people:
     probabilities together. But remember that for any child, the
     probability of them having a certain number of genes is conditional
     on what genes their parents have.
-
 
 ## [Testing](#testing)
 
@@ -409,7 +401,6 @@ per the specification. There are certainly tools out there that
 trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
-
 
 ## [How to Submit](#how-to-submit)
 
