@@ -163,9 +163,19 @@ def joint_probability(people, one_gene, two_genes, have_trait):
             if genes == 2:
                 prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
                 prob_father = get_gene_probability(father, True, one_gene, two_genes)
-                probability *= prob_mother * prob_fater
+                probability *= prob_mother * prob_father
             elif genes == 1:
                 prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
+                prob_father = get_gene_probability(father, False, one_gene, two_genes)
+                probability *= prob_mother * prob_father + (1 - prob_mother) * (1 - prob_father)
+            else:
+                prob_mother = get_gene_probability(mother, False, one_gene, two_genes)
+                prob_father = get_gene_probability(father, False, one_gene, two_genes)
+                probability *= prob_mother * prob_father
+
+        probability *= PROBS['trait'][genes][trait]
+
+    return probability
 
 
 def update(probabilities, one_gene, two_genes, have_trait, p):
