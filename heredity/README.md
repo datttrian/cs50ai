@@ -1,5 +1,3 @@
-
-
 # [Heredity](#heredity)
 
 The latest version of Python you should use in this course is Python
