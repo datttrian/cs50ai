@@ -62,7 +62,26 @@ def main():
 
     # Loop over all sets of people who might have the trait
     names = set(people)
-    powerset(names)
+
+    for have_trait in powerset(names):
+
+        # Check if current set of people violates known information
+        fails_evidence = any(
+            (people[person]["trait"] is not None and
+             people[person]["trait"] != (person in have_trait))
+            for person in names
+        )
+        if fails_evidence:
+            continue
+
+        # Loop over all sets of people who might have the gene
+        for one_gene in powerset(names):
+            for two_genes in powerset(names - one_gene):
+
+                # Update probabilities with new joint probability
+                p = joint_probability(people, one_gene, two_genes, have_trait)
+                print(p)
+
 
 
 def load_data(filename):
@@ -97,6 +116,44 @@ def powerset(s):
             itertools.combinations(s, r) for r in range(len(s) + 1)
         )
     ]
+
+
+def joint_probability(people, one_gene, two_genes, have_trait):
+    """
+    Compute and return a joint probability.
+
+    The probability returned should be the probability that
+        * everyone in set `one_gene` has one copy of the gene, and
+        * everyone in set `two_genes` has two copies of the gene, and
+        * everyone not in `one_gene` or `two_gene` does not have the gene, and
+        * everyone in set `have_trait` has the trait, and
+        * everyone not in set` have_trait` does not have the trait.
+    """
+    probability = 1
+
+    for person in people:
+        mother = people[person]['mother']
+        father = people[person]['father']
+
+        if person in two_genes:
+            genes = 2
+        elif person in one_gene:
+            genes = 1
+        else:
+            genes = 0
+
+        if person in have_trait:
+            trait = True
+        else:
+            trait = False
+
+        if mother is None and father is None:
+            probability *= PROBS['gene'][genes]
+
+
+        probability *= PROBS['trait'][genes][trait]
+
+    return probability
 
 
 if __name__ == "__main__":
