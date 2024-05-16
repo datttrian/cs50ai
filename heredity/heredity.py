@@ -62,7 +62,6 @@ def main():
 
     # Loop over all sets of people who might have the trait
     names = set(people)
-
     for have_trait in powerset(names):
 
         # Check if current set of people violates known information
@@ -82,6 +81,17 @@ def main():
                 p = joint_probability(people, one_gene, two_genes, have_trait)
                 update(probabilities, one_gene, two_genes, have_trait, p)
 
+    # Ensure probabilities sum to 1
+    normalize(probabilities)
+
+    # Print results
+    for person in people:
+        print(f"{person}:")
+        for field in probabilities[person]:
+            print(f"  {field.capitalize()}:")
+            for value in probabilities[person][field]:
+                p = probabilities[person][field][value]
+                print(f"    {value}: {p:.4f}")
 
 
 def load_data(filename):
@@ -206,6 +216,21 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
         else:
             probabilities[person]["trait"][False] += p
 
-            
+
+def normalize(probabilities):
+    """
+    Update `probabilities` such that each probability distribution
+    is normalized (i.e., sums to 1, with relative proportions the same).
+    """
+    for person in probabilities:
+        genes_total = sum(probabilities[person]["gene"].values())
+        for gene in probabilities[person]["gene"]:
+            probabilities[person]["gene"][gene] /= genes_total
+
+        traits_total = sum(probabilities[person]["trait"].values())
+        for trait in probabilities[person]["trait"]:
+            probabilities[person]["trait"][trait] /= traits_total
+
+
 if __name__ == "__main__":
     main()
