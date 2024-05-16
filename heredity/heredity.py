@@ -43,55 +43,7 @@ def main():
     if len(sys.argv) != 2:
         sys.exit("Usage: python heredity.py data.csv")
     people = load_data(sys.argv[1])
-
-    # Keep track of gene and trait probabilities for each person
-    probabilities = {
-        person: {
-            "gene": {
-                2: 0,
-                1: 0,
-                0: 0
-            },
-            "trait": {
-                True: 0,
-                False: 0
-            }
-        }
-        for person in people
-    }
-
-    # Loop over all sets of people who might have the trait
-    names = set(people)
-    for have_trait in powerset(names):
-
-        # Check if current set of people violates known information
-        fails_evidence = any(
-            (people[person]["trait"] is not None and
-             people[person]["trait"] != (person in have_trait))
-            for person in names
-        )
-        if fails_evidence:
-            continue
-
-        # Loop over all sets of people who might have the gene
-        for one_gene in powerset(names):
-            for two_genes in powerset(names - one_gene):
-
-                # Update probabilities with new joint probability
-                p = joint_probability(people, one_gene, two_genes, have_trait)
-                update(probabilities, one_gene, two_genes, have_trait, p)
-
-    # Ensure probabilities sum to 1
-    normalize(probabilities)
-
-    # Print results
-    for person in people:
-        print(f"{person}:")
-        for field in probabilities[person]:
-            print(f"  {field.capitalize()}:")
-            for value in probabilities[person][field]:
-                p = probabilities[person][field][value]
-                print(f"    {value}: {p:.4f}")
+    print(people)
 
 
 def load_data(filename):
@@ -114,86 +66,6 @@ def load_data(filename):
                           False if row["trait"] == "0" else None)
             }
     return data
-
-
-def powerset(s):
-    """
-    Return a list of all possible subsets of set s.
-    """
-    s = list(s)
-    return [
-        set(s) for s in itertools.chain.from_iterable(
-            itertools.combinations(s, r) for r in range(len(s) + 1)
-        )
-    ]
-
-
-def joint_probability(people, one_gene, two_genes, have_trait):
-    """
-    Compute and return a joint probability.
-
-    The probability returned should be the probability that
-        * everyone in set `one_gene` has one copy of the gene, and
-        * everyone in set `two_genes` has two copies of the gene, and
-        * everyone not in `one_gene` or `two_gene` does not have the gene, and
-        * everyone in set `have_trait` has the trait, and
-        * everyone not in set` have_trait` does not have the trait.
-    """
-    probability = 1
-
-    for person in person:
-        mother = people[person]['mother']
-        father = people[person]['father']
-
-        if person in two_genes:
-            genes = 2
-        elif person in one_gene:
-            genes = 1
-        else:
-            genes = 0
-
-        if person in have_trait:
-            trait = True
-        else:
-            trait = False
-
-        if mother is None and father is None:
-            probablity *= PROBS['gene'][genes]
-        else:
-            if genes == 2:
-                prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
-                prob_father = get_gene_probability(father, True, one_gene, two_genes)
-                probability *= prob_mother * prob_father
-            elif genes == 1:
-                prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
-                prob_father = get_gene_probability(father, False, one_gene, two_genes)
-                probability *= prob_mother * prob_father + (1 - prob_mother) * (1 - prob_father)
-            else:
-                prob_mother = get_gene_probability(mother, False, one_gene, two_genes)
-                prob_father = get_gene_probability(father, False, one_gene, two_genes)
-                probability *= prob_mother * prob_father
-
-        probability *= PROBS['trait'][genes][trait]
-
-    return probability
-
-
-def update(probabilities, one_gene, two_genes, have_trait, p):
-    """
-    Add to `probabilities` a new joint probability `p`.
-    Each person should have their "gene" and "trait" distributions updated.
-    Which value for each distribution is updated depends on whether
-    the person is in `have_gene` and `have_trait`, respectively.
-    """
-    raise NotImplementedError
-
-
-def normalize(probabilities):
-    """
-    Update `probabilities` such that each probability distribution
-    is normalized (i.e., sums to 1, with relative proportions the same).
-    """
-    raise NotImplementedError
 
 
 if __name__ == "__main__":
