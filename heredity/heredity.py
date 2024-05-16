@@ -80,7 +80,7 @@ def main():
 
                 # Update probabilities with new joint probability
                 p = joint_probability(people, one_gene, two_genes, have_trait)
-                print(p)
+                update(probabilities, one_gene, two_genes, have_trait, p)
 
 
 
@@ -149,12 +149,63 @@ def joint_probability(people, one_gene, two_genes, have_trait):
 
         if mother is None and father is None:
             probability *= PROBS['gene'][genes]
-
+        else:
+            if genes == 2:
+                prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
+                prob_father = get_gene_probability(father, True, one_gene, two_genes)
+                probability *= prob_mother * prob_father
+            elif genes == 1:
+                prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
+                prob_father = get_gene_probability(father, False, one_gene, two_genes)
+                probability *= prob_mother * prob_father + (1 - prob_mother) * (1 - prob_father)
+            else:
+                prob_mother = get_gene_probability(mother, False, one_gene, two_genes)
+                prob_father = get_gene_probability(father, False, one_gene, two_genes)
+                probability *= prob_mother * prob_father
 
         probability *= PROBS['trait'][genes][trait]
 
     return probability
 
 
+def get_gene_probability(parent, has_gene, one_gene, two_genes):
+    """
+    Helper function to get the probability of passing the gene from parent to child.
+    """
+    if parent in two_genes:
+        if has_gene:
+            return 1 - PROBS['mutation']
+        else:
+            return PROBS['mutation']
+    elif parent in one_gene:
+        return 0.5
+    else:
+        if has_gene:
+            return PROBS['mutation']
+        else:
+            return 1 - PROBS['mutation']
+
+
+def update(probabilities, one_gene, two_genes, have_trait, p):
+    """
+    Add to `probabilities` a new joint probability `p`.
+    Each person should have their "gene" and "trait" distributions updated.
+    Which value for each distribution is updated depends on whether
+    the person is in `have_gene` and `have_trait`, respectively.
+    """
+    for person in probabilities:
+        if person in one_gene:
+            probabilities[person]["gene"][1] += p
+        elif person in two_genes:
+            probabilities[person]["gene"][2] += p
+        else:
+            probabilities[person]["gene"][0] += p
+
+        if person in have_trait:
+            probabilities[person]["trait"][True] += p
+        else:
+            probabilities[person]["trait"][False] += p
+
+            
 if __name__ == "__main__":
     main()
