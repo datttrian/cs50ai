@@ -113,7 +113,17 @@ class CrosswordCreator():
         Return True if a revision was made to the domain of `x`; return
         False if no revision was made.
         """
-        raise NotImplementedError
+        revised = False
+        overlap = self.crossword.overlaps[x, y]
+        if overlap is None:
+            return revised
+
+        i, j = overlap
+        for x_word in set(self.domains[x]):
+            if not any(x_word[i] == y_word[j] for y_word in self.domains[y]):
+                self.domains[x].remove(x_word)
+                revised = True
+        return revised
 
     def ac3(self, arcs=None):
         """
@@ -124,21 +134,37 @@ class CrosswordCreator():
         Return True if arc consistency is enforced and no domains are empty;
         return False if one or more domains end up empty.
         """
-        raise NotImplementedError
+        queue = arcs if arcs else [(x, y) for x in self.domains for y in self.crossword.neighbors(x)]
+        while queue:
+            (x, y) = queue.pop(0)
+            if self.revise(x, y):
+                if len(self.domains[x]) == 0:
+                    return False
+                for z in self.crossword.neighbors(x) - {y}:
+                    queue.append((z, x))
+        return True
 
     def assignment_complete(self, assignment):
         """
         Return True if `assignment` is complete (i.e., assigns a value to each
         crossword variable); return False otherwise.
         """
-        raise NotImplementedError
+        return set(assignment.keys()) == set(self.crossword.variables)
 
     def consistent(self, assignment):
         """
         Return True if `assignment` is consistent (i.e., words fit in crossword
         puzzle without conflicting characters); return False otherwise.
         """
-        raise NotImplementedError
+        for var, word in assignment.items():
+            if var.length != len(word):
+                return False
+            for neighbor in self.crossword.neighbors(var):
+                if neighbor in assignment:
+                    i, j = self.crossword.overlaps[var, neighbor]
+                    if word[i] != assignment[neighbor][j]:
+                        return False
+        return len(set(assignment.values())) == len(assignment.values())
 
     def order_domain_values(self, var, assignment):
         """
