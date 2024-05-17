@@ -1,5 +1,3 @@
-<span id="parser" data-id="" style="top: -58px;"></span>
-
 # <a href="#parser" data-id="">Parser</a>
 
 The latest version of Python you should use in this course is Python
