@@ -1,4 +1,4 @@
-# <a href="#parser" data-id="">Parser</a>
+# [Parser](#parser)
 
 The latest version of Python you should use in this course is Python
 3.11, as newer versions of Python are not yet fully compatible with some
@@ -21,25 +21,19 @@ Noun Phrase Chunks
 holmes
 ```
 
-<span id="when-to-do-it" data-id="" style="top: -58px;"></span>
-
-## <a href="#when-to-do-it" data-id="">When to Do It</a>
+## [When to Do It](#when-to-do-it)
 
 By <a href="https://time.cs50.io/20241231T235900-0500"
 data-local="2024-12-31T23:59:00-05:00">Tuesday, December 31, 2024 at
 11:59 PM EST</a>
 
-<span id="how-to-get-help" data-id="" style="top: -58px;"></span>
+## [How to Get Help](#how-to-get-help)
 
-## <a href="#how-to-get-help" data-id="">How to Get Help</a>
-
-1.  Ask questions via [Ed](https://cs50.edx.org/ed)!
-2.  Ask questions via any of CS50’s
+1. Ask questions via [Ed](https://cs50.edx.org/ed)!
+2. Ask questions via any of CS50’s
     [communities](https://cs50.harvard.edu/ai/2024/communities/)!
 
-<span id="background" data-id="" style="top: -58px;"></span>
-
-## <a href="#background" data-id="">Background</a>
+## [Background](#background)
 
 A common task in natural language processing is parsing, the process of
 determining the structure of a sentence. This is useful for a number of
@@ -81,19 +75,15 @@ need to modify our `S -> N V` rule to allow for noun phrases (`NP`s) as
 the subject of our sentence. See how? And to account for more complex
 types of noun phrases, we may need to modify our grammar even further.
 
-<span id="getting-started" data-id="" style="top: -58px;"></span>
+## [Getting Started](#getting-started)
 
-## <a href="#getting-started" data-id="">Getting Started</a>
-
--   <span class="fa-li"></span>Download the distribution code from
+- Download the distribution code from
     <https://cdn.cs50.net/ai/2023/x/projects/6/parser.zip> and unzip it.
--   <span class="fa-li"></span>Inside of the `parser` directory, run
+- Inside of the `parser` directory, run
     `pip3 install -r requirements.txt` to install this project’s
     dependency: `nltk` for natural language processing.
 
-<span id="understanding" data-id="" style="top: -58px;"></span>
-
-## <a href="#understanding" data-id="">Understanding</a>
+## [Understanding](#understanding)
 
 First, look at the text files in the `sentences` directory. Each file
 contains an English sentence. Your goal in this problem is to write a
@@ -125,59 +115,57 @@ Specification) are printed as well (via the `np_chunk` function).
 In addition to writing context-free grammar rules for parsing these
 sentences, the `preprocess` and `np_chunk` functions are left up to you!
 
-<span id="specification" data-id="" style="top: -58px;"></span>
-
-## <a href="#specification" data-id="">Specification</a>
+## [Specification](#specification)
 
 Complete the implementation of `preprocess` and `np_chunk`, and complete
 the context-free grammar rules defined in `NONTERMINALS`.
 
--   <span class="fa-li"></span>The `preprocess` function should accept a
+- The `preprocess` function should accept a
     `sentence` as input and return a lowercased list of its words.
-    -   <span class="fa-li"></span>You may assume that `sentence` will
+  - You may assume that `sentence` will
         be a string.
-    -   <span class="fa-li"></span>You should use `nltk`’s
+  - You should use `nltk`’s
         [`word_tokenize`](https://www.nltk.org/api/nltk.tokenize.html#nltk.tokenize.punkt.PunktLanguageVars.word_tokenize)
         function to perform tokenization.
-    -   <span class="fa-li"></span>Your function should return a list of
+  - Your function should return a list of
         words, where each word is a lowercased string.
-    -   <span class="fa-li"></span>Any word that doesn’t contain at
+  - Any word that doesn’t contain at
         least one alphabetic character (e.g. `.` or `28`) should be
         excluded from the returned list.
--   <span class="fa-li"></span>The `NONTERMINALS` global variable should
+- The `NONTERMINALS` global variable should
     be replaced with a set of context-free grammar rules that, when
     combined with the rules in `TERMINALS`, allow the parsing of all
     sentences in the `sentences/` directory.
-    -   <span class="fa-li"></span>Each rules must be on its own line.
+  - Each rules must be on its own line.
         Each rule must include the `->` characters to denote which
         symbol is being replaced, and may optionally include `|` symbols
         if there are multiple ways to rewrite a symbol.
-    -   <span class="fa-li"></span>You do not need to keep the existing
+  - You do not need to keep the existing
         rule `S -> N V` in your solution, but your first rule must begin
         with `S ->` since `S` (representing a sentence) is the starting
         symbol.
-    -   <span class="fa-li"></span>You may add as many nonterminal
+  - You may add as many nonterminal
         symbols as you would like.
-    -   <span class="fa-li"></span>Use the nonterminal symbol `NP` to
+  - Use the nonterminal symbol `NP` to
         represent a “noun phrase”, such as the subject of a sentence.
--   <span class="fa-li"></span>The `np_chunk` function should accept a
+- The `np_chunk` function should accept a
     `tree` representing the syntax of a sentence, and return a list of
     all of the noun phrase chunks in that sentence.
-    -   <span class="fa-li"></span>For this problem, a “noun phrase
+  - For this problem, a “noun phrase
         chunk” is defined as a noun phrase that doesn’t contain other
         noun phrases within it. Put more formally, a noun phrase chunk
         is a subtree of the original tree whose label is `NP` and that
         does not itself contain other noun phrases as subtrees.
-        -   <span class="fa-li"></span>For example, if `"the home"` is a
+    - For example, if `"the home"` is a
             noun phrase chunk, then `"the armchair in the home"` is not
             a noun phrase chunk, because the latter contains the former
             as a subtree.
-    -   <span class="fa-li"></span>You may assume that the input will be
+  - You may assume that the input will be
         a `nltk.tree` object whose label is `S` (that is to say, the
         input will be a tree representing a sentence).
-    -   <span class="fa-li"></span>Your function should return a list of
+  - Your function should return a list of
         `nltk.tree` objects, where each element has the label `NP`.
-    -   <span class="fa-li"></span>You will likely find the
+  - You will likely find the
         documentation for
         [`nltk.tree`](https://www.nltk.org/_modules/nltk/tree.html)
         helpful for identifying how to manipulate a `nltk.tree` object.
@@ -188,25 +176,23 @@ write additional functions and/or import other Python standard library
 modules. You will need to modify the definition of `NONTERMINALS`, but
 you should not modify the definition of `TERMINALS`.
 
-<span id="hints" data-id="" style="top: -58px;"></span>
+## [Hints](#hints)
 
-## <a href="#hints" data-id="">Hints</a>
-
--   <span class="fa-li"></span>It’s to be expected that your parser may
+- It’s to be expected that your parser may
     generate some sentences that you believe are not syntactically or
     semantically well-formed. You need not worry, therefore, if your
     parser allows for parsing meaningless sentences like
     `"His Thursday chuckled in a paint."`
-    -   <span class="fa-li"></span>That said, you should avoid
+  - That said, you should avoid
         over-generation of sentences where possible. For example, your
         parser should definitely not accept sentences like
         `"Armchair on the sat Holmes."`
-    -   <span class="fa-li"></span>You should also avoid
+  - You should also avoid
         under-generation of sentences. A rule like
         `S -> N V Det Adj Adj Adj N P Det N P Det N` would technically
         successfully generate sentence 10, but not in a way that is
         particularly useful or generalizable.
-    -   <span class="fa-li"></span>The rules in the lecture source code
+  - The rules in the lecture source code
         are (intentionally) a very simplified rule set, and as a result
         may suffer from over-generation. You can (and should) make
         modifications to those rules to try to be as general as possible
@@ -215,22 +201,20 @@ you should not modify the definition of `TERMINALS`.
         armchair.” (and “Holmes sat in the red armchair.” and “Holmes
         sat in the little red armchair.”), but have it *not* accept the
         sentence “Holmes sat in the the armchair.”
--   <span class="fa-li"></span>It’s to be expected that your parser may
+- It’s to be expected that your parser may
     generate multiple ways to parse a sentence. English grammar is
     inherently ambiguous!
--   <span class="fa-li"></span>Within the
+- Within the
     [`nltk.tree`](https://www.nltk.org/_modules/nltk/tree.html)
     documentation, you may find the `label` and `subtrees` functions
     particularly useful.
--   <span class="fa-li"></span>To focus on testing your parser before
+- To focus on testing your parser before
     working on noun phrase chunking, it may be helpful to temporarily
     have `np_chunk` simply return an empty list `[]`, so that your
     program can operate without noun phrase chunking while you test the
     other parts of your program.
 
-<span id="testing" data-id="" style="top: -58px;"></span>
-
-## <a href="#testing" data-id="">Testing</a>
+## [Testing](#testing)
 
 If you’d like, you can execute the below (after [setting up
 `check50`](https://cs50.readthedocs.io/projects/check50/en/latest/index.html)
@@ -260,9 +244,7 @@ trivialize some of these projects, but that’s not the goal here; you’re
 learning things at a lower level. If we don’t say here that you can use
 them, you can’t use them.
 
-<span id="how-to-submit" data-id="" style="top: -58px;"></span>
-
-## <a href="#how-to-submit" data-id="">How to Submit</a>
+## [How to Submit](#how-to-submit)
 
 Beginning
 <a href="https://time.cs50.io/20240101T000000-0500" class="alert-link"
@@ -275,16 +257,16 @@ scores. We apologize for the inconvenience, but hope you feel that
 access to `check50`, which is new for 2024, is a worthwhile trade-off
 for it, here!
 
-1.  Visit [this
+1. Visit [this
     link](https://submit.cs50.io/invites/d03c31aef1984c29b5e7b268c3a87b7b),
     log in with your GitHub account, and click **Authorize cs50**. Then,
     check the box indicating that you’d like to grant course staff
     access to your submissions, and click **Join course**.
 
-2.  [Install Git](https://git-scm.com/downloads) and, optionally,
+2. [Install Git](https://git-scm.com/downloads) and, optionally,
     [install `submit50`](https://cs50.readthedocs.io/submit50/).
 
-3.  If you’ve installed `submit50`, execute
+3. If you’ve installed `submit50`, execute
 
     ``` highlight
     submit50 ai50/projects/2024/x/parser
