@@ -130,7 +130,7 @@ the state when getting or setting values in `self.q`.
 For example, if we wanted to set the Q-value of the state `[0, 0, 0, 2]`
 and the action `(3, 2)` to `-1`, we would write something like
 
-``` highlight
+``` python
 self.q[(0, 0, 0, 2), (3, 2)] = -1
 ```
 
