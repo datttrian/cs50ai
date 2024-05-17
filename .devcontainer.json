@@ -218,7 +218,7 @@
     8082,
     8787
   ],
-  "image": "mcr.microsoft.com/devcontainers/python:1-3.12-bullseye",
+  "image": "ghcr.io/cs50/codespace:b1e9ab788bb9b537cbe45e9d93ab8f41eba4c041",
   "mounts": [
     {
       "source": "/var/run/docker.sock",
