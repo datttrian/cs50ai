@@ -84,3 +84,28 @@ class CrosswordCreator:
                         )
 
         img.save(filename)
+
+    def solve(self):
+        """
+        Enforce node and arc consistency, and then solve the CSP.
+        """
+        self.enforce_node_consistency()
+        self.ac3()
+        return self.backtrack(dict())
+
+    def enforce_node_consistency(self):
+        """
+        Update `self.domains` such that each variable is node-consistent.
+        (Remove any values that are inconsistent with a variable's unary
+         constraints; in this case, the length of the word.)
+        """
+        for var in self.domains:
+            for word in set(self.domains[var]):
+                if len(word) != var.length:
+                    self.domains[var].remove(word)
+
+    def revise(self, x, y):
+        """
+        Make variable `x` arc consistent with variable `y`.
+        To do so, remove values from `self.domains[x]` for which
+
