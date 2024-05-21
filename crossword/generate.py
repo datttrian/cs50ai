@@ -111,4 +111,6 @@ class CrosswordCreator:
         possible corresponding value for `y` in `self.domains[y]`.
 
         Return True if a revision was made to the domain of `x`; return
-        False if 
+        False if no revision was made.
+        """
+        return False
