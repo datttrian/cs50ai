@@ -46,7 +46,7 @@ class CrosswordCreator:
 
     def save(self, assignment, filename):
         """
-        Save crossword assignment to image file.
+        Save crossword assignment to an image file.
         """
         from PIL import Image, ImageDraw, ImageFont
         cell_size = 100
@@ -59,7 +59,7 @@ class CrosswordCreator:
             "RGBA",
             (self.crossword.width * cell_size,
              self.crossword.height * cell_size),
-             "black"
+            "black"
         )
         font = ImageFont.truetype("assets/fonts/OpenSans-Regular.ttf", 80)
         draw = ImageDraw.Draw(img)
@@ -70,13 +70,17 @@ class CrosswordCreator:
                 rect = [
                     (j * cell_size + cell_border,
                      i * cell_size + cell_border),
-                     ((j + 1) * cell_size - cell_border,
-                      (i + 1) * cell_size - cell_border)
+                    ((j + 1) * cell_size - cell_border,
+                     (i + 1) * cell_size - cell_border)
                 ]
                 if self.crossword.structure[i][j]:
                     draw.rectangle(rect, fill="white")
                     if letters[i][j]:
-                        _, _, w, h = draw.textbook((0, 0), letters[i][j], font = font)
+                        _, _, w, h = draw.textbbox((0, 0), letters[i][j], font=font)
                         draw.text(
-                            (rect[0][0] + ((interior_size - w)))
+                            (rect[0][0] + ((interior_size - w) / 2),
+                             rect[0][1] + ((interior_size - h) / 2) - 10),
+                            letters[i][j], fill="black", font=font
                         )
+
+        img.save(filename)
