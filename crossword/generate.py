@@ -108,5 +108,7 @@ class CrosswordCreator:
         """
         Make variable `x` arc consistent with variable `y`.
         To do so, remove values from `self.domains[x]` for which there is no
-        poss
+        possible corresponding value for `y` in `self.domains[y]`.
 
+        Return True if a revision was made to the domain of `x`; return
+        False if 
