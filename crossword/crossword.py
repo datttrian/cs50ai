@@ -63,7 +63,7 @@ class Crossword():
 
         # Determine variable set
         self.variables = set()
-        for i in rage(self.height):
+        for i in range(self.height):
             for j in range(self.width):
 
                 # Vertical words
@@ -78,19 +78,19 @@ class Crossword():
                             length += 1
                         else:
                             break
-                        if length > 1:
-                            self.variables.add(Variable(
-                                i=i, j=j,
-                                direction=Variable.DOWN,
-                                length=length
-                            ))
+                    if length > 1:
+                        self.variables.add(Variable(
+                            i=i, j=j,
+                            direction=Variable.DOWN,
+                            length=length
+                        ))
 
                 # Horizontal words
                 starts_word = (
                     self.structure[i][j]
                     and (j == 0 or not self.structure[i][j - 1])
                 )
-                if start_word:
+                if starts_word:
                     length = 1
                     for k in range(j + 1, self.width):
                         if self.structure[i][k]:
@@ -106,8 +106,8 @@ class Crossword():
 
         # Compute overlaps for each word
         # For any pair of variables v1, v2, their overlap is either:
-        #   None, if the two variables do not overlap; or
-        #   (i, j), where v1's ith character overlaps v2's jth character
+        #    None, if the two variables do not overlap; or
+        #    (i, j), where v1's ith character overlaps v2's jth character
         self.overlaps = dict()
         for v1 in self.variables:
             for v2 in self.variables:
@@ -125,9 +125,9 @@ class Crossword():
                         cells2.index(intersection)
                     )
 
-    def neightbors(self, var):
+    def neighbors(self, var):
         """Given a variable, return set of overlapping variables."""
         return set(
             v for v in self.variables
-            if v!= var and self.overlaps[v, var]
+            if v != var and self.overlaps[v, var]
         )
