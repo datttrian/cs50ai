@@ -33,3 +33,23 @@ class Variable():
     def __repr__(self):
         direction = repr(self.direction)
         return f"Variable({self.i}, {self.j}, {direction}, {self.length})"
+
+
+class Crossword:
+
+    def __init__(self, structure_file, words_file):
+
+        # Determine structure of crossword
+        with open(structure_file) as f:
+            contents = f.read().splitlines()
+            self.height = len(contents)
+            self.width = max(len(line) for line in contents)
+
+            self.structure = []
+            for i in range(self.height):
+                row = []
+                for j in range(self.width):
+                    if j >= len(contents[i]):
+                        row.append(False)
+                    elif contents[i][j] == "_":
+                        row.append(True)
