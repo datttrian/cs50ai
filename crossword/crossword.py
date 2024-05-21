@@ -53,3 +53,11 @@ class Crossword:
                         row.append(False)
                     elif contents[i][j] == "_":
                         row.append(True)
+                    else:
+                        row.append(False)
+                self.structure.append(row)
+
+        # Save vocabulary list
+        with open(words_file) as f:
+            self.words = set(f.read().upper().splitlines())
+
