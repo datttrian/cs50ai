@@ -61,7 +61,7 @@ class CrosswordCreator:
              self.crossword.height * cell_size),
             "black"
         )
-        font = ImageFont.truetype("assets/fonts/OpenSans-Regular.ttf", 80)
+        font = ImageFont.truetype("crossword/assets/fonts/OpenSans-Regular.ttf", 80)
         draw = ImageDraw.Draw(img)
 
         for i in range(self.crossword.height):
