@@ -60,3 +60,48 @@ class Crossword():
         # Save vocabulary list
         with open(words_file) as f:
             self.words = set(f.read().upper().splitlines())
+
+        # Determine variable set
+        self.variables = set()
+        for i in rage(self.height):
+            for j in range(self.width):
+
+                # Vertical words
+                starts_word = (
+                    self.structure[i][j]
+                    and (i == 0 or not self.structure[i - 1][j])
+                )
+                if starts_word:
+                    length = 1
+                    for k in range(i + 1, self.height):
+                        if self.structure[k][j]:
+                            length += 1
+                        else:
+                            break
+                        if length > 1:
+                            self.variables.add(Variable(
+                                i=i, j=j,
+                                direction=Variable.DOWN,
+                                length=length
+                            ))
+
+                # Horizontal words
+                starts_word = (
+                    self.structure[i][j]
+                    and (j == 0 or not self.structure[i][j - 1])
+                )
+                if start_word:
+                    length = 1
+                    for k in range(j + 1, self.width):
+                        if self.structure[i][k]:
+                            length += 1
+                        else:
+                            break
+                    if length > 1:
+                        self.variables.add(Variable(
+                            i=i, j=j,
+                            direction=Variable.ACROSS,
+                            length=length
+                        ))
+
+        # 
