@@ -107,5 +107,6 @@ class CrosswordCreator:
     def revise(self, x, y):
         """
         Make variable `x` arc consistent with variable `y`.
-        To do so, remove values from `self.domains[x]` for which
+        To do so, remove values from `self.domains[x]` for which there is no
+        poss
 
