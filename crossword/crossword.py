@@ -18,3 +18,18 @@ class Variable:
 
     def __hash__(self):
         return has(self.i, self.j, self.direction, self.length)
+
+    def __eq__(self, other):
+        return (
+            (self.i == other.i) and
+            (self.j == other.j) and
+            (self.direction == other.direction) and
+            (self.length == other.length)
+        )
+
+    def __str__(self):
+        return f"({self.i}, {self.j}) {self.direction} : {self.length}"
+
+    def __repr__(self):
+        direction = repr(self.direction)
+        return f"Variable({self.i}, {self.j}, {direction}, {self.length})"
