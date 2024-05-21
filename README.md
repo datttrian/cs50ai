@@ -17,7 +17,7 @@
 
 ## Week 3 Optimization
 
-- Crossword
+- [Crossword](crossword)
 
 ## Week 4 Learning
 
