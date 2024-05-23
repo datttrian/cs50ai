@@ -101,8 +101,7 @@ class NimAI():
         Return the Q-value for the state `state` and the action `action`.
         If no Q-value exists yet in `self.q`, return 0.
         """
-        key = (tuple(state), action)
-        return self.q.get(key, 0)
+        raise NotImplementedError
 
     def update_q_value(self, state, action, old_q, reward, future_rewards):
         """
@@ -119,11 +118,7 @@ class NimAI():
         `alpha` is the learning rate, and `new value estimate`
         is the sum of the current reward and estimated future rewards.
         """
-        key = (tuple(state), action)
-
-        new_q_value = old_q + self.alpha * ((reward + future_rewards) - old_q)
-
-        self.q[key] = new_q_value
+        raise NotImplementedError
 
     def best_future_reward(self, state):
         """
@@ -135,20 +130,7 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        possible_actions = Nim.available_actions(state)
-
-        if not possible_actions:
-            return 0
-
-        max_value = -float('inf')
-
-        for action in possible_actions:
-            q_value = self.get_q_value(state, action)
-
-            if q_value > max_value:
-                max_value = q_value
-
-        return max_value
+        raise NotImplementedError
 
     def choose_action(self, state, epsilon=True):
         """
@@ -165,25 +147,7 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        possible_actions = Nim.available_actions(state)
-
-        if not possible_actions:
-            return None
-
-        if epsilon and random.uniform(0, 1) < self.epsilon:
-            return random.choice(list(possible_actions))
-
-        q_values = {}
-
-        for action in possible_actions:
-
-            q_value = self.get_q_value(state, action)
-
-            q_values[action] = q_value
-
-        best_action = max(q_values, key=q_values.get)
-
-        return best_action
+        raise NotImplementedError
 
 
 def train(n):
