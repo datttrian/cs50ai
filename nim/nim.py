@@ -185,6 +185,7 @@ class NimAI():
 
         return best_action
 
+
 def train(n):
     """
     Train an AI by playing `n` games against itself.
