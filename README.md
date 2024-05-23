@@ -21,7 +21,7 @@
 
 ## Week 4 Learning
 
-- Shopping
+- [Shopping](shopping)
 - Nim
 
 ## Week 5 Neural Networks
