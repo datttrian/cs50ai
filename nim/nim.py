@@ -173,7 +173,7 @@ class NimAI():
         if epsilon and random.uniform(0, 1) < self.epsilon:
             return random.choice(list(possible_actions))
 
-        q_value = {}
+        q_values = {}
 
         for action in possible_actions:
 
