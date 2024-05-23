@@ -6,6 +6,10 @@ from sklearn.neighbors import KNeighborsClassifier
 
 TEST_SIZE = 0.4
 
+MONTHS = {
+    "Jan": 0, "Feb": 1, "Mar": 2, "Apr": 3, "May": 4, "June": 5, "Jul": 6, "Aug": 7, "Sep": 8, "Oct": 9, "Nov": 10, "Dec": 11
+}
+
 
 def main():
 
