@@ -91,3 +91,14 @@ for action in actions:
             break
     except Exception as e:
         print("Error:", e)
+
+
+# Instantiate the game
+game = Nim()
+
+# Print the initial state
+print("Initial Piles:", game.piles)
+
+# Get available actions
+actions = Nim.available_actions(game.piles)
+print("Available Actions:", actions)
