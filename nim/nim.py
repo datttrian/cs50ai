@@ -238,3 +238,4 @@ def train(n):
     return player
 
 
+ai = train(10)
