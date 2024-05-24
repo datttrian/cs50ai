@@ -102,3 +102,14 @@ print("Initial Piles:", game.piles)
 # Get available actions
 actions = Nim.available_actions(game.piles)
 print("Available Actions:", actions)
+
+
+# Instantiate the game
+game = Nim()
+
+# Print the current player
+print("Current Player:", game.player)
+
+# Get the other player
+other = Nim.other_player(game.player)
+print("Other Player:", other)
