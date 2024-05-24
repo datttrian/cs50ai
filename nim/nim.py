@@ -182,9 +182,6 @@ class NimAI():
 # Initialize the game
 game = Nim()
 
-# Initialize the AI
-ai = NimAI()
-
 # Print the initial state
 print("Initial state:", game.piles)
 
@@ -201,6 +198,9 @@ for action in actions:
 # Reset the game
 print()
 game = Nim()
+
+# Initialize the AI
+ai = NimAI()
 
 # Perform actions using the AI
 while game.winner is None:
