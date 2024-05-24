@@ -179,35 +179,62 @@ class NimAI():
             return best_action if best_action is not None else random.choice(available_actions)
 
 
-# Initialize the game
-game = Nim()
+def train(n):
+    """
+    Train an AI by playing `n` games against itself.
+    """
 
-# Print the initial state
-print("Initial state:", game.piles)
+    player = NimAI()
 
-# Perform some actions manually
-actions = [(0, 1), (1, 1), (2, 3), (3, 7)]
-for action in actions:
-    print(f"Player {game.player} performs action: {action}")
-    game.move(action)
-    print("Current state:", game.piles)
-    if game.winner is not None:
-        print(f"Player {game.winner} wins!")
-        break
+    # Play n games
+    for i in range(n):
+        print(f"Playing training game {i + 1}")
+        game = Nim()
 
-# Reset the game
-print()
-game = Nim()
+        # Keep track of last move made by either player
+        last = {
+            0: {"state": None, "action": None},
+            1: {"state": None, "action": None}
+        }
 
-# Initialize the AI
-ai = NimAI()
+        # Game loop
+        while True:
 
-# Perform actions using the AI
-while game.winner is None:
-    state = game.piles.copy()
-    action = ai.choose_action(state, epsilon=False)
-    print(f"Player {game.player} (AI) performs action: {action}")
-    game.move(action)
-    print("Current state:", game.piles)
-    if game.winner is not None:
-        print(f"Player {game.winner} wins!")
+            # Keep track of current state and action
+            state = game.piles.copy()
+            action = player.choose_action(game.piles)
+
+            # Keep track of last state and action
+            last[game.player]["state"] = state
+            last[game.player]["action"] = action
+
+            # Make move
+            game.move(action)
+            new_state = game.piles.copy()
+
+            # When game is over, update Q values with rewards
+            if game.winner is not None:
+                player.update(state, action, new_state, -1)
+                player.update(
+                    last[game.player]["state"],
+                    last[game.player]["action"],
+                    new_state,
+                    1
+                )
+                break
+
+            # If game is continuing, no rewards yet
+            elif last[game.player]["state"] is not None:
+                player.update(
+                    last[game.player]["state"],
+                    last[game.player]["action"],
+                    new_state,
+                    0
+                )
+
+    print("Done training")
+
+    # Return the trained AI
+    return player
+
+
