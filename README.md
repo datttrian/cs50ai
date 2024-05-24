@@ -22,7 +22,7 @@
 ## Week 4 Learning
 
 - [Shopping](shopping)
-- Nim
+- [Nim](nim)
 
 ## Week 5 Neural Networks
 
