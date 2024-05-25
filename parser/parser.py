@@ -1,5 +1,9 @@
 import nltk
 import sys
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk import CFG
+from nltk.tree import Tree
 
 TERMINALS = """
 Adj -> "country" | "dreadful" | "enigmatical" | "little" | "moist" | "red"
