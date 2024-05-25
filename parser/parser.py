@@ -62,8 +62,8 @@ def preprocess(sentence):
     and removing any word that does not contain at least one alphabetic
     character.
     """
-    words = word_tokenize(sentence.lower())
-    return [word for word in words if any(char.isalpha() for char in word)]
+    words = word_tokenize(sentence)
+    return [word.lower() for word in words if any(char.isalpha() for char in word)]
 
 
 def np_chunk(tree):
