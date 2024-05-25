@@ -1,6 +1,8 @@
 import nltk
 import sys
+from nltk.tree import Tree
 
+# Define TERMINALS and NONTERMINALS for the context-free grammar
 TERMINALS = """
 Adj -> "country" | "dreadful" | "enigmatical" | "little" | "moist" | "red"
 Adv -> "down" | "here" | "never"
@@ -15,12 +17,15 @@ V -> "smiled" | "tell" | "were"
 """
 
 NONTERMINALS = """
-S -> N V
+S -> NP VP | S Conj S
+NP -> Det N | Det AdjP N | N | AdjP N | NP PP
+VP -> V | V NP | V PP | V NP PP
+AdjP -> Adj | Adj AdjP
+PP -> P NP
 """
 
 grammar = nltk.CFG.fromstring(NONTERMINALS + TERMINALS)
 parser = nltk.ChartParser(grammar)
-
 
 def main():
 
@@ -54,7 +59,6 @@ def main():
         for np in np_chunk(tree):
             print(" ".join(np.flatten()))
 
-
 def preprocess(sentence):
     """
     Convert `sentence` to a list of its words.
@@ -62,8 +66,8 @@ def preprocess(sentence):
     and removing any word that does not contain at least one alphabetic
     character.
     """
-    raise NotImplementedError
-
+    words = nltk.word_tokenize(sentence.lower())
+    return [word for word in words if any(char.isalpha() for char in word)]
 
 def np_chunk(tree):
     """
@@ -72,8 +76,13 @@ def np_chunk(tree):
     whose label is "NP" that does not itself contain any other
     noun phrases as subtrees.
     """
-    raise NotImplementedError
-
+    np_chunks = []
+    for subtree in tree.subtrees():
+        if subtree.label() == 'NP':
+            # Check if there are no nested NP subtrees
+            if not any(child.label() == 'NP' for child in subtree):
+                np_chunks.append(subtree)
+    return np_chunks
 
 if __name__ == "__main__":
     main()
