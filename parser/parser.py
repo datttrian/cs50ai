@@ -62,8 +62,9 @@ def preprocess(sentence):
     and removing any word that does not contain at least one alphabetic
     character.
     """
-    words = word_tokenize(sentence)
-    return [word.lower() for word in words if any(char.isalpha() for char in word)]
+    tokens = word_tokenize(sentence)
+    words = [word.lower() for word in tokens if any(c.isalpha() for c in word)]
+    return words
 
 
 def np_chunk(tree):
@@ -75,8 +76,10 @@ def np_chunk(tree):
     """
     noun_phrases = []
     for subtree in tree.subtrees():
-        if subtree.label() == "NP" and not any(child.label() == "NP" for child in subtree):
-            noun_phrases.append(subtree)
+        if subtree.label() == "NP":
+            # Check if the subtree contains any other NP subtrees
+            if not any(child.label() == "NP" for child in subtree):
+                noun_phrases.append(subtree)
     return noun_phrases
 
 
