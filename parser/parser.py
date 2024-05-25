@@ -78,8 +78,10 @@ def np_chunk(tree):
     """
     np_chunks = []
     for subtree in tree.subtrees():
-        if subtree.label() == 'NP' and not any(child.label() == 'NP' for child in subtree):
-            np_chunks.append(subtree)
+        if subtree.label() == 'NP':
+            # Check if there are no nested NP subtrees
+            if not any(child.label() == 'NP' for child in subtree):
+                np_chunks.append(subtree)
     return np_chunks
 
 if __name__ == "__main__":
