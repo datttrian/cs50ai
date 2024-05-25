@@ -109,7 +109,7 @@ of language. For example, below is the attention diagram for Layer 3,
 Head 10 when processing the sentence “Then I picked up a \[MASK\] from
 the table.”
 
-![Attention Layer 3, Head 10](../images/attention_3_10_1.png)
+![Attention Layer 3, Head 10](https://cs50.harvard.edu/ai/2024/projects/6/images/attention_3_10_1.png)
 
 Recall that lighter colors represent higher attention weight and darker
 colors represent lower attention weight. In this case, this attention
@@ -138,19 +138,19 @@ heads to see if the language model seems to notice that “slowly” is an
 adverb modifying the word “moved”. Looking at the resulting attention
 diagrams, one that might catch your eye is Layer 4, Head 11.
 
-![Attention Layer 4, Head 11](../images/attention_4_11_1.png)
+![Attention Layer 4, Head 11](https://cs50.harvard.edu/ai/2024/projects/6/images/attention_4_11_1.png)
 
 This attention head is definitely noisier: it’s not immediately obvious
 exactly what this attention head is doing. But notice that, for the
 adverb “slowly”, it attends most to the verb it modifies: “moved”. The
 same is true if we swap the order of verb and adverb.
 
-![Attention Layer 4, Head 11](../images/attention_4_11_2.png)
+![Attention Layer 4, Head 11](https://cs50.harvard.edu/ai/2024/projects/6/images/attention_4_11_2.png)
 
 And it even appears to be true for a sentence where the adverb and the
 verb it modifies aren’t directly next to each other.
 
-![Attention Layer 4, Head 11](../images/attention_4_11_3.png)
+![Attention Layer 4, Head 11](https://cs50.harvard.edu/ai/2024/projects/6/images/attention_4_11_3.png)
 
 So we might reasonably guess that this attention head has learned to pay
 attention to the relationship between adverbs and the words they modify.
