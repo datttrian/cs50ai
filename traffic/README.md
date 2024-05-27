@@ -7,7 +7,7 @@ In this project, we aim to classify traffic signs using a convolutional neural n
 We used OpenCV to read and resize images. Each image was resized to 30x30 pixels to maintain consistency across the dataset.
 
 ## Model Architecture
-The final model architecture consists of three convolutional layers with increasing filter sizes (32, 64, 128), each followed by a max-pooling layer to reduce dimensionality. After flattening the output, we added a dense layer with 128 units and a dropout rate of 0.5 to prevent overfitting. The output layer has 43 units (one for each traffic sign category) with a softmax activation function.
+The final model architecture consists of three convolutional layers with increasing filter sizes `32`, followed by a max-pooling layer to reduce dimensionality. After flattening the output, we added a dense layer with 128 units and a dropout rate of 0.5 to prevent overfitting. The output layer has 43 units (one for each traffic sign category) with a softmax activation function.
 
 ## Experiments
 1. **Initial Model**: We started with two convolutional layers and a single dense layer. This model achieved decent accuracy but was prone to overfitting.
