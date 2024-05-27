@@ -79,39 +79,7 @@ def get_model():
     `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
-    model = tf.keras.Sequential([
-        # First convolutional layer
-        tf.keras.layers.Conv2D(32, (3, 3), activation='relu',
-                               input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
-        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-
-        # Second convolutional layer
-        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
-        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-
-        # Third convolutional layer
-        tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
-        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-
-        # Flatten the output
-        tf.keras.layers.Flatten(),
-
-        # Add a hidden dense layer
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dropout(0.5),
-
-        # Output layer with NUM_CATEGORIES units
-        tf.keras.layers.Dense(NUM_CATEGORIES, activation='softmax')
-    ])
-
-    # Compile the model
-    model.compile(
-        optimizer='adam',
-        loss='categorical_crossentropy',
-        metrics=['accuracy']
-    )
-
-    return model
+    raise NotImplementedError
 
 
 if __name__ == "__main__":
