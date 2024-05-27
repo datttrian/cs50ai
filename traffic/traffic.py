@@ -61,18 +61,18 @@ def load_data(data_dir):
     images = []
     labels = []
 
-    # Iterate through each category directory
     for category in range(NUM_CATEGORIES):
-        category_dir = os.path.join(data_dir, str(category))
-        for filename in os.listdir(category_dir):
-            filepath = os.path.join(category_dir, filename)
-            # Read image using OpenCV
-            img = cv2.imread(filepath)
-            # Resize image to the specified size
-            img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
-            # Append image and its label
-            images.append(img)
-            labels.append(category)
+        # example: gtsrb/0
+        category_directory = os.path.join(data_dir, str(0))
+
+        if os.path.dir(category_directory):
+            for filename in os.listdir(category_directory):
+                # example: grsrb/0/00000_00000.ppm
+                image_path = os.path.join(category_directory, filename)
+                image = cv2.imread(image_path)
+                image = cv2.resize(image, (IMG_WIDTH, IMG_HEIGHT))
+                images.append(image)
+                labels.append(category)
 
     return images, labels
 
