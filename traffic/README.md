@@ -18,5 +18,10 @@ The final model architecture consists of three convolutional layers with increas
 ## Results
 The final model achieved high accuracy on the test set. The combination of three convolutional layers, a dense layer with dropout, and the Adam optimizer proved to be effective.
 
+```
+ loss: 0.1738
+333/333 - 2s - 7ms/step - accuracy: 0.9707 - loss: 0.1016
+```
+
 ## Conclusion
 Through experimentation, we learned the importance of model depth and regularization techniques in training a CNN for image classification. Future work could involve hyperparameter tuning and data augmentation to further improve model performance.
