@@ -1,6 +1,9 @@
 import cv2
 import os
 import sys
+import tensorflow as tf
+
+from sklearn.model_selection import train_test_split
 
 
 EPOCHS = 10
@@ -18,6 +21,12 @@ def main():
 
     # Get image arrays and labels for all image files
     images, labels = load_data(sys.argv[1])
+
+    # Split data into training and testing sets
+    labels = tf.keras.utils.to_categorical(labels)
+    x_train, x_test, y_train, y_test = train_test_split(
+        np.array(images), np.array(labels), test_size=TEST_SIZE
+    )
 
 
 
