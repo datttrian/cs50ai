@@ -9,20 +9,11 @@ We used OpenCV to read and resize images. Each image was resized to 30x30 pixels
 ## Model Architecture
 The final model architecture consists of three convolutional layers with increasing filter sizes `32`, followed by a max-pooling layer to reduce dimensionality. After flattening the output, we added a dense layer with 128 units and a dropout rate of 0.5 to prevent overfitting. The output layer has 43 units (one for each traffic sign category) with a softmax activation function.
 
-## Experiments
-1. **Initial Model**: We started with two convolutional layers and a single dense layer. This model achieved decent accuracy but was prone to overfitting.
-2. **Adding Dropout**: Introducing a dropout layer improved generalization by reducing overfitting.
-3. **Increasing Convolutional Layers**: Adding a third convolutional layer significantly improved accuracy by allowing the model to learn more complex features.
-4. **Adjusting Filter Sizes**: We experimented with different filter sizes and found that increasing the number of filters in deeper layers yielded better performance.
-
 ## Results
-The final model achieved high accuracy on the test set. The combination of three convolutional layers, a dense layer with dropout, and the Adam optimizer proved to be effective.
+The final model achieved high accuracy on the test set. The combination of the convolutional layer, a dense layer with dropout, and the Adam optimizer proved to be effective.
 
 ```
- loss: 0.1738
-333/333 - 2s - 7ms/step - accuracy: 0.9707 - loss: 0.1016
- 0.9519 - loss: 0.1738
-333/333 - 2s - 7ms/step - accuracy: 0.9707 - loss: 0.1016
+accuracy: 0.9707 - loss: 0.1016
 ```
 
 ## Conclusion
