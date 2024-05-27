@@ -29,6 +29,20 @@ def main():
         np.array(images), np.array(labels), test_size=TEST_SIZE
     )
 
+    # Get a compiled neural network
+    model = get_model()
+
+    # Fit model on training data
+    model.fit(x_train, y_train, epochs=EPOCHS)
+
+    # Evaluate neural network performance
+    model.evaluate(x_test,  y_test, verbose=2)
+
+    # Save model to file
+    if len(sys.argv) == 3:
+        filename = sys.argv[2]
+        model.save(filename)
+        print(f"Model saved to {filename}.")
 
 
 def load_data(data_dir):
@@ -59,6 +73,15 @@ def load_data(data_dir):
                 labels.append(category)
 
     return images, labels
+
+
+def get_model():
+    """
+    Returns a compiled convolutional neural network model. Assume that the
+    `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
+    The output layer should have `NUM_CATEGORIES` units, one for each category.
+    """
+    raise NotImplementedError
 
 
 if __name__ == "__main__":
