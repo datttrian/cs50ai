@@ -65,14 +65,14 @@ def load_data(data_dir):
         # example: gtsrb/0
         category_directory = os.path.join(data_dir, str(0))
 
-        if os.path.dir(category_directory):
-            for filename in os.listdir(category_directory):
-                # example: grsrb/0/00000_00000.ppm
-                image_path = os.path.join(category_directory, filename)
-                image = cv2.imread(image_path)
-                image = cv2.resize(image, (IMG_WIDTH, IMG_HEIGHT))
-                images.append(image)
-                labels.append(category)
+        for filename in os.listdir(category_directory):
+            # example: grsrb/0/00000_00000.ppm
+            image_path = os.path.join(category_directory, filename)
+            image = cv2.imread(image_path)
+            image = cv2.resize(image, (IMG_WIDTH, IMG_HEIGHT))
+            images.append(image)
+            labels.append(category)
+
 
     return images, labels
 
