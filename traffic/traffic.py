@@ -1,10 +1,7 @@
 import cv2
-import numpy as np
 import os
 import sys
-import tensorflow as tf
 
-from sklearn.model_selection import train_test_split
 
 EPOCHS = 10
 IMG_WIDTH = 30
@@ -21,6 +18,7 @@ def main():
 
     # Get image arrays and labels for all image files
     images, labels = load_data(sys.argv[1])
+
 
 
 def load_data(data_dir):
