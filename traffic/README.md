@@ -21,6 +21,8 @@ The final model achieved high accuracy on the test set. The combination of three
 ```
  loss: 0.1738
 333/333 - 2s - 7ms/step - accuracy: 0.9707 - loss: 0.1016
+ 0.9519 - loss: 0.1738
+333/333 - 2s - 7ms/step - accuracy: 0.9707 - loss: 0.1016
 ```
 
 ## Conclusion
