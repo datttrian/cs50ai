@@ -6,7 +6,6 @@ import tensorflow as tf
 
 from sklearn.model_selection import train_test_split
 
-
 EPOCHS = 10
 IMG_WIDTH = 30
 IMG_HEIGHT = 30
@@ -62,15 +61,18 @@ def load_data(data_dir):
     images = []
     labels = []
 
+    # Iterate through each category directory
     for category in range(NUM_CATEGORIES):
         category_dir = os.path.join(data_dir, str(category))
         for filename in os.listdir(category_dir):
-            img_path = os.path.join(category_dir, filename)
-            img = cv2.imread(img_path)
-            if img is not None:
-                img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
-                images.append(img)
-                labels.append(category)
+            filepath = os.path.join(category_dir, filename)
+            # Read image using OpenCV
+            img = cv2.imread(filepath)
+            # Resize image to the specified size
+            img = cv2.resize(img, (IMG_WIDTH, IMG_HEIGHT))
+            # Append image and its label
+            images.append(img)
+            labels.append(category)
 
     return images, labels
 
@@ -81,7 +83,39 @@ def get_model():
     `input_shape` of the first layer is `(IMG_WIDTH, IMG_HEIGHT, 3)`.
     The output layer should have `NUM_CATEGORIES` units, one for each category.
     """
-    raise NotImplementedError
+    model = tf.keras.Sequential([
+        # First convolutional layer
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu',
+                               input_shape=(IMG_WIDTH, IMG_HEIGHT, 3)),
+        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+
+        # Second convolutional layer
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+
+        # Third convolutional layer
+        tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+
+        # Flatten the output
+        tf.keras.layers.Flatten(),
+
+        # Add a hidden dense layer
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dropout(0.5),
+
+        # Output layer with NUM_CATEGORIES units
+        tf.keras.layers.Dense(NUM_CATEGORIES, activation='softmax')
+    ])
+
+    # Compile the model
+    model.compile(
+        optimizer='adam',
+        loss='categorical_crossentropy',
+        metrics=['accuracy']
+    )
+
+    return model
 
 
 if __name__ == "__main__":
