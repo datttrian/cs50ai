@@ -26,9 +26,9 @@
 
 ## Week 5 Neural Networks
 
-- Traffic
+- [Traffic](traffic)
 
 ## Week 6 Language
 
-- Parser
-- Attention
+- [Parser](parser)
+- [Attention](attention)
