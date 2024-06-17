@@ -27,6 +27,7 @@ vendor/
 !*.sql
 !*.ts
 !*.txt
+!*.ipynb
 !Makefile
 
 # Ignore files larger than 100M
