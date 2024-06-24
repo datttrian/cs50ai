@@ -37,4 +37,5 @@ jobs:
           VALIDATE_JSON: false
           VALIDATE_MARKDOWN: false
           VALIDATE_BASH: false
+          FILTER_REGEX_INCLUDE: maze.py
 ...
