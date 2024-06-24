@@ -1,5 +1,7 @@
 import sys
 
+from PIL import Image, ImageDraw
+
 
 class Node:
     def __init__(self, state, parent, action):
@@ -21,24 +23,22 @@ class StackFrontier:
     def empty(self):
         return len(self.frontier) == 0
 
-    def remove(self):
+    def remove(self):  # added/edited
         if self.empty():
-            raise Exception("empty frontier")
-        else:
-            node = self.frontier[-1]
-            self.frontier = self.frontier[:-1]
-            return node
+            raise IndexError("empty frontier")
+        node = self.frontier[-1]
+        self.frontier = self.frontier[:-1]
+        return node
 
 
 class QueueFrontier(StackFrontier):
 
-    def remove(self):
+    def remove(self):  # added/edited
         if self.empty():
-            raise Exception("empty frontier")
-        else:
-            node = self.frontier[0]
-            self.frontier = self.frontier[1:]
-            return node
+            raise IndexError("empty frontier")
+        node = self.frontier[0]
+        self.frontier = self.frontier[1:]
+        return node
 
 
 class Maze:
@@ -162,8 +162,6 @@ class Maze:
                     frontier.add(child)
 
     def output_image(self, filename, show_solution=True, show_explored=False):
-        from PIL import Image, ImageDraw
-
         cell_size = 50
         cell_border = 2
 
