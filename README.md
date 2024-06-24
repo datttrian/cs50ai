@@ -1,34 +1,36 @@
 # CS50’s Introduction to Artificial Intelligence with Python
 
-## Week 0 Search
+## Week 0
 
-- [Degrees](degrees)
-- [Tic-Tac-Toe](tictactoe)
+- Lecture: Search
+- Problem Set: [Degrees](degrees), [Tic-Tac-Toe](tictactoe)
 
-## Week 1 Knowledge
+## Week 1
 
-- [Knights](knights)
-- [Minesweeper](minesweeper)
+- Lecture: Knowledge
+- Problem Set: [Knights](knights), [Minesweeper](minesweeper)
 
-## Week 2 Uncertainty
+## Week 2
 
-- [PageRank](pagerank)
-- [Heredity](heredity)
+- Lecture: Uncertainty
+- Problem Set: [PageRank](pagerank), [Heredity](heredity)
 
-## Week 3 Optimization
+## Week 3
 
-- [Crossword](crossword)
+- Lecture: Optimization
+- Problem Set: [Crossword](crossword)
 
-## Week 4 Learning
+## Week 4
 
-- [Shopping](shopping)
-- [Nim](nim)
+- Lecture: Learning
+- Problem Set: [Shopping](shopping), [Nim](nim)
 
-## Week 5 Neural Networks
+## Week 5
 
-- [Traffic](traffic)
+- Lecture: Neural Networks
+- Problem Set: [Traffic](traffic)
 
-## Week 6 Language
+## Week 6
 
-- [Parser](parser)
-- [Attention](attention)
+- Lecture: Language
+- Problem Set: [Parser](parser), [Attention](attention)

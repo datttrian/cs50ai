@@ -136,22 +136,22 @@
         "gitdoc.pullOnOpen": false,
         "github.codespaces.devcontainerChangedNotificationStyle": "none",
         "github.gitAuthentication": true,
-        "html.autoCreateQuotes": false,
-        "html.format.indentInnerHtml": true,
-        "html.suggest.html5": false,
-        "java.configuration.runtimes": [
-          {
-            "default": true,
-            "name": "JavaSE-22",
-            "path": "/opt/jdk"
-          }
-        ],
-        "java.debug.settings.enableRunDebugCodeLens": false,
-        "java.inlayHints.parameterNames.enabled": "none",
-        "java.server.launchMode": "Standard",
-        "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-        "javascript.suggest.enabled": false,
-        "javascript.validate.enable": false,
+        // "html.autoCreateQuotes": false,
+        // "html.format.indentInnerHtml": true,
+        // "html.suggest.html5": false,
+        // "java.configuration.runtimes": [
+        //   {
+        //     "default": true,
+        //     "name": "JavaSE-22",
+        //     "path": "/opt/jdk"
+        //   }
+        // ],
+        // "java.debug.settings.enableRunDebugCodeLens": false,
+        // "java.inlayHints.parameterNames.enabled": "none",
+        // "java.server.launchMode": "Standard",
+        // "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+        // "javascript.suggest.enabled": false,
+        // "javascript.validate.enable": false,
         "problems.decorations.enabled": false,
         "python.terminal.executeInFileDir": true,
         "remote.autoForwardPorts": true,

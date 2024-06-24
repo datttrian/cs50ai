@@ -105,7 +105,7 @@ class Maze:
             ("up", (row - 1, col)),
             ("down", (row + 1, col)),
             ("left", (row, col - 1)),
-            ("right", (row, col + 1))
+            ("right", (row, col + 1)),
         ]
 
         result = []
@@ -163,14 +163,13 @@ class Maze:
 
     def output_image(self, filename, show_solution=True, show_explored=False):
         from PIL import Image, ImageDraw
+
         cell_size = 50
         cell_border = 2
 
         # Create a blank canvas
         img = Image.new(
-            "RGBA",
-            (self.width * cell_size, self.height * cell_size),
-            "black"
+            "RGBA", (self.width * cell_size, self.height * cell_size), "black"
         )
         draw = ImageDraw.Draw(img)
 
@@ -204,9 +203,16 @@ class Maze:
 
                 # Draw cell
                 draw.rectangle(
-                    ([(j * cell_size + cell_border, i * cell_size + cell_border),
-                      ((j + 1) * cell_size - cell_border, (i + 1) * cell_size - cell_border)]),
-                    fill=fill
+                    (
+                        [
+                            (j * cell_size + cell_border, i * cell_size + cell_border),
+                            (
+                                (j + 1) * cell_size - cell_border,
+                                (i + 1) * cell_size - cell_border,
+                            ),
+                        ]
+                    ),
+                    fill=fill,
                 )
 
         img.save(filename)
