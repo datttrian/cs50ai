@@ -105,7 +105,7 @@ class Maze:
             ("up", (row - 1, col)),
             ("down", (row + 1, col)),
             ("left", (row, col - 1)),
-            ("right", (row, col + 1)),
+            ("right", (row, col + 1))
         ]
 
         result = []
