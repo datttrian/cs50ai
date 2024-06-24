@@ -3,6 +3,9 @@
 
 # But don't ignore folders
 !*/
+!.github/
+!linters/
+!workflows/
 
 # But do ignore these folders
 node_modules/
@@ -29,5 +32,7 @@ vendor/
 !*.txt
 !*.ipynb
 !Makefile
+!main.yml
+!.python-lint
 
 # Ignore files larger than 100M
