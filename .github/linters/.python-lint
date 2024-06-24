@@ -436,7 +436,13 @@ disable=raw-checker-failed,
         missing-class-docstring,
         missing-function-docstring,
         too-few-public-methods,
-        import-error
+        import-error,
+        # added/edited
+        too-many-instance-attributes,
+        unspecified-encoding,
+        broad-exception-raised,
+        attribute-defined-outside-init,
+        
 
 
 # Enable the message, report, category or checker with the given id(s). You can
