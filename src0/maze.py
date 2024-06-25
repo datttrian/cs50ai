@@ -21,20 +21,30 @@ class StackFrontier:
     def empty(self):
         return len(self.frontier) == 0
 
-    def remove(self):  # added/edited
+    # Define the function that removes a node from the frontier and returns it.
+    def remove(self):
+        # Terminate the search if the frontier is empty, because this means that there is no
+        # solution.
         if self.empty():
             raise IndexError("empty frontier")
+        # Save the last item in the list (which is the newest node added)
         node = self.frontier[-1]
+        # Save all the items on the list besides the last node (i.e. removing the last node)
         self.frontier = self.frontier[:-1]
         return node
 
 
 class QueueFrontier(StackFrontier):
 
-    def remove(self):  # added/edited
+    # Define the function that removes a node from the frontier and returns it.
+    def remove(self):
+        # Terminate the search if the frontier is empty, because this means that there is no
+        # solution.
         if self.empty():
             raise IndexError("empty frontier")
+        # Save the oldest item on the list (which was the first one to be added)
         node = self.frontier[0]
+        # Save all the items on the list besides the first one (i.e. removing the first node)
         self.frontier = self.frontier[1:]
         return node
 
