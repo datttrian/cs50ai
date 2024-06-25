@@ -2,12 +2,6 @@
     "git.autofetch": true,
     "gitdoc.enabled": true,
     "gitdoc.autoCommitDelay": 60000,
-    "gitdoc.autoPushDelay": 0,
-    "gitdoc.commitMessageFormat": "ccc, LLL d, y, h:mm a '+00:00'",
+    "gitdoc.commitMessageFormat": "ccc, LLL d, kkkk, h:mm a ZZ",
     "files.insertFinalNewline": true,
-    "files.associations": {
-        "algorithm": "c",
-        "string.h": "c",
-        "stdio.h": "c"
-    }
 }
