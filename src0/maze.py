@@ -153,6 +153,9 @@ class Maze:
             node = frontier.remove()
             self.num_explored += 1
 
+            # Print the state being explored
+            print(f"Exploring state: {node.state}")
+
             # If node is the goal, then we have a solution
             if node.state == self.positions["goal"]:
                 actions = []
