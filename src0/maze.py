@@ -82,6 +82,12 @@ class Maze:
 
         self.solution = None
 
+        # Keep track of number of states explored
+        self.num_explored = 0
+
+        # Initialize an empty explored set
+        self.explored = set()
+
     def print(self):
         solution = self.solution[1] if self.solution is not None else None
         print()
@@ -121,24 +127,17 @@ class Maze:
 
     def solve(self):
         """Finds a solution to maze, if one exists."""
-
-        # Keep track of number of states explored
-        self.num_explored = 0
-
         # Initialize frontier to just the starting position
         start = Node(state=self.positions["start"], parent=None, action=None)
         frontier = StackFrontier()
         frontier.add(start)
-
-        # Initialize an empty explored set
-        self.explored = set()
 
         # Keep looping until solution found
         while True:
 
             # If nothing left in frontier, then no path
             if frontier.empty():
-                raise Exception("no solution")
+                raise RuntimeError("no solution")
 
             # Choose a node from the frontier
             node = frontier.remove()
