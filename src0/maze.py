@@ -43,7 +43,7 @@ class Maze:
     def __init__(self, filename):
 
         # Read file and set height and width of maze
-        with open(filename) as f:
+        with open(filename, encoding='utf-8') as f:
             contents = f.read()
 
         # Validate start and goal
