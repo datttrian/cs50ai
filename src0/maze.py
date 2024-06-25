@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw
+import sys
 
 
 class Node:
@@ -54,6 +54,10 @@ class Maze:
 
         # Determine height and width of maze
         contents = contents.splitlines()
+        self.dimensions = {
+            "height": len(contents),
+            "width": max(len(line) for line in contents),
+        }
         self.positions = {"start": None, "goal": None}
 
         # Keep track of walls
@@ -107,7 +111,11 @@ class Maze:
 
         result = []
         for action, (r, c) in candidates:
-            if 0 <= r < self.height and 0 <= c < self.width and not self.walls[r][c]:
+            if (
+                0 <= r < self.dimensions["height"]
+                and 0 <= c < self.dimensions["width"]
+                and not self.walls[r][c]
+            ):
                 result.append((action, (r, c)))
         return result
 
@@ -118,7 +126,7 @@ class Maze:
         self.num_explored = 0
 
         # Initialize frontier to just the starting position
-        start = Node(state=self.start, parent=None, action=None)
+        start = Node(state=self.positions["start"], parent=None, action=None)
         frontier = StackFrontier()
         frontier.add(start)
 
@@ -137,7 +145,7 @@ class Maze:
             self.num_explored += 1
 
             # If node is the goal, then we have a solution
-            if node.state == self.goal:
+            if node.state == self.positions["goal"]:
                 actions = []
                 cells = []
                 while node.parent is not None:
@@ -158,56 +166,15 @@ class Maze:
                     child = Node(state=state, parent=node, action=action)
                     frontier.add(child)
 
-    def output_image(self, filename, show_solution=True, show_explored=False):
-        cell_size = 50
-        cell_border = 2
 
-        # Create a blank canvas
-        img = Image.new(
-            "RGBA", (self.width * cell_size, self.height * cell_size), "black"
-        )
-        draw = ImageDraw.Draw(img)
+if len(sys.argv) != 2:
+    sys.exit("Usage: python maze.py maze.txt")
 
-        solution = self.solution[1] if self.solution is not None else None
-        for i, row in enumerate(self.walls):
-            for j, col in enumerate(row):
-
-                # Walls
-                if col:
-                    fill = (40, 40, 40)
-
-                # Start
-                elif (i, j) == self.start:
-                    fill = (255, 0, 0)
-
-                # Goal
-                elif (i, j) == self.goal:
-                    fill = (0, 171, 28)
-
-                # Solution
-                elif solution is not None and show_solution and (i, j) in solution:
-                    fill = (220, 235, 113)
-
-                # Explored
-                elif solution is not None and show_explored and (i, j) in self.explored:
-                    fill = (212, 97, 85)
-
-                # Empty cell
-                else:
-                    fill = (237, 240, 252)
-
-                # Draw cell
-                draw.rectangle(
-                    (
-                        [
-                            (j * cell_size + cell_border, i * cell_size + cell_border),
-                            (
-                                (j + 1) * cell_size - cell_border,
-                                (i + 1) * cell_size - cell_border,
-                            ),
-                        ]
-                    ),
-                    fill=fill,
-                )
-
-        img.save(filename)
+m = Maze(sys.argv[1])
+print("Maze:")
+m.print()
+print("Solving...")
+m.solve()
+print("States Explored:", m.num_explored)
+print("Solution:")
+m.print()
