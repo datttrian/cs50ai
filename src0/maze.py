@@ -1,5 +1,3 @@
-import sys
-
 from PIL import Image, ImageDraw
 
 
@@ -56,20 +54,19 @@ class Maze:
 
         # Determine height and width of maze
         contents = contents.splitlines()
-        self.height = len(contents)
-        self.width = max(len(line) for line in contents)
+        self.positions = {"start": None, "goal": None}
 
         # Keep track of walls
         self.walls = []
-        for i in range(self.height):
+        for i in range(self.dimensions["height"]):
             row = []
-            for j in range(self.width):
+            for j in range(self.dimensions["width"]):
                 try:
                     if contents[i][j] == "A":
-                        self.start = (i, j)
+                        self.positions["start"] = (i, j)
                         row.append(False)
                     elif contents[i][j] == "B":
-                        self.goal = (i, j)
+                        self.positions["goal"] = (i, j)
                         row.append(False)
                     elif contents[i][j] == " ":
                         row.append(False)
@@ -214,4 +211,3 @@ class Maze:
                 )
 
         img.save(filename)
-
