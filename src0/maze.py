@@ -53,8 +53,8 @@ class Maze:
     def __init__(self, filename):
 
         # Read file and set height and width of maze
-        with open(filename, encoding="utf-8") as f:
-            contents = f.read()
+        with open(filename, encoding="utf-8") as file:
+            contents = file.read()
 
         # Validate start and goal
         if contents.count("A") != 1:
@@ -126,13 +126,13 @@ class Maze:
         ]
 
         result = []
-        for action, (r, c) in candidates:
+        for action, (row, col) in candidates:
             if (
-                0 <= r < self.dimensions["height"]
-                and 0 <= c < self.dimensions["width"]
-                and not self.walls[r][c]
+                0 <= row < self.dimensions["height"]
+                and 0 <= col < self.dimensions["width"]
+                and not self.walls[row][col]
             ):
-                result.append((action, (r, c)))
+                result.append((action, (row, col)))
         return result
 
     def solve(self):
