@@ -43,7 +43,7 @@ class Maze:
     def __init__(self, filename):
 
         # Read file and set height and width of maze
-        with open(filename, encoding='utf-8') as f:
+        with open(filename, encoding="utf-8") as f:
             contents = f.read()
 
         # Validate start and goal
@@ -85,9 +85,9 @@ class Maze:
             for j, col in enumerate(row):
                 if col:
                     print("█", end="")
-                elif (i, j) == self.start:
+                elif (i, j) == self.positions["start"]:
                     print("A", end="")
-                elif (i, j) == self.goal:
+                elif (i, j) == self.positions["goal"]:
                     print("B", end="")
                 elif solution is not None and (i, j) in solution:
                     print("*", end="")
