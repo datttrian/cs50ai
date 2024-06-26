@@ -3,7 +3,7 @@ Tic Tac Toe Player
 """
 
 X = "X"
-O = "O"
+O = "O"  # noqa: E741
 EMPTY = None
 
 
