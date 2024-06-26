@@ -89,10 +89,9 @@ def utility(board):
     winner_player = winner(board)
     if winner_player == X:
         return 1
-    elif winner_player == O:
+    if winner_player == O:
         return -1
-    else:
-        return 0
+    return 0
 
 
 def minimax(board):
