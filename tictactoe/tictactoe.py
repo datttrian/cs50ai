@@ -52,17 +52,12 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    # Check rows
-    for row in board:
-        if row[0] == row[1] == row[2] != EMPTY:
-            return row[0]
+    for i in range(3):
+        if board[i][0] == board[i][1] == board[i][2] != EMPTY:
+            return board[i][0]
+        if board[0][i] == board[1][i] == board[2][i] != EMPTY:
+            return board[0][i]
 
-    # Check columns
-    for j in range(3):
-        if board[0][j] == board[1][j] == board[2][j] != EMPTY:
-            return board[0][j]
-
-    # Check diagonals
     if board[0][0] == board[1][1] == board[2][2] != EMPTY:
         return board[0][0]
     if board[0][2] == board[1][1] == board[2][0] != EMPTY:
