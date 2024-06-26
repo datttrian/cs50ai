@@ -35,13 +35,16 @@ def result(board, action):
     Returns the board that results from making move (i, j) on the board.
     """
     i, j = action
-    current_player = player(board)
+
     if not (0 <= i < 3 and 0 <= j < 3):
         raise ValueError("Action out of bounds")
+
     if board[i][j] is not EMPTY:
         raise ValueError("Invalid action")
+
     new_board = [row[:] for row in board]
-    new_board[i][j] = current_player
+    new_board[i][j] = player(board)
+
     return new_board
 
 
