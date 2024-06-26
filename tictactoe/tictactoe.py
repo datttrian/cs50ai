@@ -121,5 +121,5 @@ def minimax(board):
 
     if current_player == X:
         return max(actions(board), key=lambda action: min_value(result(board, action)))
-    else:
-        return min(actions(board), key=lambda action: max_value(result(board, action)))
+
+    return min(actions(board), key=lambda action: max_value(result(board, action)))
