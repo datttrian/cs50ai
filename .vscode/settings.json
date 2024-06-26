@@ -4,7 +4,8 @@
     "gitdoc.autoCommitDelay": 60000,
     "gitdoc.commitMessageFormat": "ccc, LLL d, kkkk, h:mm a ZZ",
     "flake8.args": [
-        "--max-line-length=100"
+        "--max-line-length=100",
+        "--ignore=E741"
     ],
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"

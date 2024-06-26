@@ -2,8 +2,6 @@
 Tic Tac Toe Player
 """
 
-import math
-
 X = "X"
 O = "O"
 EMPTY = None
@@ -20,9 +18,9 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    num_X = sum(row.count(X) for row in board)
-    num_O = sum(row.count(O) for row in board)
-    return X if num_X == num_O else O
+    x_count = sum(row.count(X) for row in board)
+    o_count = sum(row.count(O) for row in board)
+    return X if x_count == o_count else O
 
 
 def actions(board):
