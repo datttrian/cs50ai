@@ -71,7 +71,7 @@ def terminal(board):
     Returns True if game is over, False otherwise.
     """
     return winner(board) is not None or all(
-        all(cell is not EMPTY for cell in row) for row in board
+        cell is not EMPTY for row in board for cell in row
     )
 
 
