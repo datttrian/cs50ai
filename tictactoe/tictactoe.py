@@ -42,9 +42,9 @@ def result(board, action):
     i, j = action
     current_player = player(board)
     if not (0 <= i < 3 and 0 <= j < 3):
-        raise Exception("Action out of bounds")
+        raise ValueError("Action out of bounds")
     if board[i][j] is not EMPTY:
-        raise Exception("Invalid action")
+        raise ValueError("Invalid action")
     new_board = [row[:] for row in board]
     new_board[i][j] = current_player
     return new_board
