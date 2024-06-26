@@ -89,7 +89,7 @@ def utility(board):
 
 def minimax(board):
     """
-    Returns the optimal action for the current player on the board.
+    Returns the best move for the current player on the board.
     """
     current_player = player(board)
 
@@ -97,9 +97,23 @@ def minimax(board):
         return None
 
     if current_player == X:
-        return max(actions(board), key=lambda action: min_value(result(board, action)))
+        best_move = None
+        best_score = float("-inf")
+        for action in actions(board):
+            score = min_value(result(board, action))
+            if score > best_score:
+                best_score = score
+                best_move = action
+        return best_move
 
-    return min(actions(board), key=lambda action: max_value(result(board, action)))
+    best_move = None
+    best_score = float("inf")
+    for action in actions(board):
+        score = max_value(result(board, action))
+        if score < best_score:
+            best_score = score
+            best_move = action
+    return best_move
 
 
 def max_value(board):
