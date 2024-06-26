@@ -34,5 +34,6 @@ vendor/
 !Makefile
 !main.yml
 !.python-lint
+!devcontainer.json
 
 # Ignore files larger than 100M
