@@ -87,10 +87,10 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    current_player = player(board)
-
     if terminal(board):
         return None
+
+    current_player = player(board)
 
     if current_player == X:
         return max(actions(board), key=lambda action: min_value(result(board, action)))
