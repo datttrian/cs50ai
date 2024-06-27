@@ -61,11 +61,9 @@ def winner(board):
         [board[i][2 - i] for i in range(3)],
     ]
 
-    for line in lines:
-        if line[0] == line[1] == line[2] != EMPTY:
-            return line[0]
-
-    return None
+    return next(
+        (line[0] for line in lines if line[0] == line[1] == line[2] != EMPTY), None
+    )
 
 
 def terminal(board):
