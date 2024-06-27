@@ -89,7 +89,7 @@ def utility(board):
 
 def minimax(board):
     """
-    Returns the best move for the current player on the board.
+    Returns the optimal action for the current player on the board.
     """
     current_player = player(board)
 
@@ -97,44 +97,93 @@ def minimax(board):
         return None
 
     if current_player == X:
-        best_move = None
-        best_score = float("-inf")
-        for action in actions(board):
-            score = min_value(result(board, action))
-            if score > best_score:
-                best_score = score
-                best_move = action
-        return best_move
+        return max(
+            actions(board),
+            key=lambda action: min_value(
+                result(board, action), float("-inf"), float("inf")
+            ),
+        )
 
-    best_move = None
-    best_score = float("inf")
-    for action in actions(board):
-        score = max_value(result(board, action))
-        if score < best_score:
-            best_score = score
-            best_move = action
-    return best_move
+    return min(
+        actions(board),
+        key=lambda action: max_value(
+            result(board, action), float("-inf"), float("inf")
+        ),
+    )
 
 
-def max_value(board):
+def max_value(board, alpha, beta):
     if terminal(board):
         return utility(board)
 
     v = float("-inf")
 
     for action in actions(board):
-        v = max(v, min_value(result(board, action)))
+        v = max(v, min_value(result(board, action), alpha, beta))
+        if v >= beta:
+            return v
+        alpha = max(alpha, v)
 
     return v
 
 
-def min_value(board):
+def min_value(board, alpha, beta):
     if terminal(board):
         return utility(board)
 
     v = float("inf")
 
     for action in actions(board):
-        v = min(v, max_value(result(board, action)))
+        v = min(v, max_value(result(board, action), alpha, beta))
+        if v <= alpha:
+            return v
+        beta = min(beta, v)
 
     return v
+
+
+def print_board(board):
+    for row in board:
+        print(" | ".join(cell if cell else " " for cell in row))
+        print("---------")
+    print()
+
+
+def get_player_move(board):
+    while True:
+        try:
+            move = input("Enter your move (row, col): ")
+            i, j = map(int, move.split(","))
+            action = (i, j)
+            if action in actions(board):
+                return action
+            else:
+                print("Invalid move. Try again.")
+        except ValueError:
+            print("Invalid input. Please enter row and column as integers separated by comma.")
+
+
+board = initial_state()
+print("Welcome to Tic Tac Toe!")
+
+while not terminal(board):
+    current_player = player(board)
+
+    if current_player == X:
+        print("\nPlayer X's turn")
+        print_board(board)
+        action = get_player_move(board)
+    else:
+        print("\nPlayer O is thinking...")
+        action = minimax(board)
+
+    board = result(board, action)
+
+print_board(board)
+print("\nGAME OVER")
+
+game_winner = winner(board)
+if game_winner:
+    print(f"Player {game_winner} wins!")
+else:
+    print("It's a tie!")
