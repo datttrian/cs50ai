@@ -2,8 +2,10 @@
 Tic Tac Toe Player
 """
 
+import copy
+
 X = "X"
-O = "O"  # noqa: E741
+O = "O"
 EMPTY = None
 
 
@@ -36,13 +38,10 @@ def result(board, action):
     """
     i, j = action
 
-    if not (0 <= i < 3 and 0 <= j < 3):
-        raise ValueError("Action out of bounds")
+    if action not in actions(board):
+        raise ValueError("Not valid action")
 
-    if board[i][j] is not EMPTY:
-        raise ValueError("Invalid action")
-
-    new_board = [row[:] for row in board]
+    new_board = copy.deepcopy(board)
     new_board[i][j] = player(board)
 
     return new_board
@@ -89,7 +88,7 @@ def utility(board):
 
 def minimax(board):
     """
-    Returns the best move for the current player on the board.
+    Returns the optimal action for the current player on the board.
     """
     current_player = player(board)
 
@@ -97,23 +96,9 @@ def minimax(board):
         return None
 
     if current_player == X:
-        best_move = None
-        best_score = float("-inf")
-        for action in actions(board):
-            score = min_value(result(board, action))
-            if score > best_score:
-                best_score = score
-                best_move = action
-        return best_move
+        return max(actions(board), key=lambda action: min_value(result(board, action)))
 
-    best_move = None
-    best_score = float("inf")
-    for action in actions(board):
-        score = max_value(result(board, action))
-        if score < best_score:
-            best_score = score
-            best_move = action
-    return best_move
+    return min(actions(board), key=lambda action: max_value(result(board, action)))
 
 
 def max_value(board):
