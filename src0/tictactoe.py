@@ -3,7 +3,7 @@ Tic Tac Toe Player
 """
 
 X = "X"
-O = "O"
+O = "O"  # noqa: E741
 EMPTY = None
 
 
@@ -97,31 +97,47 @@ def minimax(board):
         return None
 
     if current_player == X:
-        return max(actions(board), key=lambda action: min_value(result(board, action)))
+        return max(
+            actions(board),
+            key=lambda action: min_value(
+                result(board, action), float("-inf"), float("inf")
+            ),
+        )
 
-    return min(actions(board), key=lambda action: max_value(result(board, action)))
+    return min(
+        actions(board),
+        key=lambda action: max_value(
+            result(board, action), float("-inf"), float("inf")
+        ),
+    )
 
 
-def max_value(board):
+def max_value(board, alpha, beta):
     if terminal(board):
         return utility(board)
 
     v = float("-inf")
 
     for action in actions(board):
-        v = max(v, min_value(result(board, action)))
+        v = max(v, min_value(result(board, action), alpha, beta))
+        if v >= beta:
+            return v
+        alpha = max(alpha, v)
 
     return v
 
 
-def min_value(board):
+def min_value(board, alpha, beta):
     if terminal(board):
         return utility(board)
 
     v = float("inf")
 
     for action in actions(board):
-        v = min(v, max_value(result(board, action)))
+        v = min(v, max_value(result(board, action), alpha, beta))
+        if v <= alpha:
+            return v
+        beta = min(beta, v)
 
     return v
 
@@ -144,9 +160,7 @@ def get_player_move(board):
             else:
                 print("Invalid move. Try again.")
         except ValueError:
-            print(
-                "Invalid input. Please enter row and column as integers separated by comma."
-            )
+            print("Invalid input. Please enter row and column as integers separated by comma.")
 
 
 board = initial_state()
