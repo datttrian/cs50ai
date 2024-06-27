@@ -5,7 +5,7 @@ Tic Tac Toe Player
 import copy
 
 X = "X"
-O = "O"
+O = "O"  # noqa: E741
 EMPTY = None
 
 
