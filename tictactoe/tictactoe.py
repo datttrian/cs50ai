@@ -22,6 +22,7 @@ def player(board):
     """
     x_count = sum(row.count(X) for row in board)
     o_count = sum(row.count(O) for row in board)
+
     return X if x_count == o_count else O
 
 
@@ -80,6 +81,7 @@ def utility(board):
     Returns 1 if X has won the game, -1 if O has won, 0 otherwise.
     """
     winner_player = winner(board)
+
     return 1 if winner_player == X else -1 if winner_player == O else 0
 
 
@@ -99,10 +101,10 @@ def minimax(board):
 
 
 def max_value(board):
+    v = float("-inf")
+
     if terminal(board):
         return utility(board)
-
-    v = float("-inf")
 
     for action in actions(board):
         v = max(v, min_value(result(board, action)))
@@ -111,10 +113,10 @@ def max_value(board):
 
 
 def min_value(board):
+    v = float("inf")
+
     if terminal(board):
         return utility(board)
-
-    v = float("inf")
 
     for action in actions(board):
         v = min(v, max_value(result(board, action)))
