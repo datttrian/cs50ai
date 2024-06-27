@@ -3,7 +3,7 @@ Tic Tac Toe Player
 """
 
 X = "X"
-O = "O"  # noqa: E741
+O = "O"
 EMPTY = None
 
 
@@ -97,47 +97,31 @@ def minimax(board):
         return None
 
     if current_player == X:
-        return max(
-            actions(board),
-            key=lambda action: min_value(
-                result(board, action), float("-inf"), float("inf")
-            ),
-        )
+        return max(actions(board), key=lambda action: min_value(result(board, action)))
 
-    return min(
-        actions(board),
-        key=lambda action: max_value(
-            result(board, action), float("-inf"), float("inf")
-        ),
-    )
+    return min(actions(board), key=lambda action: max_value(result(board, action)))
 
 
-def max_value(board, alpha, beta):
+def max_value(board):
     if terminal(board):
         return utility(board)
 
     v = float("-inf")
 
     for action in actions(board):
-        v = max(v, min_value(result(board, action), alpha, beta))
-        if v >= beta:
-            return v
-        alpha = max(alpha, v)
+        v = max(v, min_value(result(board, action)))
 
     return v
 
 
-def min_value(board, alpha, beta):
+def min_value(board):
     if terminal(board):
         return utility(board)
 
     v = float("inf")
 
     for action in actions(board):
-        v = min(v, max_value(result(board, action), alpha, beta))
-        if v <= alpha:
-            return v
-        beta = min(beta, v)
+        v = min(v, max_value(result(board, action)))
 
     return v
 
