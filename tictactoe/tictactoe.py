@@ -50,16 +50,20 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    for i in range(3):
-        if board[i][0] == board[i][1] == board[i][2] != EMPTY:
-            return board[i][0]
-        if board[0][i] == board[1][i] == board[2][i] != EMPTY:
-            return board[0][i]
+    lines = [
+        [board[i][0] for i in range(3)],
+        [board[i][1] for i in range(3)],
+        [board[i][2] for i in range(3)],
+        [board[0][i] for i in range(3)],
+        [board[1][i] for i in range(3)],
+        [board[2][i] for i in range(3)],
+        [board[i][i] for i in range(3)],
+        [board[i][2 - i] for i in range(3)],
+    ]
 
-    if board[0][0] == board[1][1] == board[2][2] != EMPTY:
-        return board[0][0]
-    if board[0][2] == board[1][1] == board[2][0] != EMPTY:
-        return board[0][2]
+    for line in lines:
+        if line[0] == line[1] == line[2] != EMPTY:
+            return line[0]
 
     return None
 
