@@ -20,20 +20,25 @@ def player(board):
     """
     x_count = sum(row.count(X) for row in board)
     o_count = sum(row.count(O) for row in board)
-    return X if x_count == o_count else O
+    next_player = X if x_count == o_count else O
+    print(f"Player: {next_player} (X count: {x_count}, O count: {o_count})")
+    return next_player
 
 
 def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    return {(i, j) for i in range(3) for j in range(3) if board[i][j] is EMPTY}
+    available_actions = {(i, j) for i in range(3) for j in range(3) if board[i][j] is EMPTY}
+    print(f"Actions: {available_actions}")
+    return available_actions
 
 
 def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
+    print(f"Result function called with action: {action}")
     i, j = action
 
     if not (0 <= i < 3 and 0 <= j < 3):
@@ -44,7 +49,7 @@ def result(board, action):
 
     new_board = [row[:] for row in board]
     new_board[i][j] = player(board)
-
+    print_board(new_board)
     return new_board
 
 
@@ -54,13 +59,17 @@ def winner(board):
     """
     for i in range(3):
         if board[i][0] == board[i][1] == board[i][2] != EMPTY:
+            print(f"Winner: {board[i][0]}")
             return board[i][0]
         if board[0][i] == board[1][i] == board[2][i] != EMPTY:
+            print(f"Winner: {board[0][i]}")
             return board[0][i]
 
     if board[0][0] == board[1][1] == board[2][2] != EMPTY:
+        print(f"Winner: {board[0][0]}")
         return board[0][0]
     if board[0][2] == board[1][1] == board[2][0] != EMPTY:
+        print(f"Winner: {board[0][2]}")
         return board[0][2]
 
     return None
@@ -70,9 +79,11 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    return winner(board) is not None or all(
+    game_over = winner(board) is not None or all(
         cell is not EMPTY for row in board for cell in row
     )
+    print(f"Terminal: {game_over}")
+    return game_over
 
 
 def utility(board):
@@ -92,14 +103,18 @@ def minimax(board):
     Returns the optimal action for the current player on the board.
     """
     current_player = player(board)
+    print(f"Minimax called for player: {current_player}")
 
     if terminal(board):
         return None
 
     if current_player == X:
-        return max(actions(board), key=lambda action: min_value(result(board, action)))
+        optimal_action = max(actions(board), key=lambda action: min_value(result(board, action)))
+    else:
+        optimal_action = min(actions(board), key=lambda action: max_value(result(board, action)))
 
-    return min(actions(board), key=lambda action: max_value(result(board, action)))
+    print(f"Optimal action for {current_player}: {optimal_action}")
+    return optimal_action
 
 
 def max_value(board):
