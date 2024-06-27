@@ -36,11 +36,10 @@ def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    i, j = action
-
     if action not in actions(board):
         raise ValueError("Not valid action")
 
+    i, j = action
     new_board = copy.deepcopy(board)
     new_board[i][j] = player(board)
 
