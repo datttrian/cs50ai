@@ -139,7 +139,7 @@ def shortest_path(source, target):
 
                     x = zip(movies, people)
                     for movie, person in x:
-                        solution.append(movie, person)
+                        solution.append((movie, person))
 
                     return solution
 
