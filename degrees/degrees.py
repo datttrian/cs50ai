@@ -1,7 +1,7 @@
 import csv
 import sys
 
-from util import Node, StackFrontier, QueueFrontier
+from util import Node, QueueFrontier, StackFrontier
 
 # Maps names to a set of corresponding person_ids
 names = {}
@@ -104,7 +104,7 @@ def person_id_for_name(name):
     person_ids = list(names.get(name.lower(), set()))
     if len(person_ids) == 0:
         return None
-    elif len(person_ids) > 1:
+    if len(person_ids) > 1:
         print(f"Which '{name}'?")
         for person_id in person_ids:
             person = people[person_id]
@@ -118,8 +118,7 @@ def person_id_for_name(name):
         except ValueError:
             pass
         return None
-    else:
-        return person_ids[0]
+    return person_ids[0]
 
 
 def neighbors_for_person(person_id):
