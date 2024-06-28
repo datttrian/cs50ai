@@ -95,6 +95,10 @@ def shortest_path(source, target):
     # TODO
     # raise NotImplementedError
 
+    # Check if source and target are the same
+    if source == target:
+        return []
+
     # Keep track of number of states explored
     num_explored = 0
 
@@ -111,7 +115,7 @@ def shortest_path(source, target):
 
         # If nothing left in frontier, then no path
         if frontier.empty():
-            raise RuntimeError("no solution")
+            return None
 
         # Choose a node from the frontier
         node = frontier.remove()
