@@ -113,11 +113,7 @@ def shortest_path(source, target):
     frontier = deque([start])
 
     # Keep looping until solution found
-    while True:
-
-        # If nothing left in frontier, then no path
-        if not frontier:
-            return None
+    while frontier:
 
         # Choose a node from the frontier
         node = frontier.popleft()
@@ -150,6 +146,9 @@ def shortest_path(source, target):
                     return solution
 
                 frontier.add(child)
+
+    # If no path found, return None
+    return None
 
 
 def person_id_for_name(name):
