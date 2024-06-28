@@ -2,7 +2,7 @@
 
 ## Week 0
 
-- Lecture: Search
+- Lecture: [Search](src0)
 - Problem Set: [Degrees](degrees), [Tic-Tac-Toe](tictactoe)
 
 ## Week 1

@@ -37,5 +37,5 @@ jobs:
           VALIDATE_JSON: false
           VALIDATE_MARKDOWN: false
           VALIDATE_BASH: false
-          FILTER_REGEX_INCLUDE: degrees/degrees.py
+          FILTER_REGEX_INCLUDE: src0/maze.py
 ...
