@@ -1,6 +1,7 @@
 import csv
 import sys
 
+from collections import deque
 from util import Node, QueueFrontier, StackFrontier
 
 # Maps names to a set of corresponding person_ids
@@ -107,18 +108,19 @@ def shortest_path(source, target):
 
     # Initialize frontier to just the starting position
     start = Node(state=source, parent=None, action=None)
-    frontier = QueueFrontier()
-    frontier.add(start)
+    # frontier = QueueFrontier()
+    # frontier.add(start)
+    frontier = deque([start])
 
     # Keep looping until solution found
     while True:
 
         # If nothing left in frontier, then no path
-        if frontier.empty():
+        if not frontier:
             return None
 
         # Choose a node from the frontier
-        node = frontier.remove()
+        node = frontier.popleft()
         num_explored += 1
 
         # Mark node as explored
