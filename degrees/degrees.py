@@ -129,7 +129,6 @@ def shortest_path(source, target):
                 if child.state == target:
                     movies = []
                     people = []
-                    solution = []
                     while child.parent is not None:
                         movies.append(child.action)
                         people.append(child.state)
@@ -137,8 +136,9 @@ def shortest_path(source, target):
                     movies.reverse()
                     people.reverse()
 
-                    x = zip(movies, people)
-                    for movie, person in x:
+                    solution = []
+                    movie_person_pairs = zip(movies, people)
+                    for movie, person in movie_person_pairs:
                         solution.append((movie, person))
 
                     return solution
