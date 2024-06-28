@@ -5,7 +5,10 @@
     "gitdoc.commitMessageFormat": "ccc, LLL d, kkkk, h:mm a ZZ",
     "flake8.args": [
         "--max-line-length=100",
-        "--ignore=E741,F401"
+        "--ignore=E741,F401,F841"
+    ],
+    "pylint.args": [
+        "W0612"
     ],
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
