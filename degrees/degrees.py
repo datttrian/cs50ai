@@ -2,7 +2,7 @@ import csv
 import sys
 
 from collections import deque
-from util import Node, QueueFrontier, StackFrontier
+from util import Node
 
 # Maps names to a set of corresponding person_ids
 names = {}
@@ -93,9 +93,6 @@ def shortest_path(source, target):
     If no possible path, returns None.
     """
 
-    # TODO
-    # raise NotImplementedError
-
     # Check if source and target are the same
     if source == target:
         return []
@@ -108,12 +105,15 @@ def shortest_path(source, target):
 
     # Initialize frontier to just the starting position
     start = Node(state=source, parent=None, action=None)
-    # frontier = QueueFrontier()
-    # frontier.add(start)
+
     frontier = deque([start])
 
     # Keep looping until solution found
-    while frontier:
+    while True:
+
+        # If nothing left in frontier, then no path
+        if not frontier:
+            return None
 
         # Choose a node from the frontier
         node = frontier.popleft()
@@ -124,7 +124,10 @@ def shortest_path(source, target):
 
         # Add neighbors to frontier
         for movie_id, person_id in neighbors_for_person(node.state):
-            if not frontier.contains_state(person_id) and person_id not in explored:
+            if (
+                not any(child.state == person_id for child in frontier)
+                and person_id not in explored
+            ):
                 child = Node(state=person_id, parent=node, action=movie_id)
 
                 # If node is the goal, then we have a solution
@@ -145,10 +148,7 @@ def shortest_path(source, target):
 
                     return solution
 
-                frontier.add(child)
-
-    # If no path found, return None
-    return None
+                frontier.append(child)
 
 
 def person_id_for_name(name):
