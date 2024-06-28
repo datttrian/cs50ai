@@ -421,8 +421,7 @@ confidence=HIGH,
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
-disable=redefined-argument-from-local,
-        raw-checker-failed,
+disable=raw-checker-failed,
         bad-inline-option,
         locally-disabled,
         file-ignored,
@@ -437,7 +436,8 @@ disable=redefined-argument-from-local,
         missing-class-docstring,
         missing-function-docstring,
         too-few-public-methods,
-        import-error
+        import-error,
+        # redefined-argument-from-local,
         
 
 

@@ -1,7 +1,7 @@
 import csv
 import sys
-
 from collections import deque
+
 from util import Node
 
 # Maps names to a set of corresponding person_ids
