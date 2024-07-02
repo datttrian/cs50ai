@@ -111,11 +111,7 @@ def shortest_path(source, target):
     frontier.add(start)
 
     # Keep looping until solution found
-    while True:
-
-        # If nothing left in frontier, then no path
-        if frontier.empty():
-            return None
+    while not frontier.empty():
 
         # Choose a node from the frontier
         node = frontier.remove()
@@ -126,7 +122,7 @@ def shortest_path(source, target):
 
         # Add neighbors to frontier
         for movie_id, person_id in neighbors_for_person(node.state):
-            if not frontier.contains_state(person_id) and person_id not in explored:
+            if person_id not in explored and not frontier.contains_state(person_id):
                 child = Node(state=person_id, parent=node, action=movie_id)
 
                 # If node is the goal, then we have a solution
@@ -148,6 +144,9 @@ def shortest_path(source, target):
                     return solution
 
                 frontier.add(child)
+
+    # If nothing left in frontier, then no path
+    return None
 
 
 def person_id_for_name(name):
