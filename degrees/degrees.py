@@ -1,8 +1,7 @@
 import csv
 import sys
-from collections import deque
 
-from util import Node
+from util import Node, QueueFrontier, StackFrontier
 
 # Maps names to a set of corresponding person_ids
 names = {}
@@ -92,6 +91,10 @@ def shortest_path(source, target):
 
     If no possible path, returns None.
     """
+
+    # TODO
+    # raise NotImplementedError
+
     # Check if source and target are the same
     if source == target:
         return []
@@ -104,14 +107,18 @@ def shortest_path(source, target):
 
     # Initialize frontier to just the starting position
     start = Node(state=source, parent=None, action=None)
-
-    frontier = deque([start])
+    frontier = QueueFrontier()
+    frontier.add(start)
 
     # Keep looping until solution found
-    while frontier:
+    while True:
+
+        # If nothing left in frontier, then no path
+        if frontier.empty():
+            return None
 
         # Choose a node from the frontier
-        node = frontier.popleft()
+        node = frontier.remove()
         num_explored += 1
 
         # Mark node as explored
@@ -119,33 +126,28 @@ def shortest_path(source, target):
 
         # Add neighbors to frontier
         for movie_id, person_id in neighbors_for_person(node.state):
-            if (
-                not any(child.state == person_id for child in frontier)
-                and person_id not in explored
-            ):
+            if not frontier.contains_state(person_id) and person_id not in explored:
                 child = Node(state=person_id, parent=node, action=movie_id)
 
                 # If node is the goal, then we have a solution
                 if child.state == target:
-                    movies_list = []
-                    people_list = []
+                    movies = []
+                    people = []
                     while child.parent is not None:
-                        movies_list.append(child.action)
-                        people_list.append(child.state)
+                        movies.append(child.action)
+                        people.append(child.state)
                         child = child.parent
-                    movies_list.reverse()
-                    people_list.reverse()
+                    movies.reverse()
+                    people.reverse()
 
                     solution = []
-                    movie_person_pairs = zip(movies_list, people_list)
+                    movie_person_pairs = zip(movies, people)
                     for movie, person in movie_person_pairs:
                         solution.append((movie, person))
 
                     return solution
 
-                frontier.append(child)
-
-    return None
+                frontier.add(child)
 
 
 def person_id_for_name(name):
