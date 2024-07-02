@@ -338,16 +338,10 @@ symbols in order to reason in a more complex way about the world.
     </tbody>
     </table>
 
-- **Biconditional
-    (<img src="https://twemoji.maxcdn.com/v/14.0.2/72x72/2194.png"
-    class="emoji" draggable="false" alt="↔" />)** is an implication that
-    goes both directions. You can read it as “if and only if.” P
-    <img src="https://twemoji.maxcdn.com/v/14.0.2/72x72/2194.png"
-    class="emoji" draggable="false" alt="↔" /> Q is the same as P → Q
-    and Q → P taken together. For example, if P: “It is raining.” and Q:
-    “I’m indoors,” then P
-    <img src="https://twemoji.maxcdn.com/v/14.0.2/72x72/2194.png"
-    class="emoji" draggable="false" alt="↔" /> Q means that “If it is
+- **Biconditional($\leftrightarrow$)** is an implication that
+    goes both directions. You can read it as “if and only if.” P $\leftrightarrow$ Q is the same as P $\rightarrow$ Q
+    and Q $\rightarrow$ P taken together. For example, if P: “It is raining.” and Q:
+    “I’m indoors,” then P $\leftrightarrow$ Q means that “If it is
     raining, then I’m indoors,” and “if I’m indoors, then it is
     raining.” This means that we can infer more than we could with a
     simple implication. If P is false, then Q is also false; if it is
