@@ -28,13 +28,13 @@ looking at sentence 3, we know that Harry visited Dumbledore. Looking at
 sentence 2, we know that Harry visited either Dumbledore or Hagrid, and
 thus we can conclude
 
-1. Harry did not visit Hagrid.
+4. Harry did not visit Hagrid.
 
 Now, looking at sentence 1, we understand that if it didn’t rain, Harry
 would have visited Hagrid. However, knowing sentence 4, we know that
 this is not the case. Therefore, we can conclude
 
-1. It rained today.
+5. It rained today.
 
 To come to this conclusion, we used logic, and today’s lecture explores
 how AI can use logic to reach to new conclusions based on existing
