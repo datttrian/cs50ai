@@ -1,4 +1,4 @@
-from logic import *
+from logic import And, Implication, Not, Or, Symbol, model_check
 
 rain = Symbol("rain")
 hagrid = Symbol("hagrid")
@@ -8,7 +8,7 @@ knowledge = And(
     Implication(Not(rain), hagrid),
     Or(hagrid, dumbledore),
     Not(And(hagrid, dumbledore)),
-    dumbledore
+    dumbledore,
 )
 
 print(model_check(knowledge, rain))
