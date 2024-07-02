@@ -35,5 +35,6 @@ vendor/
 !main.yml
 !.python-lint
 !devcontainer.json
+!.gitattributes
 
 # Ignore files larger than 100M
