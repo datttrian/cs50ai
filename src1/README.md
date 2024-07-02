@@ -470,11 +470,6 @@ Query: R (We want to know whether R is true or false; Does KB ⊨ R?)
 To answer the query using the Model Checking algorithm, we enumerate all
 possible models.
 
-<span class="loading-wrap"> <span class="loading-text">Loading, please
-wait</span>
-<span class="animation-wrap"><span class="animation-dot"></span></span>
-</span>
-
 <table class="table table-bordered table-striped">
 <colgroup>
 <col style="width: 25%" />
@@ -572,11 +567,6 @@ Knowledge Base.
 First, in our KB, we know that P is true. Thus, we can say that the KB
 is false in all models where P is not true.
 
-<span class="loading-wrap"> <span class="loading-text">Loading, please
-wait</span>
-<span class="animation-wrap"><span class="animation-dot"></span></span>
-</span>
-
 <table class="table table-bordered table-striped">
 <colgroup>
 <col style="width: 25%" />
@@ -670,11 +660,6 @@ KB
 
 Next, similarly, in our KB, we know that Q is false. Thus, we can say
 that the KB is false in all models where Q is true.
-
-<span class="loading-wrap"> <span class="loading-text">Loading, please
-wait</span>
-<span class="animation-wrap"><span class="animation-dot"></span></span>
-</span>
 
 <table class="table table-bordered table-striped">
 <colgroup>
@@ -772,11 +757,6 @@ In one model R is true and in the other R is false. Due to (P ∧ ¬Q) → R
 being in our KB, we know that in the case where P is true and Q is
 false, R must be true. Thus, we say that our KB is false for the model
 where R is false, and true for the model where R is true.
-
-<span class="loading-wrap"> <span class="loading-text">Loading, please
-wait</span>
-<span class="animation-wrap"><span class="animation-dot"></span></span>
-</span>
 
 <table class="table table-bordered table-striped">
 <colgroup>
@@ -1195,11 +1175,6 @@ raining) or (Harry is inside).”
 
 This one can be a little confusing. However, consider the following
 truth table:
-
-<span class="loading-wrap"> <span class="loading-text">Loading, please
-wait</span>
-<span class="animation-wrap"><span class="animation-dot"></span></span>
-</span>
 
 <table class="table table-bordered table-striped">
 <colgroup>
