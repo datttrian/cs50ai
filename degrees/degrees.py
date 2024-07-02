@@ -127,21 +127,12 @@ def shortest_path(source, target):
 
                 # If node is the goal, then we have a solution
                 if child.state == target:
-                    movies = []
-                    people = []
+                    path = []
                     while child.parent is not None:
-                        movies.append(child.action)
-                        people.append(child.state)
+                        path.append((child.action, child.state))
                         child = child.parent
-                    movies.reverse()
-                    people.reverse()
-
-                    solution = []
-                    movie_person_pairs = zip(movies, people)
-                    for movie, person in movie_person_pairs:
-                        solution.append((movie, person))
-
-                    return solution
+                    path.reverse()
+                    return path
 
                 frontier.add(child)
 
