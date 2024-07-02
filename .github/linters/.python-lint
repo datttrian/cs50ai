@@ -437,7 +437,7 @@ disable=raw-checker-failed,
         missing-function-docstring,
         too-few-public-methods,
         import-error,
-        # redefined-argument-from-local,
+        redefined-argument-from-local
         
 
 
