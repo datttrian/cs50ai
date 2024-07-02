@@ -1104,20 +1104,20 @@ two makes a guess, and player one gives back a number, indicating how
 many colors player two got right. Let’s simulate a game with four
 colors. Suppose player two suggests the following ordering:
 
-![Mastermind1](mastermind1.png)
+![Mastermind1](https://cs50.harvard.edu/ai/2024/notes/1/mastermind1.png)
 
 Player one answers “two.” Thus we know that some two of the colors are
 in the correct position, and the other two are in the wrong place. Based
 on this information, player two tries to switch the locations of two
 colors.
 
-![Mastermind2](mastermind2.png)
+![Mastermind2](https://cs50.harvard.edu/ai/2024/notes/1/mastermind2.png)
 
 Now player one answers “zero.” Thus, player two knows that the switched
 colors were in the right location initially, which means the untouched
 two colors were in the wrong location. Player two switches them.
 
-![Mastermind3](mastermind3.png)
+![Mastermind3](https://cs50.harvard.edu/ai/2024/notes/1/mastermind3.png)
 
 Player one says “four” and the game is over.
 
@@ -1146,7 +1146,7 @@ separates the top part, the premise, from the bottom part, the
 conclusion. The premise is whatever knowledge we have, and the
 conclusion is what knowledge can be generated based on the premise.
 
-![Modus Ponens Example](modusponensexample.png)
+![Modus Ponens Example](https://cs50.harvard.edu/ai/2024/notes/1/modusponensexample.png)
 
 In this example, our premise consists of the following propositions:
 
@@ -1163,7 +1163,7 @@ The type of inference rule we use in this example is Modus Ponens, which
 is a fancy way of saying that if we know an implication and its
 antecedent to be true, then the consequent is true as well.
 
-![Modus Ponens](modusponens.png)
+![Modus Ponens](https://cs50.harvard.edu/ai/2024/notes/1/modusponens.png)
 
 **And Elimination**
 
@@ -1171,7 +1171,7 @@ If an And proposition is true, then any one atomic proposition within it
 is true as well. For example, if we know that Harry is friends with Ron
 and Hermione, we can conclude that Harry is friends with Hermione.
 
-![And Elimination](andelimination.png)
+![And Elimination](https://cs50.harvard.edu/ai/2024/notes/1/andelimination.png)
 
 **Double Negation Elimination**
 
@@ -1182,7 +1182,7 @@ test)”, or “¬(Harry did not pass the test)”, and, finally “¬(¬(Harry
 passed the test)).” The two negations cancel each other, marking the
 proposition “Harry passed the test” as true.
 
-![Double Negation Elimination](doublenegationelimination.png)
+![Double Negation Elimination](https://cs50.harvard.edu/ai/2024/notes/1/doublenegationelimination.png)
 
 **Implication Elimination**
 
@@ -1191,7 +1191,7 @@ antecedent and the consequent. As an example, the proposition “If it is
 raining, Harry is inside” is equivalent to the proposition “(it is not
 raining) or (Harry is inside).”
 
-![Implication Elimination](implicationelimination.png)
+![Implication Elimination](https://cs50.harvard.edu/ai/2024/notes/1/implicationelimination.png)
 
 This one can be a little confusing. However, consider the following
 truth table:
@@ -1286,7 +1286,7 @@ inverse with an And connective. For example, “It is raining if and only
 if Harry is inside” is equivalent to (“If it is raining, Harry is
 inside” And “If Harry is inside, it is raining”).
 
-![Biconditional Elimination](biconditionalelimination.png)
+![Biconditional Elimination](https://cs50.harvard.edu/ai/2024/notes/1/biconditionalelimination.png)
 
 **De Morgan’s Law**
 
@@ -1297,14 +1297,14 @@ true that Harry passed the test” Or “It is not true that Ron passed the
 test.” That is, for the And proposition earlier to be true, at least one
 of the propositions in the Or propositions must be true.
 
-![De Morgan's 1](demorgans1.png)
+![De Morgan's 1](https://cs50.harvard.edu/ai/2024/notes/1/demorgans1.png)
 
 Similarly, it is possible to conclude the reverse. Consider the
 proposition “It is not true that Harry or Ron passed the test.” This can
 be rephrased as “Harry did not pass the test” And “Ron did not pass the
 test.”
 
-![De Morgan's 2](demorgans2.png)
+![De Morgan's 2](https://cs50.harvard.edu/ai/2024/notes/1/demorgans2.png)
 
 **Distributive Property**
 
@@ -1312,9 +1312,9 @@ A proposition with two elements that are grouped with And or Or
 connectives can be distributed, or broken down into, smaller units
 consisting of And and Or.
 
-![Distributive 1](distributive1.png)
+![Distributive 1](https://cs50.harvard.edu/ai/2024/notes/1/distributive1.png)
 
-![Distributive 2](distributive2.png)
+![Distributive 2](https://cs50.harvard.edu/ai/2024/notes/1/distributive2.png)
 
 **Knowledge and Search Problems**
 
@@ -1343,7 +1343,7 @@ true. For example, given the proposition “Ron is in the Great Hall” Or
 in the Great Hall,” we can conclude that “Hermione is in the library.”
 More formally, we can define resolution the following way:
 
-![Resolution](resolution1.png)
+![Resolution](https://cs50.harvard.edu/ai/2024/notes/1/resolution1.png)
 
 Resolution relies on **Complementary Literals**, two of the same atomic
 propositions where one is negated and the other is not, such as P and
@@ -1355,7 +1355,7 @@ we also know that “Ron is not in the Great Hall” Or “Harry is sleeping.”
 We can infer from this, using resolution, that “Hermione is in the
 library” Or “Harry is sleeping.” To put it in formal terms:
 
-![Resolution](resolution2.png)
+![Resolution](https://cs50.harvard.edu/ai/2024/notes/1/resolution2.png)
 
 Complementary literals allow us to generate new sentences through
 inferences by resolution. Thus, inference algorithms locate
@@ -1373,9 +1373,7 @@ for example: (A ∨ B ∨ C) ∧ (D ∨ ¬E) ∧ (F ∨ G).
 **Steps in Conversion of Propositions to Conjunctive Normal Form**
 
 - Eliminate biconditionals
-  - Turn (α
-        <img src="https://twemoji.maxcdn.com/v/14.0.2/72x72/2194.png"
-        class="emoji" draggable="false" alt="↔" /> β) into (α → β) ∧ (β
+  - Turn (α $\rightarrow$ β) into (α → β) ∧ (β
         → α).
 - Eliminate implications
   - Turn (α → β) into ¬α ∨ β.
