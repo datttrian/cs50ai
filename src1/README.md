@@ -1,4 +1,3 @@
-
 # Lecture 1
 
 ## Knowledge
@@ -247,13 +246,13 @@ symbols in order to reason in a more complex way about the world.
 
 > **A couple of side notes not mentioned in lecture**:
 >
-> - <span class="fa-li"></span>Sometimes an example helps understand
+> - Sometimes an example helps understand
 >     inclusive versus exclusive Or. Inclusive Or: “in order to eat
 >     dessert, you have to clean your room or mow the lawn.” In this
 >     case, if you do both chores, you will still get the cookies.
 >     Exclusive Or: “For dessert, you can have either cookies or ice
 >     cream.” In this case, you can’t have both.
-> - <span class="fa-li"></span>If you are curious, the exclusive Or is
+> - If you are curious, the exclusive Or is
 >     often shortened to XOR and a common symbol for it is ⊕).
 
 - **Implication (→)** represents a structure of “if P then Q.” For
@@ -461,11 +460,11 @@ were inferred from sentences 1, 2, and 3.
 There are multiple ways to infer new knowledge based on existing
 knowledge. First, we will consider the **Model Checking** algorithm.
 
-- <span class="fa-li"></span>To determine if KB ⊨ α (in other words,
+- To determine if KB ⊨ α (in other words,
     answering the question: “can we conclude that α is true based on our
     knowledge base”)
-  - <span class="fa-li"></span>Enumerate all possible models.
-  - <span class="fa-li"></span>If in every model where KB is true, α
+  - Enumerate all possible models.
+  - If in every model where KB is true, α
         is true as well, then KB entails α (KB ⊨ α).
 
 Consider the following example:
@@ -883,7 +882,7 @@ R.
 
 Next, let’s look at how knowledge and logic can be represented as code.
 
-``` highlight
+```python
 from logic import *
 
 # Create new classes, each having a name, or a symbol, representing each proposition.
@@ -907,19 +906,19 @@ knowledge = And(  # Starting from the "And" logical connective, becasue each pro
 To run the Model Checking algorithm, the following information is
 needed:
 
-- <span class="fa-li"></span>Knowledge Base, which will be used to
+- Knowledge Base, which will be used to
     draw inferences
-- <span class="fa-li"></span>A query, or the proposition that we are
+- A query, or the proposition that we are
     interested in whether it is entailed by the KB
-- <span class="fa-li"></span>Symbols, a list of all the symbols (or
+- Symbols, a list of all the symbols (or
     atomic propositions) used (in our case, these are `rain`, `hagrid`,
     and `dumbledore`)
-- <span class="fa-li"></span>Model, an assignment of truth and false
+- Model, an assignment of truth and false
     values to symbols
 
 The model checking algorithm looks as follows:
 
-``` highlight
+```python
 def check_all(knowledge, query, symbols, model):
 
     # If model has an assignment for each symbol
@@ -1055,7 +1054,7 @@ can conclude that it is the knife.
 Here is how the information would be added to the knowledge base in
 Python:
 
-``` highlight
+```python
 # Add the clues to the KB
 knowledge = And(
 
@@ -1157,12 +1156,12 @@ conclusion is what knowledge can be generated based on the premise.
 
 In this example, our premise consists of the following propositions:
 
-- <span class="fa-li"></span>If it is raining, then Harry is inside.
-- <span class="fa-li"></span>It is raining.
+- If it is raining, then Harry is inside.
+- It is raining.
 
 Based on this, most reasonable humans can conclude that
 
-- <span class="fa-li"></span>Harry is inside.
+- Harry is inside.
 
 **Modus Ponens**
 
@@ -1328,13 +1327,13 @@ consisting of And and Or.
 Inference can be viewed as a search problem with the following
 properties:
 
-- <span class="fa-li"></span>Initial state: starting knowledge base
-- <span class="fa-li"></span>Actions: inference rules
-- <span class="fa-li"></span>Transition model: new knowledge base
+- Initial state: starting knowledge base
+- Actions: inference rules
+- Transition model: new knowledge base
     after inference
-- <span class="fa-li"></span>Goal test: checking whether the statement
+- Goal test: checking whether the statement
     that we are trying to prove is in the KB
-- <span class="fa-li"></span>Path cost function: the number of steps
+- Path cost function: the number of steps
     in the proof
 
 This shows just how versatile search algorithms are, allowing us to
@@ -1379,23 +1378,23 @@ for example: (A ∨ B ∨ C) ∧ (D ∨ ¬E) ∧ (F ∨ G).
 
 **Steps in Conversion of Propositions to Conjunctive Normal Form**
 
-- <span class="fa-li"></span>Eliminate biconditionals
-  - <span class="fa-li"></span>Turn (α
+- Eliminate biconditionals
+  - Turn (α
         <img src="https://twemoji.maxcdn.com/v/14.0.2/72x72/2194.png"
         class="emoji" draggable="false" alt="↔" /> β) into (α → β) ∧ (β
         → α).
-- <span class="fa-li"></span>Eliminate implications
-  - <span class="fa-li"></span>Turn (α → β) into ¬α ∨ β.
-- <span class="fa-li"></span>Move negation inwards until only literals
+- Eliminate implications
+  - Turn (α → β) into ¬α ∨ β.
+- Move negation inwards until only literals
     are being negated (and not clauses), using De Morgan’s Laws.
-  - <span class="fa-li"></span>Turn ¬(α ∧ β) into ¬α ∨ ¬β
+  - Turn ¬(α ∧ β) into ¬α ∨ ¬β
 
 Here’s an example of converting (P ∨ Q) → R to Conjunctive Normal Form:
 
-- <span class="fa-li"></span>(P ∨ Q) → R
-- <span class="fa-li"></span>¬(P ∨ Q) ∨ R /Eliminate implication
-- <span class="fa-li"></span>(¬P ∧ ¬Q) ∨ R /De Morgan’s Law
-- <span class="fa-li"></span>(¬P ∨ R) ∧ (¬Q ∨ R) /Distributive Law
+- (P ∨ Q) → R
+- ¬(P ∨ Q) ∨ R /Eliminate implication
+- (¬P ∧ ¬Q) ∨ R /De Morgan’s Law
+- (¬P ∨ R) ∧ (¬Q ∨ R) /Distributive Law
 
 At this point, we can run an inference algorithm on the conjunctive
 normal form. Occasionally, through the process of inference by
@@ -1410,41 +1409,41 @@ clause** (). The empty clause is always false, and this makes sense
 because it is impossible that both P and ¬P are true. This fact is used
 by the resolution algorithm.
 
-- <span class="fa-li"></span>To determine if KB ⊨ α:
-  - <span class="fa-li"></span>Check: is (KB ∧ ¬α) a contradiction?
-    - <span class="fa-li"></span>If so, then KB ⊨ α.
-    - <span class="fa-li"></span>Otherwise, no entailment.
+- To determine if KB ⊨ α:
+  - Check: is (KB ∧ ¬α) a contradiction?
+    - If so, then KB ⊨ α.
+    - Otherwise, no entailment.
 
 Proof by contradiction is a tool used often in computer science. If our
 knowledge base is true, and it contradicts ¬α, it means that ¬α is
 false, and, therefore, α must be true. More technically, the algorithm
 would perform the following actions:
 
-- <span class="fa-li"></span>To determine if KB ⊨ α:
-  - <span class="fa-li"></span>Convert (KB ∧ ¬α) to Conjunctive
+- To determine if KB ⊨ α:
+  - Convert (KB ∧ ¬α) to Conjunctive
         Normal Form.
-  - <span class="fa-li"></span>Keep checking to see if we can use
+  - Keep checking to see if we can use
         resolution to produce a new clause.
-  - <span class="fa-li"></span>If we ever produce the empty clause
+  - If we ever produce the empty clause
         (equivalent to False), congratulations! We have arrived at a
         contradiction, thus proving that KB ⊨ α.
-  - <span class="fa-li"></span>However, if contradiction is not
+  - However, if contradiction is not
         achieved and no more clauses can be inferred, there is no
         entailment.
 
 Here is an example that illustrates how this algorithm might work:
 
-- <span class="fa-li"></span>Does (A ∨ B) ∧ (¬B ∨ C) ∧ (¬C) entail A?
-- <span class="fa-li"></span>First, to prove by contradiction, we
+- Does (A ∨ B) ∧ (¬B ∨ C) ∧ (¬C) entail A?
+- First, to prove by contradiction, we
     assume that A is false. Thus, we arrive at (A ∨ B) ∧ (¬B ∨ C) ∧ (¬C)
     ∧ (¬A).
-- <span class="fa-li"></span>Now, we can start generating new
+- Now, we can start generating new
     information. Since we know that C is false (¬C), the only way (¬B
     ∨ C) can be true is if B is false, too. Thus, we can add (¬B) to our
     KB.
-- <span class="fa-li"></span>Next, since we know (¬B), the only way (A
+- Next, since we know (¬B), the only way (A
     ∨ B) can be true is if A is true. Thus, we can add (A) to our KB.
-- <span class="fa-li"></span>Now our KB has two complementary
+- Now our KB has two complementary
     literals, (A) and (¬A). We resolve them, arriving at the empty set,
     (). The empty set is false by definition, so we have arrived at a
     contradiction.
