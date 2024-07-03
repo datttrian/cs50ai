@@ -33,11 +33,7 @@ class Sentence:
                     count -= 1
             return count == 0
 
-        if (
-            not len(s)
-            or s.isalpha()
-            or (s[0] == "(" and s[-1] == ")" and balanced(s[1:-1]))
-        ):
+        if not s or s.isalpha() or (s[0] == "(" and s[-1] == ")" and balanced(s[1:-1])):
             return s
         return f"({s})"
 
@@ -236,27 +232,26 @@ def model_check(knowledge, query):
             if knowledge.evaluate(model):
                 return query.evaluate(model)
             return True
-        else:
 
-            # Choose one of the remaining unused symbols
-            remaining = symbols.copy()
-            p = remaining.pop()
+        # Choose one of the remaining unused symbols
+        remaining = symbols.copy()
+        p = remaining.pop()
 
-            # Create a model where the symbol is true
-            model_true = model.copy()
-            model_true[p] = True
+        # Create a model where the symbol is true
+        model_true = model.copy()
+        model_true[p] = True
 
-            # Create a model where the symbol is false
-            model_false = model.copy()
-            model_false[p] = False
+        # Create a model where the symbol is false
+        model_false = model.copy()
+        model_false[p] = False
 
-            # Ensure entailment holds in both models
-            return check_all(knowledge, query, remaining, model_true) and check_all(
-                knowledge, query, remaining, model_false
-            )
+        # Ensure entailment holds in both models
+        return check_all(knowledge, query, remaining, model_true) and check_all(
+            knowledge, query, remaining, model_false
+        )
 
     # Get all symbols in both knowledge and query
     symbols = set.union(knowledge.symbols(), query.symbols())
 
     # Check that knowledge entails query
-    return check_all(knowledge, query, symbols, dict())
+    return check_all(knowledge, query, symbols, {})
