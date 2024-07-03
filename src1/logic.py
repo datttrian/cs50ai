@@ -2,7 +2,7 @@ class Sentence:
 
     def evaluate(self, model):
         """Evaluates the logical sentence."""
-        raise Exception("nothing to evaluate")
+        raise NotImplementedError("nothing to evaluate")
 
     def formula(self):
         """Returns string formula representing logical sentence."""
@@ -39,8 +39,7 @@ class Sentence:
             or (s[0] == "(" and s[-1] == ")" and balanced(s[1:-1]))
         ):
             return s
-        else:
-            return f"({s})"
+        return f"({s})"
 
 
 class Symbol(Sentence):
