@@ -55,8 +55,8 @@ class Symbol(Sentence):
     def evaluate(self, model):
         try:
             return bool(model[self.name])
-        except KeyError:
-            raise ValueError(f"variable {self.name} not in model")
+        except KeyError as exc:
+            raise ValueError(f"variable {self.name} not in model") from exc
 
     def formula(self):
         return self.name
