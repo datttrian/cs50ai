@@ -857,7 +857,7 @@ R.
 Next, let’s look at how knowledge and logic can be represented as code.
 
 ```python
-from logic import *
+from logic import And, Implication, Not, Or, Symbol
 
 # Create new classes, each having a name, or a symbol, representing each proposition.
 rain = Symbol("rain")  # It is raining.
@@ -865,17 +865,20 @@ hagrid = Symbol("hagrid")  # Harry visited Hagrid
 dumbledore = Symbol("dumbledore")  # Harry visited Dumbledore
 
 # Save sentences into the KB
-knowledge = And(  # Starting from the "And" logical connective, becasue each proposition represents knowledge that we know to be true.
-
+knowledge = And(  # Starting from the "And" logical connective, because each proposition represents knowledge that we know to be true.
     Implication(Not(rain), hagrid),  # ¬(It is raining) → (Harry visited Hagrid)
-
     Or(hagrid, dumbledore),  # (Harry visited Hagrid) ∨ (Harry visited Dumbledore).
+    Not(
+        And(hagrid, dumbledore)
+    ),  # ¬(Harry visited Hagrid ∧ Harry visited Dumbledore) i.e. Harry did not visit both Hagrid and Dumbledore.
+    dumbledore,  # Harry visited Dumbledore. Note that while previous propositions contained multiple symbols with connectors, this is a proposition consisting of one symbol. This means that we take as a fact that, in this KB, Harry visited Dumbledore.
+)
 
-    Not(And(hagrid, dumbledore)),  # ¬(Harry visited Hagrid ∧ Harry visited Dumbledore) i.e. Harry did not visit both Hagrid and Dumbledore.
-
-    dumbledore  # Harry visited Dumbledore. Note that while previous propositions contained multiple symbols with connectors, this is a proposition consisting of one symbol. This means that we take as a fact that, in this KB, Harry visited Dumbledore.
-    )
+# Print the KB
+print(knowledge.formula())
 ```
+
+    ((¬rain) => hagrid) ∧ (hagrid ∨  dumbledore) ∧ (¬(hagrid ∧ dumbledore)) ∧ dumbledore
 
 To run the Model Checking algorithm, the following information is
 needed:
@@ -893,17 +896,19 @@ needed:
 The model checking algorithm looks as follows:
 
 ```python
-def check_all(knowledge, query, symbols, model):
+def model_check(knowledge, query):
+    """Checks if knowledge base entails query."""
 
-    # If model has an assignment for each symbol
-    # (The logic below might be a little confusing: we start with a list of symbols. The function is recursive, and every time it calls itself it pops one symbol from the symbols list and generates models from it. Thus, when the symbols list is empty, we know that we finished generating models with every possible truth assignment of symbols.)
-    if not symbols:
+    def check_all(knowledge, query, symbols, model):
+        """Checks if knowledge base entails query, given a particular model."""
 
-        # If knowledge base is true in model, then query must also be true
-        if knowledge.evaluate(model):
-            return query.evaluate(model)
-        return True
-    else:
+        # If model has an assignment for each symbol
+        if not symbols:
+
+            # If knowledge base is true in model, then query must also be true
+            if knowledge.evaluate(model):
+                return query.evaluate(model)
+            return True
 
         # Choose one of the remaining unused symbols
         remaining = symbols.copy()
@@ -918,8 +923,23 @@ def check_all(knowledge, query, symbols, model):
         model_false[p] = False
 
         # Ensure entailment holds in both models
-        return(check_all(knowledge, query, remaining, model_true) and check_all(knowledge, query, remaining, model_false))
+        return check_all(knowledge, query, remaining, model_true) and check_all(
+            knowledge, query, remaining, model_false
+        )
+
+    # Get all symbols in both knowledge and query
+    symbols = set.union(knowledge.symbols(), query.symbols())
+
+    # Check that knowledge entails query
+    return check_all(knowledge, query, symbols, {})
 ```
+
+```python
+# Check if the knowledge base entails the query
+print(model_check(knowledge, rain))
+```
+
+    True
 
 Note that we are interested only in the models where the KB is true. If
 the KB is false, then the conditions that we know to be true are not
@@ -1051,6 +1071,63 @@ knowledge = And(
 )
 ```
 
+```python
+import termcolor
+from logic import And, Not, Or, Symbol, model_check
+
+mustard = Symbol("ColMustard")
+plum = Symbol("ProfPlum")
+scarlet = Symbol("MsScarlet")
+characters = [mustard, plum, scarlet]
+
+ballroom = Symbol("ballroom")
+kitchen = Symbol("kitchen")
+library = Symbol("library")
+rooms = [ballroom, kitchen, library]
+
+knife = Symbol("knife")
+revolver = Symbol("revolver")
+wrench = Symbol("wrench")
+```
+
+```python
+weapons = [knife, revolver, wrench]
+
+symbols = characters + rooms + weapons
+
+
+def check_knowledge(knowledge_base):
+    for symbol in symbols:
+        if model_check(knowledge_base, symbol):
+            termcolor.cprint(f"{symbol}: YES", "green")
+        elif not model_check(knowledge_base, Not(symbol)):
+            print(f"{symbol}: MAYBE")
+
+
+# There must be a person, room, and weapon.
+knowledge = And(
+    Or(mustard, plum, scarlet),
+    Or(ballroom, kitchen, library),
+    Or(knife, revolver, wrench),
+)
+
+# Initial cards
+knowledge.add(And(Not(mustard), Not(kitchen), Not(revolver)))
+
+# Unknown card
+knowledge.add(Or(Not(scarlet), Not(library), Not(wrench)))
+
+# Known cards
+knowledge.add(Not(plum))
+knowledge.add(Not(ballroom))
+
+check_knowledge(knowledge)
+```
+
+    [32mMsScarlet: YES[0m
+    [32mlibrary: YES[0m
+    [32mknife: YES[0m
+
 We can look at other logic puzzles as well. Consider the following
 example: four different people, Gilderoy, Pomona, Minerva, and Horace,
 are assigned to four different houses, Gryffindor, Hufflepuff,
@@ -1076,6 +1153,65 @@ and so on for all houses and all people. A solution to this inefficiency
 is offered in the section on [first order logic](#first-order-logic).
 However, this type of riddle can still be solved with either type of
 logic, given enough cues.
+
+```python
+from logic import And, Implication, Not, Or, Symbol, model_check
+
+people = ["Gilderoy", "Pomona", "Minerva", "Horace"]
+houses = ["Gryffindor", "Hufflepuff", "Ravenclaw", "Slytherin"]
+
+symbols = []
+
+knowledge = And()
+
+for person in people:
+    for house in houses:
+        symbols.append(Symbol(f"{person}{house}"))
+
+# Each person belongs to a house.
+for person in people:
+    knowledge.add(
+        Or(
+            Symbol(f"{person}Gryffindor"),
+            Symbol(f"{person}Hufflepuff"),
+            Symbol(f"{person}Ravenclaw"),
+            Symbol(f"{person}Slytherin"),
+        )
+    )
+
+# Only one house per person.
+for person in people:
+    for h1 in houses:
+        for h2 in houses:
+            if h1 != h2:
+                knowledge.add(
+                    Implication(Symbol(f"{person}{h1}"), Not(Symbol(f"{person}{h2}")))
+                )
+
+# Only one person per house.
+for house in houses:
+    for p1 in people:
+        for p2 in people:
+            if p1 != p2:
+                knowledge.add(
+                    Implication(Symbol(f"{p1}{house}"), Not(Symbol(f"{p2}{house}")))
+                )
+
+knowledge.add(Or(Symbol("GilderoyGryffindor"), Symbol("GilderoyRavenclaw")))
+
+knowledge.add(Not(Symbol("PomonaSlytherin")))
+
+knowledge.add(Symbol("MinervaGryffindor"))
+
+for symbol in symbols:
+    if model_check(knowledge, symbol):
+        print(symbol)
+```
+
+    GilderoyRavenclaw
+    PomonaHufflepuff
+    MinervaGryffindor
+    HoraceSlytherin
 
 Another type of puzzle that can be solved using propositional logic is a
 Mastermind game. In this game, player one arranges colors in a certain
@@ -1112,6 +1248,104 @@ would add that, in the first guess, two positions were wrong and two
 were right, and in the second guess, none was right. Using this
 knowledge, a Model Checking algorithm can give us the solution to the
 puzzle.
+
+```python
+from logic import And, Implication, Not, Or, Symbol, model_check
+
+colors = ["red", "blue", "green", "yellow"]
+symbols = []
+for i in range(4):
+    for color in colors:
+        symbols.append(Symbol(f"{color}{i}"))
+
+knowledge = And()
+
+# Each color has a position.
+for color in colors:
+    knowledge.add(
+        Or(
+            Symbol(f"{color}0"),
+            Symbol(f"{color}1"),
+            Symbol(f"{color}2"),
+            Symbol(f"{color}3"),
+        )
+    )
+
+# Only one position per color.
+for color in colors:
+    for i in range(4):
+        for j in range(4):
+            if i != j:
+                knowledge.add(
+                    Implication(Symbol(f"{color}{i}"), Not(Symbol(f"{color}{j}")))
+                )
+
+# Only one color per position.
+for i in range(4):
+    for c1 in colors:
+        for c2 in colors:
+            if c1 != c2:
+                knowledge.add(Implication(Symbol(f"{c1}{i}"), Not(Symbol(f"{c2}{i}"))))
+
+knowledge.add(
+    Or(
+        And(
+            Symbol("red0"),
+            Symbol("blue1"),
+            Not(Symbol("green2")),
+            Not(Symbol("yellow3")),
+        ),
+        And(
+            Symbol("red0"),
+            Symbol("green2"),
+            Not(Symbol("blue1")),
+            Not(Symbol("yellow3")),
+        ),
+        And(
+            Symbol("red0"),
+            Symbol("yellow3"),
+            Not(Symbol("blue1")),
+            Not(Symbol("green2")),
+        ),
+        And(
+            Symbol("blue1"),
+            Symbol("green2"),
+            Not(Symbol("red0")),
+            Not(Symbol("yellow3")),
+        ),
+        And(
+            Symbol("blue1"),
+            Symbol("yellow3"),
+            Not(Symbol("red0")),
+            Not(Symbol("green2")),
+        ),
+        And(
+            Symbol("green2"),
+            Symbol("yellow3"),
+            Not(Symbol("red0")),
+            Not(Symbol("blue1")),
+        ),
+    )
+)
+
+knowledge.add(
+    And(
+        Not(Symbol("blue0")),
+        Not(Symbol("red1")),
+        Not(Symbol("green2")),
+        Not(Symbol("yellow3")),
+    )
+)
+
+for symbol in symbols:
+    if model_check(knowledge, symbol):
+        print(symbol)
+```
+
+    red0
+    blue1
+    yellow2
+    green3
 
 ## Inference Rules
 
