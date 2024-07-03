@@ -19,11 +19,11 @@ weapons = [knife, revolver, wrench]
 symbols = characters + rooms + weapons
 
 
-def check_knowledge(knowledge):
+def check_knowledge(knowledge_base):
     for symbol in symbols:
-        if model_check(knowledge, symbol):
+        if model_check(knowledge_base, symbol):
             termcolor.cprint(f"{symbol}: YES", "green")
-        elif not model_check(knowledge, Not(symbol)):
+        elif not model_check(knowledge_base, Not(symbol)):
             print(f"{symbol}: MAYBE")
 
 
