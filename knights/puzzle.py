@@ -1,4 +1,4 @@
-from logic import *
+from logic import And, Implication, Not, Or, Symbol, model_check
 
 AKnight = Symbol("A is a Knight")
 AKnave = Symbol("A is a Knave")
@@ -9,8 +9,7 @@ BKnave = Symbol("B is a Knave")
 CKnight = Symbol("C is a Knight")
 CKnave = Symbol("C is a Knave")
 
-# TODO
-knowledgeBase = And(
+knowledge_base = And(
     Or(AKnight, AKnave),
     Or(BKnight, BKnave),
     Or(CKnight, CKnave),
@@ -22,34 +21,33 @@ knowledgeBase = And(
 # Puzzle 0
 # A says "I am both a knight and a knave."
 knowledge0 = And(
-    # TODO
-    knowledgeBase,
+    knowledge_base,
     Implication(AKnight, And(AKnight, AKnave)),
-    Implication(AKnave, Not(And(AKnight, AKnave))),
+    Implication(AKnave, Or(AKnight, AKnave)),
 )
 
 # Puzzle 1
 # A says "We are both knaves."
 # B says nothing.
 knowledge1 = And(
-    # TODO
-    knowledgeBase,
+    knowledge_base,
     Implication(AKnight, And(AKnave, BKnave)),
-    Implication(AKnave, Not(And(AKnave, BKnave))),
+    Implication(AKnave, Or(Not(AKnave), Not(BKnave))),
 )
 
 # Puzzle 2
 # A says "We are the same kind."
 # B says "We are of different kinds."
 knowledge2 = And(
-    # TODO
-    knowledgeBase,
-    # A says "We are the same kind."
+    knowledge_base,
     Implication(AKnight, Or(And(AKnight, BKnight), And(AKnave, BKnave))),
-    Implication(AKnight, Not(Or(And(AKnight, BKnight), And(AKnave, BKnave)))),
-    # B says "We are of different kinds."
-    Implication(BKnight, Or(And(BKnight, AKnave), And(BKnave, AKnave))),
-    Implication(BKnave, Not(Or(And(BKnight, AKnave), And(BKnave, AKnave)))),
+    Implication(
+        AKnave, And(Or(Not(AKnight), Not(BKnight)), Or(Not(AKnave), Not(BKnave)))
+    ),
+    Implication(BKnight, Or(And(BKnight, AKnave), And(BKnave, AKnight))),
+    Implication(
+        BKnave, And(Or(Not(BKnight), Not(AKnave)), Or(Not(BKnave), Not(AKnight)))
+    ),
 )
 
 # Puzzle 3
@@ -58,16 +56,27 @@ knowledge2 = And(
 # B says "C is a knave."
 # C says "A is a knight."
 knowledge3 = And(
-    # TODO
-    knowledgeBase,
-    # A says either "I am a knight." or "I am a knave.", but you don't know which.
+    knowledge_base,
     Implication(AKnight, Or(AKnight, AKnave)),
-    Implication(AKnave, Not(Or(AKnight, AKnave))),
-    # B says "A said 'I am a knave'."
-    # B says "C is a knave."
+    Implication(AKnave, And(Not(AKnight), Not(AKnave))),
+    Or(
+        Implication(
+            BKnight,
+            Or(
+                Implication(AKnight, AKnave),
+                Implication(AKnave, And(Not(AKnight), Not(AKnave))),
+            ),
+        ),
+        Implication(
+            BKnave,
+            And(
+                Not(Implication(AKnight, AKnave)),
+                Not(Implication(AKnave, And(Not(AKnight), Not(AKnave)))),
+            ),
+        ),
+    ),
     Implication(BKnight, CKnave),
     Implication(BKnave, Not(CKnave)),
-    # C says "A is a knight."
     Implication(CKnight, AKnight),
     Implication(CKnave, Not(AKnight)),
 )

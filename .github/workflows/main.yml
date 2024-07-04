@@ -36,6 +36,7 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_JSON: false
           VALIDATE_MARKDOWN: false
+          VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_BASH: false
-          FILTER_REGEX_INCLUDE: src1
+          FILTER_REGEX_INCLUDE: knights
 ...
