@@ -41,9 +41,9 @@ knowledge1 = And(
 knowledge2 = And(
     knowledge_base,
     Implication(AKnight, Or(And(AKnight, BKnight), And(AKnave, BKnave))),
-    Implication(AKnave, Not(Or(And(AKnight, BKnight), And(AKnave, BKnave)))),
+    Implication(AKnave, And(Or(Not(AKnight), Not(BKnight)), Or(Not(AKnave), Not(BKnave)))),
     Implication(BKnight, Or(And(BKnight, AKnave), And(BKnave, AKnight))),
-    Implication(BKnave, Not(Or(And(BKnight, AKnave), And(BKnave, AKnight)))),
+    Implication(BKnave, And(Or(Not(BKnight), Not(AKnave)), Or(Not(BKnave), Not(AKnight))))
 )
 
 # Puzzle 3
