@@ -1,4 +1,4 @@
-from logic import And, Symbol, model_check
+from logic import And, Not, Or, Symbol, model_check
 
 AKnight = Symbol("A is a Knight")
 AKnave = Symbol("A is a Knave")
@@ -8,6 +8,15 @@ BKnave = Symbol("B is a Knave")
 
 CKnight = Symbol("C is a Knight")
 CKnave = Symbol("C is a Knave")
+
+knowledge_base = And(
+    Or(AKnight, AKnave),
+    Or(BKnight, BKnave),
+    Or(CKnight, CKnave),
+    Not(And(AKnight, AKnave)),
+    Not(And(BKnight, BKnave)),
+    Not(And(CKnight, CKnave)),
+)
 
 # Puzzle 0
 # A says "I am both a knight and a knave."
