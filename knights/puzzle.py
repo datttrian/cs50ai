@@ -23,7 +23,7 @@ knowledge_base = And(
 knowledge0 = And(
     knowledge_base,
     Implication(AKnight, And(AKnight, AKnave)),
-    Implication(AKnave, Not(And(AKnight, AKnave))),
+    Implication(AKnave, Or(AKnight, AKnave)),
 )
 
 # Puzzle 1
