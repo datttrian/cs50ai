@@ -41,9 +41,13 @@ knowledge1 = And(
 knowledge2 = And(
     knowledge_base,
     Implication(AKnight, Or(And(AKnight, BKnight), And(AKnave, BKnave))),
-    Implication(AKnave, And(Or(Not(AKnight), Not(BKnight)), Or(Not(AKnave), Not(BKnave)))),
+    Implication(
+        AKnave, And(Or(Not(AKnight), Not(BKnight)), Or(Not(AKnave), Not(BKnave)))
+    ),
     Implication(BKnight, Or(And(BKnight, AKnave), And(BKnave, AKnight))),
-    Implication(BKnave, And(Or(Not(BKnight), Not(AKnave)), Or(Not(BKnave), Not(AKnight))))
+    Implication(
+        BKnave, And(Or(Not(BKnight), Not(AKnave)), Or(Not(BKnave), Not(AKnight)))
+    ),
 )
 
 # Puzzle 3
@@ -57,14 +61,17 @@ knowledge3 = And(
     Implication(AKnave, And(Not(AKnight), Not(AKnave))),
     Or(
         Implication(
-            BKnight, Or(Implication(AKnight, AKnave), Implication(
-                AKnave, And(Not(AKnight), Not(AKnave))))
+            BKnight,
+            Or(
+                Implication(AKnight, AKnave),
+                Implication(AKnave, And(Not(AKnight), Not(AKnave))),
+            ),
         ),
         Implication(
             BKnave,
             And(
                 Not(Implication(AKnight, AKnave)),
-                Not(Implication(AKnave, And(Not(AKnight), Not(AKnave))))
+                Not(Implication(AKnave, And(Not(AKnight), Not(AKnave)))),
             ),
         ),
     ),
