@@ -212,7 +212,7 @@ class MinesweeperAI:
         self.knowledge.append(new_sentence)
 
         for sentence in self.knowledge:
-            if sentence.know_mines():
+            if sentence.known_mines():
                 for cell in sentence.known_mines().copy():
                     self.mark_mine(cell)
             if sentence.known_safe():
