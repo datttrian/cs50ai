@@ -211,4 +211,13 @@ class MinesweeperAI:
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        raise NotImplementedError
+        possible_moves = []
+        for i in range(self.height):
+            for j in range(self.width):
+                if (i, j) not in self.moves_made and (i, j) not in self.mines:
+                    possible_moves.append(i, j)
+
+        if len(possible_moves) != 0:
+            return random.choice(possible_moves)
+        else:
+            return None
