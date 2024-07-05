@@ -207,6 +207,18 @@ class MinesweeperAI:
                 ):
                     undetermined_cells.append((i, j))
 
+        new_sentence = Sentence(undetermined_cells, count - count_mines)
+
+        self.knowledge.append(new_sentence)
+
+        for sentence in self.knowledge:
+            if sentence.know_mines():
+                for cell in sentence.known_mines().copy():
+                    self.mark_mine(cell)
+            if sentence.known_safe():
+                for cell in sentence.known_safes().copy():
+                    self.mark_safe(cell)
+
     def make_safe_move(self):
         """
         Returns a safe cell to choose on the Minesweeper board.
