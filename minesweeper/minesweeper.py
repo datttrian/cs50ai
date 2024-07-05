@@ -1,4 +1,3 @@
-import itertools
 import random
 
 
@@ -8,6 +7,7 @@ class Minesweeper:
     """
 
     def __init__(self, height=8, width=8, mines=8):
+
         # Set initial width, height, and number of mines
         self.height = height
         self.width = width
@@ -64,6 +64,7 @@ class Minesweeper:
         # Loop over all cells within one row and column
         for i in range(cell[0] - 1, cell[0] + 2):
             for j in range(cell[1] - 1, cell[1] + 2):
+
                 # Ignore the cell itself
                 if (i, j) == cell:
                     continue
@@ -139,6 +140,7 @@ class MinesweeperAI:
     """
 
     def __init__(self, height=8, width=8):
+
         # Set initial height and width
         self.height = height
         self.width = width

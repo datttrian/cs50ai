@@ -7,7 +7,7 @@
 
 ## Week 1
 
-- Lecture: Knowledge
+- Lecture: [Knowledge](src1)
 - Problem Set: [Knights](knights), [Minesweeper](minesweeper)
 
 ## Week 2
