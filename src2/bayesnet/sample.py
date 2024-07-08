@@ -1,6 +1,6 @@
-import pomegranate
-
 from collections import Counter
+
+import pomegranate
 
 from model import model
 
