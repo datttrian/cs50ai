@@ -1,1 +1,1 @@
-pomegranate
+pomegranate==0.12.2
