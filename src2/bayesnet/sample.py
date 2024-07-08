@@ -4,6 +4,7 @@ from collections import Counter
 
 from model import model
 
+
 def generate_sample():
 
     # Mapping of random variable name to sample generated
@@ -29,6 +30,7 @@ def generate_sample():
     # Return generated sample
     return sample
 
+
 # Rejection sampling
 # Compute distribution of Appointment given that train is delayed
 N = 10000
@@ -38,4 +40,3 @@ for i in range(N):
     if sample["train"] == "delayed":
         data.append(sample["appointment"])
 print(Counter(data))
-
