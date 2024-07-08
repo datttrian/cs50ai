@@ -36,7 +36,7 @@ def generate_sample():
 N = 10000
 data = []
 for i in range(N):
-    sample = generate_sample()
-    if sample["train"] == "delayed":
-        data.append(sample["appointment"])
+    sample_instance = generate_sample()
+    if sample_instance["train"] == "delayed":
+        data.append(sample_instance["appointment"])
 print(Counter(data))
