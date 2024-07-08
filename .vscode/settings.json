@@ -9,6 +9,9 @@
     "pylint.args": [
         "W0612"
     ],
+    "mypy-type-checker.args": [
+        "var-annotated"
+    ],
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter"
     },
