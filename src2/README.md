@@ -772,7 +772,7 @@ the above data can be represented in code.
 First, we create the nodes and provide a probability distribution for
 each one.
 
-``` highlight
+```python
 from pomegranate import *
 
 # Rain node has no parents
@@ -822,7 +822,7 @@ which node is the parent of which other node by adding edges between
 them (recall that a Bayesian network is a directed graph, consisting of
 nodes with arrows between them).
 
-``` highlight
+```python
 # Create a Bayesian Network and add states
 model = BayesianNetwork()
 model.add_states(rain, maintenance, train, appointment)
@@ -842,7 +842,7 @@ values we are interested in. In this example, we want to ask what is the
 probability that there is no rain, no track maintenance, the train is on
 time, and we attend the meeting.
 
-``` highlight
+```python
 # Calculate probability for a given observation
 probability = model.probability([["none", "no", "on time", "attend"]])
 
@@ -855,7 +855,7 @@ we know that the train was delayed. Given this information, we compute
 and print the probability distributions of the variables Rain,
 Maintenance, and Appointment.
 
-``` highlight
+```python
 # Calculate predictions based on the evidence that the train was delayed
 predictions = model.predict_proba({
     "train": "delayed"
@@ -920,7 +920,7 @@ number of samples where Train = *on time*.
 
 In code, a sampling function can look like `generate_sample`:
 
-``` highlight
+```python
 import pomegranate
 
 from collections import Counter
@@ -957,7 +957,7 @@ Now, to compute P(*Appointment \| Train = delayed*), which is the
 probability distribution of the Appointment variable given that the
 train is delayed, we do the following:
 
-``` highlight
+```python
 # Rejection sampling
 # Compute distribution of Appointment given that train is delayed
 N = 10000
@@ -1058,7 +1058,7 @@ Given this Markov chain, we can now answer questions such as “what is
 the probability of having four rainy days in a row?” Here is an example
 of how a Markov chain can be implemented in code:
 
-``` highlight
+```python
 from pomegranate import *
 
 # Define starting probabilities
@@ -1158,7 +1158,7 @@ likely sequence of words or syllables that brought to these waveforms.
 Next is a Python implementation of a hidden Markov model that we will
 use for a most likely explanation task:
 
-``` highlight
+```python
 from pomegranate import *
 
 # Observation model for each state
@@ -1199,7 +1199,7 @@ which will generate and print the most likely explanation (i.e. the
 weather sequence that most likely brought to this pattern of
 observations):
 
-``` highlight
+```python
 from model import model
 
 # Observed data
