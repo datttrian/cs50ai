@@ -1,9 +1,7 @@
 from model import model
 
 # Calculate predictions
-predictions = model.predict_proba({
-    "train": "delayed"
-})
+predictions = model.predict_proba({"train": "delayed"})
 
 # Print predictions for each node
 for node, prediction in zip(model.states, predictions):
