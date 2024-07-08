@@ -437,9 +437,7 @@ that affect whether we get to our appointment on time.
 
 Let’s describe this Bayesian network from the top down:
 
--
-
-    Rain is the root node in this network. This means that its
+- Rain is the root node in this network. This means that its
     probability distribution is not reliant on any prior event. In our
     example, Rain is a random variable that can take the values {*none,
     light, heavy*} with the following probability distribution:
@@ -489,9 +487,7 @@ Let’s describe this Bayesian network from the top down:
     </tbody>
     </table>
 
--
-
-    Maintenance, in our example, encodes whether there is train track
+- Maintenance, in our example, encodes whether there is train track
     maintenance, taking the values {*yes, no*}. Rain is a parent node of
     Maintenance, which means that the probability distribution of
     Maintenance is affected by Rain.
@@ -551,9 +547,7 @@ Let’s describe this Bayesian network from the top down:
     </tbody>
     </table>
 
--
-
-    Train is the variable that encodes whether the train is on time or
+- Train is the variable that encodes whether the train is on time or
     delayed, taking the values {*on time, delayed*}. Note that Train has
     arrows pointing to it from both Maintenance and Rain. This means
     that both are parents of Train, and their values affect the
@@ -643,9 +637,7 @@ Let’s describe this Bayesian network from the top down:
     </tbody>
     </table>
 
--
-
-    Appointment is a random variable that represents whether we attend
+- Appointment is a random variable that represents whether we attend
     our appointment, taking the values {*attend, miss*}. Note that its
     only parent is Train. This point about Bayesian network is
     noteworthy: parents include only direct relations. It is true that
