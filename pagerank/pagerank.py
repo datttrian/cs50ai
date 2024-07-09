@@ -137,10 +137,10 @@ def iterate_pagerank(corpus, damping_factor):
     PageRank values should sum to 1.
     """
     # Get the total number of pages in the corpus
-    n_page = len(corpus)
+    total_pages = len(corpus)
 
-    # Initialize the PageRank for each page to 1/N
-    page_rank = dict.fromkeys(corpus.keys(), 1 / n_page)
+    # Initialize the PageRank for each page to 1 / total_pages
+    page_rank = dict.fromkeys(corpus.keys(), 1 / total_pages)
 
     # Initialize the new PageRank dictionary with zero values
     new_page_rank = dict.fromkeys(corpus.keys(), 0)
@@ -160,10 +160,10 @@ def iterate_pagerank(corpus, damping_factor):
 
                 # Handle pages with no outgoing links by considering a random jump
                 if not links:
-                    rank_sum += page_rank[possible_page] / n_page
+                    rank_sum += page_rank[possible_page] / total_pages
 
             # Compute the new PageRank value for the current page
-            new_page_rank[page] = (1 - damping_factor) / n_page + damping_factor * rank_sum
+            new_page_rank[page] = (1 - damping_factor) / total_pages + damping_factor * rank_sum
 
         # Check for convergence
         for page, rank in new_page_rank.items():
