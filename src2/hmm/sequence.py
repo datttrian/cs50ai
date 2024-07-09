@@ -10,7 +10,7 @@ observations = [
     "umbrella",
     "umbrella",
     "no umbrella",
-    "no umbrella"
+    "no umbrella",
 ]
 
 # Predict underlying states
