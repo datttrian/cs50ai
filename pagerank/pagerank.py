@@ -163,7 +163,9 @@ def iterate_pagerank(corpus, damping_factor):
                     rank_sum += page_rank[possible_page] / total_pages
 
             # Compute the new PageRank value for the current page
-            new_page_rank[page] = (1 - damping_factor) / total_pages + damping_factor * rank_sum
+            new_page_rank[page] = (
+                1 - damping_factor
+            ) / total_pages + damping_factor * rank_sum
 
         # Check for convergence
         for page, rank in new_page_rank.items():
