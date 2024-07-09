@@ -772,48 +772,69 @@ First, we create the nodes and provide a probability distribution for
 each one.
 
 ```python
-from pomegranate import *
+from pomegranate import (
+    BayesianNetwork,
+    ConditionalProbabilityTable,
+    DiscreteDistribution,
+    Node,
+)
 
 # Rain node has no parents
-rain = Node(DiscreteDistribution({
-    "none": 0.7,
-    "light": 0.2,
-    "heavy": 0.1
-}), name="rain")
+rain = Node(
+    DiscreteDistribution({"none": 0.7, "light": 0.2, "heavy": 0.1}), name="rain"
+)
 
 # Track maintenance node is conditional on rain
-maintenance = Node(ConditionalProbabilityTable([
-    ["none", "yes", 0.4],
-    ["none", "no", 0.6],
-    ["light", "yes", 0.2],
-    ["light", "no", 0.8],
-    ["heavy", "yes", 0.1],
-    ["heavy", "no", 0.9]
-], [rain.distribution]), name="maintenance")
+maintenance = Node(
+    ConditionalProbabilityTable(
+        [
+            ["none", "yes", 0.4],
+            ["none", "no", 0.6],
+            ["light", "yes", 0.2],
+            ["light", "no", 0.8],
+            ["heavy", "yes", 0.1],
+            ["heavy", "no", 0.9],
+        ],
+        [rain.distribution],
+    ),
+    name="maintenance",
+)
 
 # Train node is conditional on rain and maintenance
-train = Node(ConditionalProbabilityTable([
-    ["none", "yes", "on time", 0.8],
-    ["none", "yes", "delayed", 0.2],
-    ["none", "no", "on time", 0.9],
-    ["none", "no", "delayed", 0.1],
-    ["light", "yes", "on time", 0.6],
-    ["light", "yes", "delayed", 0.4],
-    ["light", "no", "on time", 0.7],
-    ["light", "no", "delayed", 0.3],
-    ["heavy", "yes", "on time", 0.4],
-    ["heavy", "yes", "delayed", 0.6],
-    ["heavy", "no", "on time", 0.5],
-    ["heavy", "no", "delayed", 0.5],
-], [rain.distribution, maintenance.distribution]), name="train")
+train = Node(
+    ConditionalProbabilityTable(
+        [
+            ["none", "yes", "on time", 0.8],
+            ["none", "yes", "delayed", 0.2],
+            ["none", "no", "on time", 0.9],
+            ["none", "no", "delayed", 0.1],
+            ["light", "yes", "on time", 0.6],
+            ["light", "yes", "delayed", 0.4],
+            ["light", "no", "on time", 0.7],
+            ["light", "no", "delayed", 0.3],
+            ["heavy", "yes", "on time", 0.4],
+            ["heavy", "yes", "delayed", 0.6],
+            ["heavy", "no", "on time", 0.5],
+            ["heavy", "no", "delayed", 0.5],
+        ],
+        [rain.distribution, maintenance.distribution],
+    ),
+    name="train",
+)
 
 # Appointment node is conditional on train
-appointment = Node(ConditionalProbabilityTable([
-    ["on time", "attend", 0.9],
-    ["on time", "miss", 0.1],
-    ["delayed", "attend", 0.6],
-    ["delayed", "miss", 0.4]
-], [train.distribution]), name="appointment")
+appointment = Node(
+    ConditionalProbabilityTable(
+        [
+            ["on time", "attend", 0.9],
+            ["on time", "miss", 0.1],
+            ["delayed", "attend", 0.6],
+            ["delayed", "miss", 0.4],
+        ],
+        [train.distribution],
+    ),
+    name="appointment",
+)
 ```
 
 Second, we create the model by adding all the nodes and then describing
@@ -842,11 +863,15 @@ probability that there is no rain, no track maintenance, the train is on
 time, and we attend the meeting.
 
 ```python
+from bayesnet.model import model
+
 # Calculate probability for a given observation
 probability = model.probability([["none", "no", "on time", "attend"]])
 
 print(probability)
 ```
+
+    0.34019999999999995
 
 Otherwise, we could use the program to provide probability distributions
 for all variables given some observed evidence. In the following case,
@@ -855,10 +880,10 @@ and print the probability distributions of the variables Rain,
 Maintenance, and Appointment.
 
 ```python
+from bayesnet.model import model
+
 # Calculate predictions based on the evidence that the train was delayed
-predictions = model.predict_proba({
-    "train": "delayed"
-})
+predictions = model.predict_proba({"train": "delayed"})
 
 # Print predictions for each node
 for node, prediction in zip(model.states, predictions):
@@ -869,6 +894,18 @@ for node, prediction in zip(model.states, predictions):
         for value, probability in prediction.parameters[0].items():
             print(f"    {value}: {probability:.4f}")
 ```
+
+    rain
+        none: 0.4583
+        light: 0.3069
+        heavy: 0.2348
+    maintenance
+        yes: 0.3568
+        no: 0.6432
+    train: delayed
+    appointment
+        miss: 0.4000
+        attend: 0.6000
 
 The code above used inference by enumeration. However, this way of
 computing probability is inefficient, especially when there are many
@@ -920,11 +957,11 @@ number of samples where Train = *on time*.
 In code, a sampling function can look like `generate_sample`:
 
 ```python
-import pomegranate
-
 from collections import Counter
 
-from model import model
+import pomegranate
+from bayesnet.model import model
+
 
 def generate_sample():
 
@@ -975,6 +1012,8 @@ for i in range(N):
 # Count how many times each value of the variable appeared. We can later normalize by dividing the results by the total number of saved samples to get the approximate probabilities of the variable that add up to 1.
 print(Counter(data))
 ```
+
+    Counter({'attend': 1277, 'miss': 868})
 
 ### Likelihood Weighting
 
@@ -1058,21 +1097,21 @@ the probability of having four rainy days in a row?” Here is an example
 of how a Markov chain can be implemented in code:
 
 ```python
-from pomegranate import *
+from pomegranate import ConditionalProbabilityTable, DiscreteDistribution, MarkovChain
 
 # Define starting probabilities
-start = DiscreteDistribution({
-    "sun": 0.5,
-    "rain": 0.5
-})
+start = DiscreteDistribution({"sun": 0.5, "rain": 0.5})
 
 # Define transition model
-transitions = ConditionalProbabilityTable([
-    ["sun", "sun", 0.8],
-    ["sun", "rain", 0.2],
-    ["rain", "sun", 0.3],
-    ["rain", "rain", 0.7]
-], [start])
+transitions = ConditionalProbabilityTable(
+    [
+        ["sun", "sun", 0.8],
+        ["sun", "rain", 0.2],
+        ["rain", "sun", 0.3],
+        ["rain", "rain", 0.7],
+    ],
+    [start],
+)
 
 # Create Markov chain
 model = MarkovChain([start, transitions])
@@ -1080,6 +1119,8 @@ model = MarkovChain([start, transitions])
 # Sample 50 states from chain
 print(model.sample(50))
 ```
+
+    ['rain', 'rain', 'rain', 'rain', 'sun', 'sun', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'rain', 'sun', 'sun', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun']
 
 ## Hidden Markov Models
 
@@ -1158,25 +1199,22 @@ Next is a Python implementation of a hidden Markov model that we will
 use for a most likely explanation task:
 
 ```python
-from pomegranate import *
+import numpy
+from pomegranate import DiscreteDistribution, HiddenMarkovModel
 
 # Observation model for each state
-sun = DiscreteDistribution({
-    "umbrella": 0.2,
-    "no umbrella": 0.8
-})
+sun = DiscreteDistribution({"umbrella": 0.2, "no umbrella": 0.8})
 
-rain = DiscreteDistribution({
-    "umbrella": 0.9,
-    "no umbrella": 0.1
-})
+rain = DiscreteDistribution({"umbrella": 0.9, "no umbrella": 0.1})
 
 states = [sun, rain]
 
 # Transition model
 transitions = numpy.array(
-    [[0.8, 0.2], # Tomorrow's predictions if today = sun
-     [0.3, 0.7]] # Tomorrow's predictions if today = rain
+    [
+        [0.8, 0.2],  # Tomorrow's predictions if today = sun
+        [0.3, 0.7],
+    ]  # Tomorrow's predictions if today = rain
 )
 
 # Starting probabilities
@@ -1184,8 +1222,7 @@ starts = numpy.array([0.5, 0.5])
 
 # Create the model
 model = HiddenMarkovModel.from_matrix(
-    transitions, states, starts,
-    state_names=["sun", "rain"]
+    transitions, states, starts, state_names=["sun", "rain"]
 )
 model.bake()
 ```
@@ -1199,7 +1236,7 @@ weather sequence that most likely brought to this pattern of
 observations):
 
 ```python
-from model import model
+from hmm.model import model
 
 # Observed data
 observations = [
@@ -1211,14 +1248,25 @@ observations = [
     "umbrella",
     "umbrella",
     "no umbrella",
-    "no umbrella"
+    "no umbrella",
 ]
 
 # Predict underlying states
 predictions = model.predict(observations)
 for prediction in predictions:
     print(model.states[prediction].name)
+
 ```
+
+    rain
+    rain
+    sun
+    rain
+    rain
+    rain
+    rain
+    sun
+    sun
 
 In this case, the output of the program will be rain, rain, sun, rain,
 rain, rain, rain, sun, sun. This output represents what is the most
