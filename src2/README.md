@@ -17,7 +17,7 @@ uncertainty.
 Uncertainty can be represented as a number of events and the likelihood,
 or probability, of each of them happening.
 
-**Possible Worlds**
+### Possible Worlds
 
 Every possible situation can be thought of as a world, represented by
 the lowercase Greek letter omega ω. For example, rolling a die can
@@ -25,7 +25,7 @@ result in six possible worlds: a world where the die yields a 1, a world
 where the die yields a 2, and so on. To represent the probability of a
 certain world, we write P(*ω*).
 
-**Axioms in Probability**
+### Axioms in Probability
 
 - 0 \< P(*ω*) \< 1: every value
     representing probability must range between 0 and 1.
@@ -63,7 +63,7 @@ worlds, when both dice yield a 6, do we get the sum of 12. Thus, P(*12*)
 two numbers whose sum is 12 is 1/36. What is P(*7*)? We count and see
 that the sum 7 occurs in 6 worlds. Thus, P(*7*) = 6/36 = 1/6.
 
-**Unconditional Probability**
+### Unconditional Probability
 
 Unconditional probability is the degree of belief in a proposition in
 the absence of any other evidence. All the questions that we have asked
@@ -142,7 +142,7 @@ vector. For example, **P**(*Flight*) = \<*0.6, 0.3, 0.1*\>. For this
 notation to be interpretable, the values have a set order (in our case,
 *on time, delayed, canceled*).
 
-**Independence**
+### Independence
 
 Independence is the knowledge that the occurrence of one event does not
 affect the probability of the other event. For example, when rolling two
@@ -706,7 +706,7 @@ The value of each of the individual probabilities can be found in the
 probability distributions above, and then these values are multiplied to
 produce P(*no, light, delayed, miss*).
 
-**Inference**
+### Inference
 
 At the last lecture, we looked at inference through entailment. This
 means that we could definitively conclude new information based on the
@@ -747,7 +747,7 @@ Here, we will use marginalization. The value of **P**(*Appointment,
 light, no*) is equal to α\[**P**(*Appointment, light, no, delayed*) +
 **P**(*Appointment, light, no, on time*)\].
 
-**Inference by Enumeration**
+### Inference by Enumeration
 
 Inference by enumeration is a process of finding the probability
 distribution of variable X given observed evidence e and some hidden
@@ -976,7 +976,7 @@ for i in range(N):
 print(Counter(data))
 ```
 
-**Likelihood Weighting**
+### Likelihood Weighting
 
 In the sampling example above, we discarded the samples that did not
 match the evidence that we had. This is inefficient. One way to get
@@ -1011,7 +1011,7 @@ interest, such that Xₜ is the current event, Xₜ₊₁ is the next event, and
 so on. To be able to predict events in the future, we will use Markov
 Models.
 
-**The Markov Assumption**
+### The Markov Assumption
 
 The Markov assumption is an assumption that the current state depends on
 only a finite fixed number of previous states. This is important to us.
@@ -1028,7 +1028,7 @@ this is often good enough for our needs. Moreover, we can use a Markov
 model based on the information of the one last event (e.g. predicting
 tomorrow’s weather based on today’s weather).
 
-**Markov Chain**
+### Markov Chain
 
 A Markov chain is a sequence of random variables where the distribution
 of each variable follows the Markov assumption. That is, each event in
@@ -1114,7 +1114,7 @@ that people bring umbrellas to the building. By using the observation of
 whether people brought an umbrella or not, we can predict with
 reasonable likelihood what the weather is outside.
 
-**Sensor Markov Assumption**
+### Sensor Markov Assumption
 
 The assumption that the evidence variable depends only on the
 corresponding state. For example, for our models, we assume that whether
