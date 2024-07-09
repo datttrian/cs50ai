@@ -154,12 +154,12 @@ def iterate_pagerank(corpus, damping_factor):
             rank_sum = 0
 
             # Calculate the rank sum from pages that link to the current page
-            for possible_page in corpus:
-                if page in corpus[possible_page]:
-                    rank_sum += page_rank[possible_page] / len(corpus[possible_page])
+            for possible_page, links in corpus.items():
+                if page in links:
+                    rank_sum += page_rank[possible_page] / len(links)
 
                 # Handle pages with no outgoing links by considering a random jump
-                if not corpus[possible_page]:
+                if not links:
                     rank_sum += page_rank[possible_page] / N
 
             # Compute the new PageRank value for the current page
