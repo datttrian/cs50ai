@@ -1013,7 +1013,7 @@ for i in range(N):
 print(Counter(data))
 ```
 
-    Counter({'attend': 1277, 'miss': 868})
+    Counter({'attend': 1269, 'miss': 797})
 
 ### Likelihood Weighting
 
@@ -1120,7 +1120,7 @@ model = MarkovChain([start, transitions])
 print(model.sample(50))
 ```
 
-    ['rain', 'rain', 'rain', 'rain', 'sun', 'sun', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'rain', 'sun', 'sun', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun']
+    ['sun', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'sun', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'sun', 'sun', 'rain', 'rain', 'sun', 'sun', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'sun', 'sun', 'rain', 'rain', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'sun', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'rain', 'sun']
 
 ## Hidden Markov Models
 
