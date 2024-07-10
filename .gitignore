@@ -13,7 +13,7 @@ vendor/
 
 # But don't ignore these files
 !/.devcontainer.json
-!/.vscode/settings.json
+!/.vscode/*
 
 # But don't ignore these types of files
 !*.c
