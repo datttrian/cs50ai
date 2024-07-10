@@ -74,8 +74,8 @@ def load_data(filename):
     mother, father must both be blank, or both be valid names in the CSV.
     trait should be 0 or 1 if trait is known, blank otherwise.
     """
-    data = dict()
-    with open(filename) as f:
+    data = {}
+    with open(filename, encoding='utf-8') as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = row["name"]
