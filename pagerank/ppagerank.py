@@ -153,6 +153,7 @@ def iterate_pagerank(corpus, damping_factor):
     while not converged:
         converged = True
         iteration += 1
+        print(f"Iteration {iteration}:")
 
         for page in corpus:
             rank_sum = 0
@@ -179,11 +180,25 @@ def iterate_pagerank(corpus, damping_factor):
             # Update the PageRank values
             page_rank[page] = rank
 
-        print(f"Iteration {iteration}: {page_rank}")
+        # Print the updated PageRank values for this iteration
+        for page, rank in page_rank.items():
+            print(f"  {page}: {rank:.4f}")
 
     # Return the converged PageRank values
     return page_rank
 
 
 if __name__ == "__main__":
-    main()
+    # Sample corpus for testing
+    sample_corpus = {
+        "1.html": {"2.html", "3.html"},
+        "2.html": {"3.html"},
+        "3.html": {"1.html"},
+        "4.html": {"2.html"}
+    }
+
+    # Run the iteration function with sample corpus
+    ranks = iterate_pagerank(sample_corpus, DAMPING)
+    print("PageRank Results from Iteration")
+    for page in sorted(ranks):
+        print(f"  {page}: {ranks[page]:.4f}")
