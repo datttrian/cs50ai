@@ -105,6 +105,15 @@ def powerset(s):
     ]
 
 
+def check_how_many_copies(person, one_gene, two_genes):
+    if person in one_gene:
+        return 1
+    elif person in two_genes:
+        return 2
+    else:
+        return 0
+
+
 def joint_probability(people, one_gene, two_genes, have_trait):
     """
     Compute and return a joint probability.
@@ -119,7 +128,12 @@ def joint_probability(people, one_gene, two_genes, have_trait):
     probability = 1
 
     for person in people:
-        print(person)
+        copies_gene = check_how_many_copies(person, one_gene, two_genes)
+
+        if person in have_trait:
+            has_trait = True
+        else:
+            has_trait = False
 
     return probability
 
