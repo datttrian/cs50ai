@@ -161,7 +161,33 @@ def probs_has_parents(person, people, one_gene, two_genes, have_trait):
             + p_father_dont_pass_gene_and_dont_mutate * p_mother_pass_gene_and_do_mutate
         )
 
-    return
+    # If child_genes = 1, we have 8 scenarios
+    elif child_genes == 1:
+        probability = (
+            p_father_pass_gene_and_dont_mutate * p_mother_dont_pass_gene_and_dont_mutate
+            + p_father_pass_gene_and_dont_mutate * p_mother_pass_gene_and_do_mutate
+            + p_father_pass_gene_and_do_mutate * p_mother_dont_pass_gene_and_do_mutate
+            + p_father_pass_gene_and_do_mutate * p_mother_pass_gene_and_dont_mutate
+            + p_father_dont_pass_gene_and_do_mutate
+            * p_mother_dont_pass_gene_and_dont_mutate
+            + p_father_dont_pass_gene_and_do_mutate * p_mother_pass_gene_and_do_mutate
+            + p_father_dont_pass_gene_and_dont_mutate
+            * p_mother_pass_gene_and_dont_mutate
+            + p_father_dont_pass_gene_and_dont_mutate
+            * p_mother_dont_pass_gene_and_do_mutate
+        )
+
+    # If child_genes = 2, we have 4 scenarios
+    elif child_genes == 2:
+        probability = (
+            p_father_pass_gene_and_dont_mutate * p_mother_pass_gene_and_dont_mutate
+            + p_father_dont_pass_gene_and_do_mutate
+            * p_mother_dont_pass_gene_and_do_mutate
+            + p_father_dont_pass_gene_and_do_mutate * p_mother_pass_gene_and_dont_mutate
+            + p_father_pass_gene_and_dont_mutate * p_mother_dont_pass_gene_and_do_mutate
+        )
+
+    return probability
 
 
 def joint_probability(people, one_gene, two_genes, have_trait):
