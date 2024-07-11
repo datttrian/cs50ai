@@ -114,6 +114,10 @@ def check_how_many_copies(person, one_gene, two_genes):
         return 0
 
 
+def probs_no_parents(copies_gene, has_trait):
+    return PROBS["gene"][copies_gene] * PROBS["trait"][copies_gene][has_trait]
+
+
 def joint_probability(people, one_gene, two_genes, have_trait):
     """
     Compute and return a joint probability.
@@ -134,6 +138,9 @@ def joint_probability(people, one_gene, two_genes, have_trait):
             has_trait = True
         else:
             has_trait = False
+
+        if people[person]["mother"] == None:
+            probability *= probs_no_parents(copies_gene, has_trait)
 
     return probability
 
