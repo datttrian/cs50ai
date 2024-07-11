@@ -260,7 +260,7 @@ def normalize(probabilities):
             new_value = original_value / total_p_trait
             probabilities[person]["trait"][trait] = new_value
 
-        return
+    return
 
 
 if __name__ == "__main__":
