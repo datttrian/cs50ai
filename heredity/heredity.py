@@ -150,6 +150,17 @@ def probs_has_parents(person, people, one_gene, two_genes, have_trait):
         "mutation"
     ]
 
+    child_genes = check_how_many_copies(person, one_gene, two_genes)
+
+    if child_genes == 0:
+        probability = (
+            p_father_pass_gene_and_do_mutate * p_mother_dont_pass_gene_and_dont_mutate
+            + p_father_pass_gene_and_do_mutate * p_mother_pass_gene_and_do_mutate
+            + p_father_dont_pass_gene_and_dont_mutate
+            * p_mother_dont_pass_gene_and_dont_mutate
+            + p_father_dont_pass_gene_and_dont_mutate * p_mother_pass_gene_and_do_mutate
+        )
+
     return
 
 
