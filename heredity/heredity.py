@@ -117,74 +117,55 @@ def probs_no_parents(copies_gene, has_trait):
     return PROBS["gene"][copies_gene] * PROBS["trait"][copies_gene][has_trait]
 
 
+def calculate_probabilities(probability_pass_gene, mutation_prob):
+    return (
+        probability_pass_gene * (1 - mutation_prob),
+        probability_pass_gene * mutation_prob,
+        (1 - probability_pass_gene) * (1 - mutation_prob),
+        (1 - probability_pass_gene) * mutation_prob,
+    )
+
+
 def probs_has_parents(person, people, one_gene, two_genes):
     mother = people[person]["mother"]
-    mother_genes = check_how_many_copies(mother, one_gene, two_genes)
-
     father = people[person]["father"]
+
+    mother_genes = check_how_many_copies(mother, one_gene, two_genes)
     father_genes = check_how_many_copies(father, one_gene, two_genes)
 
-    probability_mother_pass_gene = mother_genes / 2
-    probability_father_pass_gene = father_genes / 2
+    PROBS_MUTATION = PROBS["mutation"]
 
-    p_father_pass_gene_and_dont_mutate = probability_father_pass_gene * (
-        1 - PROBS["mutation"]
-    )
-    p_father_pass_gene_and_do_mutate = probability_father_pass_gene * PROBS["mutation"]
-    p_father_dont_pass_gene_and_dont_mutate = (1 - probability_father_pass_gene) * (
-        1 - PROBS["mutation"]
-    )
-    p_father_dont_pass_gene_and_do_mutate = (1 - probability_father_pass_gene) * PROBS[
-        "mutation"
-    ]
-
-    p_mother_pass_gene_and_dont_mutate = probability_mother_pass_gene * (
-        1 - PROBS["mutation"]
-    )
-    p_mother_pass_gene_and_do_mutate = probability_mother_pass_gene * PROBS["mutation"]
-    p_mother_dont_pass_gene_and_dont_mutate = (1 - probability_mother_pass_gene) * (
-        1 - PROBS["mutation"]
-    )
-    p_mother_dont_pass_gene_and_do_mutate = (1 - probability_mother_pass_gene) * PROBS[
-        "mutation"
-    ]
+    p_mother = calculate_probabilities(mother_genes / 2, PROBS_MUTATION)
+    p_father = calculate_probabilities(father_genes / 2, PROBS_MUTATION)
 
     child_genes = check_how_many_copies(person, one_gene, two_genes)
-    probability = None
+
+    probability = 0
 
     if child_genes == 0:
         probability = (
-            p_father_pass_gene_and_do_mutate * p_mother_dont_pass_gene_and_dont_mutate
-            + p_father_pass_gene_and_do_mutate * p_mother_pass_gene_and_do_mutate
-            + p_father_dont_pass_gene_and_dont_mutate
-            * p_mother_dont_pass_gene_and_dont_mutate
-            + p_father_dont_pass_gene_and_dont_mutate * p_mother_pass_gene_and_do_mutate
+            p_father[1] * p_mother[2]
+            + p_father[1] * p_mother[1]
+            + p_father[2] * p_mother[2]
+            + p_father[2] * p_mother[1]
         )
-
-    # If child_genes = 1, we have 8 scenarios
     elif child_genes == 1:
         probability = (
-            p_father_pass_gene_and_dont_mutate * p_mother_dont_pass_gene_and_dont_mutate
-            + p_father_pass_gene_and_dont_mutate * p_mother_pass_gene_and_do_mutate
-            + p_father_pass_gene_and_do_mutate * p_mother_dont_pass_gene_and_do_mutate
-            + p_father_pass_gene_and_do_mutate * p_mother_pass_gene_and_dont_mutate
-            + p_father_dont_pass_gene_and_do_mutate
-            * p_mother_dont_pass_gene_and_dont_mutate
-            + p_father_dont_pass_gene_and_do_mutate * p_mother_pass_gene_and_do_mutate
-            + p_father_dont_pass_gene_and_dont_mutate
-            * p_mother_pass_gene_and_dont_mutate
-            + p_father_dont_pass_gene_and_dont_mutate
-            * p_mother_dont_pass_gene_and_do_mutate
+            p_father[0] * p_mother[2]
+            + p_father[0] * p_mother[1]
+            + p_father[1] * p_mother[3]
+            + p_father[1] * p_mother[0]
+            + p_father[3] * p_mother[2]
+            + p_father[3] * p_mother[1]
+            + p_father[2] * p_mother[0]
+            + p_father[2] * p_mother[3]
         )
-
-    # If child_genes = 2, we have 4 scenarios
     elif child_genes == 2:
         probability = (
-            p_father_pass_gene_and_dont_mutate * p_mother_pass_gene_and_dont_mutate
-            + p_father_dont_pass_gene_and_do_mutate
-            * p_mother_dont_pass_gene_and_do_mutate
-            + p_father_dont_pass_gene_and_do_mutate * p_mother_pass_gene_and_dont_mutate
-            + p_father_pass_gene_and_dont_mutate * p_mother_dont_pass_gene_and_do_mutate
+            p_father[0] * p_mother[0]
+            + p_father[3] * p_mother[3]
+            + p_father[3] * p_mother[0]
+            + p_father[0] * p_mother[3]
         )
 
     return probability
