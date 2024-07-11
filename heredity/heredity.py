@@ -151,6 +151,7 @@ def probs_has_parents(person, people, one_gene, two_genes, have_trait):
     ]
 
     child_genes = check_how_many_copies(person, one_gene, two_genes)
+    probability = None
 
     if child_genes == 0:
         probability = (
