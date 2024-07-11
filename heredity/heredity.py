@@ -108,7 +108,7 @@ def powerset(s):
 def check_how_many_copies(person, one_gene, two_genes):
     if person in one_gene:
         return 1
-    if person in two_genes:
+    elif person in two_genes:
         return 2
     else:
         return 0
@@ -118,7 +118,7 @@ def probs_no_parents(copies_gene, has_trait):
     return PROBS["gene"][copies_gene] * PROBS["trait"][copies_gene][has_trait]
 
 
-def probs_has_parents(person, people, one_gene, two_genes):
+def probs_has_parents(person, people, one_gene, two_genes, have_trait):
     mother = people[person]["mother"]
     mother_genes = check_how_many_copies(mother, one_gene, two_genes)
 
@@ -150,7 +150,6 @@ def probs_has_parents(person, people, one_gene, two_genes):
         "mutation"
     ]
 
-    probability = None
     child_genes = check_how_many_copies(person, one_gene, two_genes)
 
     if child_genes == 0:
@@ -232,7 +231,11 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
     """
     for person in probabilities:
         copies_gene = check_how_many_copies(person, one_gene, two_genes)
-        has_trait = person in have_trait
+
+        if person in have_trait:
+            has_trait = True
+        else:
+            has_trait = False
 
         probabilities[person]["gene"][copies_gene] += p
         probabilities[person]["trait"][has_trait] += p
