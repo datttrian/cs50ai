@@ -240,8 +240,6 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
         probabilities[person]["gene"][copies_gene] += p
         probabilities[person]["trait"][has_trait] += p
 
-    return probabilities
-
 
 def normalize(probabilities):
     """
