@@ -110,8 +110,7 @@ def check_how_many_copies(person, one_gene, two_genes):
         return 1
     if person in two_genes:
         return 2
-    else:
-        return 0
+    return 0
 
 
 def probs_no_parents(copies_gene, has_trait):
