@@ -133,10 +133,10 @@ def probs_has_parents(person, people, one_gene, two_genes):
     mother_genes = check_how_many_copies(mother, one_gene, two_genes)
     father_genes = check_how_many_copies(father, one_gene, two_genes)
 
-    PROBS_MUTATION = PROBS["mutation"]
+    probs_mutation = PROBS["mutation"]
 
-    p_mother = calculate_probabilities(mother_genes / 2, PROBS_MUTATION)
-    p_father = calculate_probabilities(father_genes / 2, PROBS_MUTATION)
+    p_mother = calculate_probabilities(mother_genes / 2, probs_mutation)
+    p_father = calculate_probabilities(father_genes / 2, probs_mutation)
 
     child_genes = check_how_many_copies(person, one_gene, two_genes)
 
