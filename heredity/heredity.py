@@ -108,7 +108,7 @@ def powerset(s):
 def check_how_many_copies(person, one_gene, two_genes):
     if person in one_gene:
         return 1
-    elif person in two_genes:
+    if person in two_genes:
         return 2
     else:
         return 0
@@ -211,7 +211,7 @@ def joint_probability(people, one_gene, two_genes, have_trait):
         else:
             has_trait = False
 
-        if people[person]["mother"] == None:
+        if people[person]["mother"] is None:
             probability *= probs_no_parents(copies_gene, has_trait)
         else:
             probability *= (
