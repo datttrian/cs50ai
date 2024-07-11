@@ -206,11 +206,7 @@ def joint_probability(people, one_gene, two_genes, have_trait):
 
     for person in people:
         copies_gene = check_how_many_copies(person, one_gene, two_genes)
-
-        if person in have_trait:
-            has_trait = True
-        else:
-            has_trait = False
+        has_trait = person in have_trait
 
         if people[person]["mother"] is None:
             probability *= probs_no_parents(copies_gene, has_trait)
@@ -232,11 +228,7 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
     """
     for person in probabilities:
         copies_gene = check_how_many_copies(person, one_gene, two_genes)
-
-        if person in have_trait:
-            has_trait = True
-        else:
-            has_trait = False
+        has_trait = person in have_trait
 
         probabilities[person]["gene"][copies_gene] += p
         probabilities[person]["trait"][has_trait] += p
