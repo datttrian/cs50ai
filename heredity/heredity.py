@@ -214,8 +214,9 @@ def joint_probability(people, one_gene, two_genes, have_trait):
         if people[person]["mother"] == None:
             probability *= probs_no_parents(copies_gene, has_trait)
         else:
-            probability *= probs_has_parents(
-                person, people, one_gene, two_genes, have_trait
+            probability *= (
+                probs_has_parents(person, people, one_gene, two_genes, have_trait)
+                * PROBS["trait"][copies_gene][has_trait]
             )
 
     return probability
