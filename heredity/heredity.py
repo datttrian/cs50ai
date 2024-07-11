@@ -119,6 +119,37 @@ def probs_no_parents(copies_gene, has_trait):
 
 
 def probs_has_parents(person, people, one_gene, two_genes, have_trait):
+    mother = people[person]["mother"]
+    mother_genes = check_how_many_copies(mother, one_gene, two_genes)
+
+    father = people[person]["father"]
+    father_genes = check_how_many_copies(father, one_gene, two_genes)
+
+    probability_mother_pass_gene = mother_genes / 2
+    probability_father_pass_gene = father_genes / 2
+
+    p_father_pass_gene_and_dont_mutate = probability_father_pass_gene * (
+        1 - PROBS["mutation"]
+    )
+    p_father_pass_gene_and_do_mutate = probability_father_pass_gene * PROBS["mutation"]
+    p_father_dont_pass_gene_and_dont_mutate = (1 - probability_father_pass_gene) * (
+        1 - PROBS["mutation"]
+    )
+    p_father_dont_pass_gene_and_do_mutate = (1 - probability_father_pass_gene) * PROBS[
+        "mutation"
+    ]
+
+    p_mother_pass_gene_and_dont_mutate = probability_mother_pass_gene * (
+        1 - PROBS["mutation"]
+    )
+    p_mother_pass_gene_and_do_mutate = probability_mother_pass_gene * PROBS["mutation"]
+    p_mother_dont_pass_gene_and_dont_mutate = (1 - probability_mother_pass_gene) * (
+        1 - PROBS["mutation"]
+    )
+    p_mother_dont_pass_gene_and_do_mutate = (1 - probability_mother_pass_gene) * PROBS[
+        "mutation"
+    ]
+
     return
 
 
