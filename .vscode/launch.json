@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal",
-            "args": ["pagerank/corpus0"]
+            "args": ["heredity/data/family0.csv"]
         }
     ]
 }

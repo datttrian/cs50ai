@@ -3,37 +3,18 @@ import itertools
 import sys
 
 PROBS = {
-
     # Unconditional probabilities for having gene
-    "gene": {
-        2: 0.01,
-        1: 0.03,
-        0: 0.96
-    },
-
+    "gene": {2: 0.01, 1: 0.03, 0: 0.96},
     "trait": {
-
         # Probability of trait given two copies of gene
-        2: {
-            True: 0.65,
-            False: 0.35
-        },
-
+        2: {True: 0.65, False: 0.35},
         # Probability of trait given one copy of gene
-        1: {
-            True: 0.56,
-            False: 0.44
-        },
-
+        1: {True: 0.56, False: 0.44},
         # Probability of trait given no gene
-        0: {
-            True: 0.01,
-            False: 0.99
-        }
+        0: {True: 0.01, False: 0.99},
     },
-
     # Mutation probability
-    "mutation": 0.01
+    "mutation": 0.01,
 }
 
 
@@ -46,17 +27,7 @@ def main():
 
     # Keep track of gene and trait probabilities for each person
     probabilities = {
-        person: {
-            "gene": {
-                2: 0,
-                1: 0,
-                0: 0
-            },
-            "trait": {
-                True: 0,
-                False: 0
-            }
-        }
+        person: {"gene": {2: 0, 1: 0, 0: 0}, "trait": {True: 0, False: 0}}
         for person in people
     }
 
@@ -66,8 +37,10 @@ def main():
 
         # Check if current set of people violates known information
         fails_evidence = any(
-            (people[person]["trait"] is not None and
-             people[person]["trait"] != (person in have_trait))
+            (
+                people[person]["trait"] is not None
+                and people[person]["trait"] != (person in have_trait)
+            )
             for person in names
         )
         if fails_evidence:
@@ -101,8 +74,8 @@ def load_data(filename):
     mother, father must both be blank, or both be valid names in the CSV.
     trait should be 0 or 1 if trait is known, blank otherwise.
     """
-    data = dict()
-    with open(filename) as f:
+    data = {}
+    with open(filename, encoding="utf-8") as f:
         reader = csv.DictReader(f)
         for row in reader:
             name = row["name"]
@@ -110,8 +83,11 @@ def load_data(filename):
                 "name": name,
                 "mother": row["mother"] or None,
                 "father": row["father"] or None,
-                "trait": (True if row["trait"] == "1" else
-                          False if row["trait"] == "0" else None)
+                "trait": (
+                    True
+                    if row["trait"] == "1"
+                    else False if row["trait"] == "0" else None
+                ),
             }
     return data
 
@@ -122,10 +98,77 @@ def powerset(s):
     """
     s = list(s)
     return [
-        set(s) for s in itertools.chain.from_iterable(
+        set(s)
+        for s in itertools.chain.from_iterable(
             itertools.combinations(s, r) for r in range(len(s) + 1)
         )
     ]
+
+
+def check_how_many_copies(person, one_gene, two_genes):
+    if person in one_gene:
+        return 1
+    if person in two_genes:
+        return 2
+    return 0
+
+
+def probs_no_parents(copies_gene, has_trait):
+    return PROBS["gene"][copies_gene] * PROBS["trait"][copies_gene][has_trait]
+
+
+def calculate_probabilities(probability_pass_gene, mutation_prob):
+    return (
+        probability_pass_gene * (1 - mutation_prob),
+        probability_pass_gene * mutation_prob,
+        (1 - probability_pass_gene) * (1 - mutation_prob),
+        (1 - probability_pass_gene) * mutation_prob,
+    )
+
+
+def probs_has_parents(person, people, one_gene, two_genes):
+    mother = people[person]["mother"]
+    father = people[person]["father"]
+
+    mother_genes = check_how_many_copies(mother, one_gene, two_genes)
+    father_genes = check_how_many_copies(father, one_gene, two_genes)
+
+    probs_mutation = PROBS["mutation"]
+
+    p_mother = calculate_probabilities(mother_genes / 2, probs_mutation)
+    p_father = calculate_probabilities(father_genes / 2, probs_mutation)
+
+    child_genes = check_how_many_copies(person, one_gene, two_genes)
+
+    probability = 0
+
+    if child_genes == 0:
+        probability = (
+            p_father[1] * p_mother[2]
+            + p_father[1] * p_mother[1]
+            + p_father[2] * p_mother[2]
+            + p_father[2] * p_mother[1]
+        )
+    elif child_genes == 1:
+        probability = (
+            p_father[0] * p_mother[2]
+            + p_father[0] * p_mother[1]
+            + p_father[1] * p_mother[3]
+            + p_father[1] * p_mother[0]
+            + p_father[3] * p_mother[2]
+            + p_father[3] * p_mother[1]
+            + p_father[2] * p_mother[0]
+            + p_father[2] * p_mother[3]
+        )
+    elif child_genes == 2:
+        probability = (
+            p_father[0] * p_mother[0]
+            + p_father[3] * p_mother[3]
+            + p_father[3] * p_mother[0]
+            + p_father[0] * p_mother[3]
+        )
+
+    return probability
 
 
 def joint_probability(people, one_gene, two_genes, have_trait):
@@ -142,58 +185,18 @@ def joint_probability(people, one_gene, two_genes, have_trait):
     probability = 1
 
     for person in people:
-        mother = people[person]['mother']
-        father = people[person]['father']
+        copies_gene = check_how_many_copies(person, one_gene, two_genes)
+        has_trait = person in have_trait
 
-        if person in two_genes:
-            genes = 2
-        elif person in one_gene:
-            genes = 1
+        if people[person]["mother"] is None:
+            probability *= probs_no_parents(copies_gene, has_trait)
         else:
-            genes = 0
-
-        if person in have_trait:
-            trait = True
-        else:
-            trait = False
-
-        if mother is None and father is None:
-            probability *= PROBS['gene'][genes]
-        else:
-            if genes == 2:
-                prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
-                prob_father = get_gene_probability(father, True, one_gene, two_genes)
-                probability *= prob_mother * prob_father
-            elif genes == 1:
-                prob_mother = get_gene_probability(mother, True, one_gene, two_genes)
-                prob_father = get_gene_probability(father, False, one_gene, two_genes)
-                probability *= prob_mother * prob_father + (1 - prob_mother) * (1 - prob_father)
-            else:
-                prob_mother = get_gene_probability(mother, False, one_gene, two_genes)
-                prob_father = get_gene_probability(father, False, one_gene, two_genes)
-                probability *= prob_mother * prob_father
-
-        probability *= PROBS['trait'][genes][trait]
+            probability *= (
+                probs_has_parents(person, people, one_gene, two_genes)
+                * PROBS["trait"][copies_gene][has_trait]
+            )
 
     return probability
-
-
-def get_gene_probability(parent, has_gene, one_gene, two_genes):
-    """
-    Helper function to get the probability of passing the gene from parent to child.
-    """
-    if parent in two_genes:
-        if has_gene:
-            return 1 - PROBS['mutation']
-        else:
-            return PROBS['mutation']
-    elif parent in one_gene:
-        return 0.5
-    else:
-        if has_gene:
-            return PROBS['mutation']
-        else:
-            return 1 - PROBS['mutation']
 
 
 def update(probabilities, one_gene, two_genes, have_trait, p):
@@ -204,17 +207,11 @@ def update(probabilities, one_gene, two_genes, have_trait, p):
     the person is in `have_gene` and `have_trait`, respectively.
     """
     for person in probabilities:
-        if person in one_gene:
-            probabilities[person]["gene"][1] += p
-        elif person in two_genes:
-            probabilities[person]["gene"][2] += p
-        else:
-            probabilities[person]["gene"][0] += p
+        copies_gene = check_how_many_copies(person, one_gene, two_genes)
+        has_trait = person in have_trait
 
-        if person in have_trait:
-            probabilities[person]["trait"][True] += p
-        else:
-            probabilities[person]["trait"][False] += p
+        probabilities[person]["gene"][copies_gene] += p
+        probabilities[person]["trait"][has_trait] += p
 
 
 def normalize(probabilities):
@@ -223,13 +220,18 @@ def normalize(probabilities):
     is normalized (i.e., sums to 1, with relative proportions the same).
     """
     for person in probabilities:
-        genes_total = sum(probabilities[person]["gene"].values())
-        for gene in probabilities[person]["gene"]:
-            probabilities[person]["gene"][gene] /= genes_total
+        total_p_genes = sum(probabilities[person]["gene"].values())
+        total_p_trait = sum(probabilities[person]["trait"].values())
 
-        traits_total = sum(probabilities[person]["trait"].values())
+        for gene in probabilities[person]["gene"]:
+            original_value = probabilities[person]["gene"][gene]
+            new_value = original_value / total_p_genes
+            probabilities[person]["gene"][gene] = new_value
+
         for trait in probabilities[person]["trait"]:
-            probabilities[person]["trait"][trait] /= traits_total
+            original_value = probabilities[person]["trait"][trait]
+            new_value = original_value / total_p_trait
+            probabilities[person]["trait"][trait] = new_value
 
 
 if __name__ == "__main__":
