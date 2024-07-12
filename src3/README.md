@@ -305,9 +305,7 @@ else:
     print("No solution")
 ```
 
-## Constr
-
-Satisfaction</a>
+## Constraint Satisfaction
 
 Constraint Satisfaction problems are a class of problems where variables
 need to be assigned values while satisfying some conditions.
