@@ -41,15 +41,15 @@ the cost of a certain configuration of houses and hospitals.
 Going off of this visualization, we can define a few important terms for
 the rest of our discussion:
 
-- <span class="fa-li"></span>An **Objective Function** is a function
+- An **Objective Function** is a function
     that we use to maximize the value of the solution.
-- <span class="fa-li"></span>A **Cost Function** is a function that we
+- A **Cost Function** is a function that we
     use to minimize the cost of the solution (this is the function that
     we would use in our example with houses and hospitals. We want to
     minimize the distance from houses to hospitals).
-- <span class="fa-li"></span>A **Current State** is the state that is
+- A **Current State** is the state that is
     currently being considered by the function.
-- <span class="fa-li"></span>A **Neighbor State** is a state that the
+- A **Neighbor State** is a state that the
     current state can transition to. In the one-dimensional state-space
     landscape above, a neighbor state is the state to either side of the
     current state. In our example, a neighbor state could be the state
@@ -75,14 +75,14 @@ A hill climbing algorithm will look the following way in pseudocode:
 
 function Hill-Climb(*problem*):
 
-- <span class="fa-li"></span>*current* = initial state of *problem*
-- <span class="fa-li"></span>repeat:
-  - <span class="fa-li"></span>*neighbor* = best valued neighbor of
+- *current* = initial state of *problem*
+- repeat:
+  - *neighbor* = best valued neighbor of
         *current*
-  - <span class="fa-li"></span>if *neighbor* not better than
+  - if *neighbor* not better than
         *current*:
-    - <span class="fa-li"></span>return *current*
-  - <span class="fa-li"></span>*current* = *neighbor*
+    - return *current*
+  - *current* = *neighbor*
 
 In this algorithm, we start with a current state. In some problems, we
 will know what the current state is, while, in others, we will have to
@@ -150,20 +150,20 @@ local minima and maxima and no means to continue optimizing. The
 algorithms below are phrased such that a higher value is better, but
 they also apply to cost functions, where the goal is to minimize cost.
 
-- <span class="fa-li"></span>**Steepest-ascent**: choose the
+- **Steepest-ascent**: choose the
     highest-valued neighbor. This is the standard variation that we
     discussed above.
-- <span class="fa-li"></span>**Stochastic**: choose randomly from
+- **Stochastic**: choose randomly from
     higher-valued neighbors. Doing this, we choose to go to any
     direction that improves over our value. This makes sense if, for
     example, the highest-valued neighbor leads to a local maximum while
     another neighbor leads to a global maximum.
-- <span class="fa-li"></span>**First-choice**: choose the first
+- **First-choice**: choose the first
     higher-valued neighbor.
-- <span class="fa-li"></span>**Random-restart**: conduct hill climbing
+- **Random-restart**: conduct hill climbing
     multiple times. Each time, start from a random state. Compare the
     maxima from every trial, and choose the highest amongst those.
-- <span class="fa-li"></span>**Local Beam Search**: chooses the *k*
+- **Local Beam Search**: chooses the *k*
     highest-valued neighbors. This is unlike most local search
     algorithms in that it uses multiple nodes for the search, and not
     just one.
@@ -191,18 +191,18 @@ annealing:
 
 function Simulated-Annealing(*problem*, *max*):
 
-- <span class="fa-li"></span>*current* = initial state of *problem*
-- <span class="fa-li"></span>for *t* = 1 to *max*:
-  - <span class="fa-li"></span>*T* = Temperature(*t*)
-  - <span class="fa-li"></span>*neighbor* = random neighbor of
+- *current* = initial state of *problem*
+- for *t* = 1 to *max*:
+  - *T* = Temperature(*t*)
+  - *neighbor* = random neighbor of
         *current*
-  - <span class="fa-li"></span>*ΔE* = how much better *neighbor* is
+  - *ΔE* = how much better *neighbor* is
         than *current*
-  - <span class="fa-li"></span>if *ΔE* \> 0:
-    - <span class="fa-li"></span>*current* = *neighbor*
-  - <span class="fa-li"></span>with probability e^(*ΔE/T*) set
+  - if *ΔE* \> 0:
+    - *current* = *neighbor*
+  - with probability e^(*ΔE/T*) set
         *current* = *neighbor*
-- <span class="fa-li"></span>return *current*
+- return *current*
 
 The algorithm takes as input a problem and *max*, the number of times it
 should repeat itself. For each iteration, *T* is set using a Temperature
@@ -248,28 +248,28 @@ equation (an equation of the form y = ax₁ + bx₂ + …).
 
 Linear programming will have the following components:
 
-- <span class="fa-li"></span>A cost function that we want to minimize:
+- A cost function that we want to minimize:
     c₁x₁ + c₂x₂ + … + cₙxₙ. Here, each x₋ is a variable and it is
     associated with some cost c₋.
-- <span class="fa-li"></span>A constraint that’s represented as a sum
+- A constraint that’s represented as a sum
     of variables that is either less than or equal to a value (a₁x₁ +
     a₂x₂ + … + aₙxₙ ≤ b) or precisely equal to this value (a₁x₁ + a₂x₂ +
     … + aₙxₙ = b). In this case, x₋ is a variable, and a₋ is some
     resource associated with it, and b is how much resources we can
     dedicate to this problem.
-- <span class="fa-li"></span>Individual bounds on variables (for
+- Individual bounds on variables (for
     example, that a variable can’t be negative) of the form lᵢ ≤ xᵢ ≤
     uᵢ.
 
 Consider the following example:
 
-- <span class="fa-li"></span>Two machines, X₁ and X₂. X₁ costs
+- Two machines, X₁ and X₂. X₁ costs
     $50/hour to run, X₂ costs $80/hour to run. The goal is to minimize
     cost. This can be formalized as a cost function: 50x₁ + 80x₂.
-- <span class="fa-li"></span>X₁ requires 5 units of labor per hour. X₂
+- X₁ requires 5 units of labor per hour. X₂
     requires 2 units of labor per hour. Total of 20 units of labor to
     spend. This can be formalized as a constraint: 5x₁ + 2x₂ ≤ 20.
-- <span class="fa-li"></span>X₁ produces 10 units of output per hour.
+- X₁ produces 10 units of output per hour.
     X₂ produces 12 units of output per hour. Company needs 90 units of
     output. This is another constraint. Literally, it can be rewritten
     as 10x₁ + 12x₂ ≥ 90. However, constraints need to be of the form
@@ -314,10 +314,10 @@ need to be assigned values while satisfying some conditions.
 
 Constraints satisfaction problems have the following properties:
 
-- <span class="fa-li"></span>Set of variables (x₁, x₂, …, xₙ)
-- <span class="fa-li"></span>Set of domains for each variable {D₁, D₂,
+- Set of variables (x₁, x₂, …, xₙ)
+- Set of domains for each variable {D₁, D₂,
     …, Dₙ}
-- <span class="fa-li"></span>Set of constraints C
+- Set of constraints C
 
 Sudoku can be represented as a constraint satisfaction problem, where
 each empty square is a variable, the domain is the numbers 1-9, and the
@@ -343,15 +343,15 @@ the graph will look this:
 
 A few more terms worth knowing about constraint satisfaction problems:
 
-- <span class="fa-li"></span>A **Hard Constraint** is a constraint
+- A **Hard Constraint** is a constraint
     that must be satisfied in a correct solution.
-- <span class="fa-li"></span>A **Soft Constraint** is a constraint
+- A **Soft Constraint** is a constraint
     that expresses which solution is preferred over others.
-- <span class="fa-li"></span>A **Unary Constraint** is a constraint
+- A **Unary Constraint** is a constraint
     that involves only one variable. In our example, a unary constraint
     would be saying that course A can’t have an exam on Monday {*A ≠
     Monday*}.
-- <span class="fa-li"></span>A **Binary Constraint** is a constraint
+- A **Binary Constraint** is a constraint
     that involves two variables. This is the type of constraint that we
     used in the example above, saying that some two courses can’t have
     the same value {*A ≠ B*}.
@@ -393,13 +393,13 @@ for “constraint satisfaction problem”).
 
 function Revise(*csp, X, Y*):
 
-- <span class="fa-li"></span>*revised* = *false*
-- <span class="fa-li"></span>for *x* in *X.domain*:
-  - <span class="fa-li"></span>if no *y* in *Y.domain* satisfies
+- *revised* = *false*
+- for *x* in *X.domain*:
+  - if no *y* in *Y.domain* satisfies
         constraint for (*X,Y*):
-    - <span class="fa-li"></span>delete *x* from *X.domain*
-    - <span class="fa-li"></span>*revised* = true
-- <span class="fa-li"></span>return *revised*
+    - delete *x* from *X.domain*
+    - *revised* = true
+- return *revised*
 
 This algorithm starts with tracking whether any change was made to X’s
 domain, using the variable *revised*. This will be useful in the next
@@ -413,16 +413,16 @@ an algorithm called AC-3, which uses Revise:
 
 function AC-3(*csp*):
 
-- <span class="fa-li"></span>*queue* = all arcs in *csp*
-- <span class="fa-li"></span>while *queue* non-empty:
-  - <span class="fa-li"></span>(*X, Y*) = Dequeue(*queue*)
-  - <span class="fa-li"></span>if Revise(*csp, X, Y*):
-    - <span class="fa-li"></span>if size of *X*.domain == 0:
-      - <span class="fa-li"></span>return *false*
-    - <span class="fa-li"></span>for each *Z* in *X*.neighbors -
+- *queue* = all arcs in *csp*
+- while *queue* non-empty:
+  - (*X, Y*) = Dequeue(*queue*)
+  - if Revise(*csp, X, Y*):
+    - if size of *X*.domain == 0:
+      - return *false*
+    - for each *Z* in *X*.neighbors -
             {*Y*}:
-      - <span class="fa-li"></span>Enqueue(queue, (*Z,X*))
-- <span class="fa-li"></span>return true
+      - Enqueue(queue, (*Z,X*))
+- return true
 
 This algorithm adds all the arcs in the problem to a queue. Each time it
 considers an arc, it removes it from the queue. Then, it runs the Revise
@@ -447,17 +447,17 @@ by running AC-3 on it.
 We have encountered search problems in our first lecture. A constraint
 satisfaction problem can be seen as a search problem:
 
-- <span class="fa-li"></span>Initial state: empty assignment (all
+- Initial state: empty assignment (all
     variables don’t have any values assigned to them).
-- <span class="fa-li"></span>Actions: add a {*variable = value*} to
+- Actions: add a {*variable = value*} to
     assignment; that is, give some variable a value.
-- <span class="fa-li"></span>Transition model: shows how adding the
+- Transition model: shows how adding the
     assignment changes the assignment. There is not much depth to this:
     the transition model returns the state that includes the assignment
     following the latest action.
-- <span class="fa-li"></span>Goal test: check if all variables are
+- Goal test: check if all variables are
     assigned a value and all constraints are satisfied.
-- <span class="fa-li"></span>Path cost function: all paths have the
+- Path cost function: all paths have the
     same cost. As we mentioned earlier, as opposed to typical search
     problems, optimization problems care about the solution and not the
     route to the solution.
@@ -478,23 +478,23 @@ for it:
 
 function Backtrack(*assignment, csp*):
 
-- <span class="fa-li"></span>if *assignment* complete:
-  - <span class="fa-li"></span>return *assignment*
-- <span class="fa-li"></span>*var* =
+- if *assignment* complete:
+  - return *assignment*
+- *var* =
     Select-Unassigned-Var(*assignment, csp*)
-- <span class="fa-li"></span>for *value* in Domain-Values(*var,
+- for *value* in Domain-Values(*var,
     assignment, csp*):
-  - <span class="fa-li"></span>if *value* consistent with
+  - if *value* consistent with
         *assignment*:
-    - <span class="fa-li"></span>add {*var = value*} to
+    - add {*var = value*} to
             *assignment*
-    - <span class="fa-li"></span>*result* = Backtrack(*assignment,
+    - *result* = Backtrack(*assignment,
             csp*)
-    - <span class="fa-li"></span>if *result* ≠ *failure*:
-      - <span class="fa-li"></span>return *result*
-    - <span class="fa-li"></span>*remove* {*var = value*} from
+    - if *result* ≠ *failure*:
+      - return *result*
+    - *remove* {*var = value*} from
             *assignment*
-- <span class="fa-li"></span>return failure
+- return failure
 
 In words, this algorithm starts with returning the current assignment if
 it is complete. This means that, if the algorithm is done, it will not
@@ -551,28 +551,28 @@ additions in **bold**.
 
 function Backtrack(*assignment, csp*):
 
-- <span class="fa-li"></span>if *assignment* complete:
-  - <span class="fa-li"></span>return *assignment*
-- <span class="fa-li"></span>*var* =
+- if *assignment* complete:
+  - return *assignment*
+- *var* =
     Select-Unassigned-Var(*assignment, csp*)
-- <span class="fa-li"></span>for *value* in Domain-Values(*var,
+- for *value* in Domain-Values(*var,
     assignment, csp*):
-  - <span class="fa-li"></span>if *value* consistent with
+  - if *value* consistent with
         *assignment*:
-    - <span class="fa-li"></span>**add {*var = value*} to
+    - **add {*var = value*} to
             *assignment***
-    - <span class="fa-li"></span>***inferences* =
+    - ***inferences* =
             Inference(*assignment, csp*)**
-    - <span class="fa-li"></span>if *inferences* ≠ *failure*:
-      - <span class="fa-li"></span>add *inferences* to
+    - if *inferences* ≠ *failure*:
+      - add *inferences* to
                 *assignment*
-    - <span class="fa-li"></span>*result* = Backtrack(*assignment,
+    - *result* = Backtrack(*assignment,
             csp*)
-    - <span class="fa-li"></span>if *result* ≠ *failure*:
-      - <span class="fa-li"></span>return *result*
-    - <span class="fa-li"></span>*remove* {*var = value*} **and
+    - if *result* ≠ *failure*:
+      - return *result*
+    - *remove* {*var = value*} **and
             *inferences*** from *assignment*
-- <span class="fa-li"></span>return failure
+- return failure
 
 The Inference function runs the AC-3 algorithm as described. Its output
 is all the inferences that can be made through enforcing
