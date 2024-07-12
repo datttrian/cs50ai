@@ -83,6 +83,8 @@ class Space:
             if image_prefix:
                 self.output_image(f"{image_prefix}{str(count).zfill(3)}.png")
 
+        return self.hospitals
+
     def random_restart(self, maximum, image_prefix=None, log=False):
         """Repeats hill-climbing multiple times."""
         best_hospitals = None
