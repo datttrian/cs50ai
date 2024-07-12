@@ -189,7 +189,7 @@ class Space:
 
 # Create a new space and add houses randomly
 s = Space(height=10, width=20, num_hospitals=3)
-for i in range(15):
+for _ in range(15):
     s.add_house(random.randrange(s.height), random.randrange(s.width))
 
 # Use local search to determine hospital placement
