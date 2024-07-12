@@ -14,7 +14,7 @@ CONSTRAINTS = [
     ("D", "E"),
     ("E", "F"),
     ("E", "G"),
-    ("F", "G")
+    ("F", "G"),
 ]
 
 
@@ -47,7 +47,7 @@ def select_unassigned_variable(assignment):
 
 def consistent(assignment):
     """Checks to see if an assignment is consistent."""
-    for (x, y) in CONSTRAINTS:
+    for x, y in CONSTRAINTS:
 
         # Only consider arcs where both are assigned
         if x not in assignment or y not in assignment:
@@ -61,5 +61,5 @@ def consistent(assignment):
     return True
 
 
-solution = backtrack(dict())
+solution = backtrack({})
 print(solution)
