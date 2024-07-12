@@ -1,4 +1,4 @@
-from constraint import *
+from constraint import Problem
 
 problem = Problem()
 
