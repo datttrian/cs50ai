@@ -92,11 +92,11 @@ class Space:
 
         # Repeat hill-climbing a fixed number of times
         for i in range(maximum):
-            hospitals = self.hill_climb()
-            cost = self.get_cost(hospitals)
+            current_hospitals = self.hill_climb()
+            cost = self.get_cost(current_hospitals)
             if best_cost is None or cost < best_cost:
                 best_cost = cost
-                best_hospitals = hospitals
+                best_hospitals = current_hospitals
                 if log:
                     print(f"{i}: Found new best state: cost {cost}")
             else:
