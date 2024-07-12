@@ -12,7 +12,7 @@
 
 ## Week 2
 
-- Lecture: Uncertainty
+- Lecture: [Uncertainty](src2)
 - Problem Set: [PageRank](pagerank), [Heredity](heredity)
 
 ## Week 3
