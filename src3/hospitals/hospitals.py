@@ -108,13 +108,13 @@ class Space:
 
         return best_hospitals
 
-    def get_cost(self, hospitals):
+    def get_cost(self, hospital_locations):
         """Calculates sum of distances from houses to nearest hospital."""
         cost = 0
         for house in self.houses:
             cost += min(
                 abs(house[0] - hospital[0]) + abs(house[1] - hospital[1])
-                for hospital in hospitals
+                for hospital in hospital_locations
             )
         return cost
 
