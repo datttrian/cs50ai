@@ -285,7 +285,7 @@ Interior-Point.
 The following is a linear programming example that uses the scipy
 library in Python:
 
-``` highlight
+```python
 import scipy.optimize
 
 # Objective Function: 50x_1 + 80x_2
