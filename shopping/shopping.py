@@ -104,6 +104,7 @@ def load_data(filename):
                     1 if row[16] == "TRUE" else 0,
                 ]
             )
+    return evidence, labels
 
 
 def train_model(evidence, labels):
