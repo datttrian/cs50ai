@@ -6,10 +6,6 @@ from sklearn.neighbors import KNeighborsClassifier
 
 TEST_SIZE = 0.4
 
-MONTHS = {
-    "Jan": 0, "Feb": 1, "Mar": 2, "Apr": 3, "May": 4, "June": 5, "Jul": 6, "Aug": 7, "Sep": 8, "Oct": 9, "Nov": 10, "Dec": 11
-}
-
 
 def main():
 
@@ -63,35 +59,55 @@ def load_data(filename):
     labels should be the corresponding list of labels, where each label
     is 1 if Revenue is true, and 0 otherwise.
     """
-
     evidence = []
     labels = []
+    months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "June",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ]
 
-    with open(filename, mode='r') as file:
-        reader = csv.DictReader(file)
+    with open(filename, "r", encoding="utf-8") as file:
+        reader = csv.reader(file)
+        next(reader)
         for row in reader:
-            evidence.append([
-                int(row["Administrative"]),
-                float(row["Administrative_Duration"]),
-                int(row["Informational"]),
-                float(row["Informational_Duration"]),
-                int(row["ProductRelated"]),
-                float(row["ProductRelated_Duration"]),
-                float(row["BounceRates"]),
-                float(row["ExitRates"]),
-                float(row["PageValues"]),
-                float(row["SpecialDay"]),
-                MONTHS[row["Month"]],
-                int(row["OperatingSystems"]),
-                int(row["Browser"]),
-                int(row["Region"]),
-                int(row["TrafficType"]),
-                1 if row["VisitorType"] == "Returning_Visitor" else 0,
-                1 if row["Weekend"] == "TRUE" else 0
-            ])
-            labels.append(1 if row["Revenue"] == "TRUE" else 0)
+            if row[-1] == "TRUE":
+                labels.append(1)
+            else:
+                labels.append(0)
 
-    return (evidence, labels)
+            evidence.append(
+                [
+                    int(row[0]),
+                    float(row[1]),
+                    float(row[3]),
+                    int(row[2]),
+                    int(row[4]),
+                    float(row[5]),
+                    float(row[6]),
+                    float(row[7]),
+                    float(row[8]),
+                    float(row[9]),
+                    months.index(row[10]),
+                    int(row[11]),
+                    int(row[12]),
+                    int(row[13]),
+                    int(row[14]),
+                    1 if row[15] == "Returning_Visitor" else 0,
+                    1 if row[16] == "TRUE" else 0,
+                ]
+            )
+
+    return evidence, labels
 
 
 def train_model(evidence, labels):
@@ -99,9 +115,9 @@ def train_model(evidence, labels):
     Given a list of evidence lists and a list of labels, return a
     fitted k-nearest neighbor model (k=1) trained on the data.
     """
-    model = KNeighborsClassifier(n_neighbors=1)
-    model.fit(evidence, labels)
-    return model
+    neigh = KNeighborsClassifier(n_neighbors=1)
+    neigh.fit(evidence, labels)
+    return neigh
 
 
 def evaluate(labels, predictions):
@@ -119,19 +135,25 @@ def evaluate(labels, predictions):
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
     """
-    true_positive = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == predicted == 1)
-    true_negative = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == predicted == 0)
-    false_negative = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == 1 and predicted == 0)
-    false_positive = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == 0 and predicted == 1)
+    true_positives = 0
+    actual_positives = 0
+    true_negatives = 0
+    actual_negatives = 0
 
-    sensitivity = true_positive / (true_positive + false_negative)
-    specificity = true_negative / (true_negative + false_positive)
+    for index, label in enumerate(labels):
+        if label == 1:
+            actual_positives += 1
+            if predictions[index] == 1:
+                true_positives += 1
+        else:
+            actual_negatives += 1
+            if predictions[index] == 0:
+                true_negatives += 1
 
-    return (sensitivity, specificity)
+    sensitivity = true_positives / actual_positives
+    specificity = true_negatives / actual_negatives
+
+    return sensitivity, specificity
 
 
 if __name__ == "__main__":
