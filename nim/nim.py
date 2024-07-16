@@ -5,7 +5,7 @@ import time
 
 class Nim():
 
-    def __init__(self, initial=[1, 3, 5, 7]):
+    def __init__(self, initial=None):
         """
         Initialize game board.
         Each game board has
@@ -13,6 +13,8 @@ class Nim():
             - `player`: 0 or 1 to indicate which player's turn
             - `winner`: None, 0, or 1 to indicate who the winner is
         """
+        if initial is None:
+            initial = [1, 3, 5, 7]
         self.piles = initial.copy()
         self.player = 0
         self.winner = None
@@ -56,7 +58,7 @@ class Nim():
         # Check for errors
         if self.winner is not None:
             raise Exception("Game already won")
-        elif pile < 0 or pile >= len(self.piles):
+        if pile < 0 or pile >= len(self.piles):
             raise Exception("Invalid pile")
         elif count < 1 or count > self.piles[pile]:
             raise Exception("Invalid number of objects")
@@ -82,7 +84,7 @@ class NimAI():
          - `state` is a tuple of remaining piles, e.g. (1, 1, 4, 4)
          - `action` is a tuple `(i, j)` for an action
         """
-        self.q = dict()
+        self.q = {}
         self.alpha = alpha
         self.epsilon = epsilon
 
@@ -195,7 +197,7 @@ def train(n):
                 break
 
             # If game is continuing, no rewards yet
-            elif last[game.player]["state"] is not None:
+            if last[game.player]["state"] is not None:
                 player.update(
                     last[game.player]["state"],
                     last[game.player]["action"],
