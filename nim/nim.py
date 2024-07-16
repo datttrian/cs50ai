@@ -57,11 +57,11 @@ class Nim():
 
         # Check for errors
         if self.winner is not None:
-            raise Exception("Game already won")
+            raise ValueError("Game already won")
         if pile < 0 or pile >= len(self.piles):
-            raise Exception("Invalid pile")
+            raise IndexError("Invalid pile")
         elif count < 1 or count > self.piles[pile]:
-            raise Exception("Invalid number of objects")
+            raise ValueError("Invalid number of objects")
 
         # Update pile
         self.piles[pile] -= count
