@@ -140,8 +140,8 @@ def evaluate(labels, predictions):
     true_negatives = 0
     actual_negatives = 0
 
-    for index in range(len(labels)):
-        if labels[index] == 1:
+    for index, label in enumerate(labels):
+        if label == 1:
             actual_positives += 1
             if predictions[index] == 1:
                 true_positives += 1
