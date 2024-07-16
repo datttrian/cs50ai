@@ -6,10 +6,6 @@ from sklearn.neighbors import KNeighborsClassifier
 
 TEST_SIZE = 0.4
 
-MONTHS = {
-    "Jan": 0, "Feb": 1, "Mar": 2, "Apr": 3, "May": 4, "June": 5, "Jul": 6, "Aug": 7, "Sep": 8, "Oct": 9, "Nov": 10, "Dec": 11
-}
-
 
 def main():
 
@@ -63,35 +59,7 @@ def load_data(filename):
     labels should be the corresponding list of labels, where each label
     is 1 if Revenue is true, and 0 otherwise.
     """
-
-    evidence = []
-    labels = []
-
-    with open(filename, mode='r') as file:
-        reader = csv.DictReader(file)
-        for row in reader:
-            evidence.append([
-                int(row["Administrative"]),
-                float(row["Administrative_Duration"]),
-                int(row["Informational"]),
-                float(row["Informational_Duration"]),
-                int(row["ProductRelated"]),
-                float(row["ProductRelated_Duration"]),
-                float(row["BounceRates"]),
-                float(row["ExitRates"]),
-                float(row["PageValues"]),
-                float(row["SpecialDay"]),
-                MONTHS[row["Month"]],
-                int(row["OperatingSystems"]),
-                int(row["Browser"]),
-                int(row["Region"]),
-                int(row["TrafficType"]),
-                1 if row["VisitorType"] == "Returning_Visitor" else 0,
-                1 if row["Weekend"] == "TRUE" else 0
-            ])
-            labels.append(1 if row["Revenue"] == "TRUE" else 0)
-
-    return (evidence, labels)
+    raise NotImplementedError
 
 
 def train_model(evidence, labels):
@@ -99,9 +67,7 @@ def train_model(evidence, labels):
     Given a list of evidence lists and a list of labels, return a
     fitted k-nearest neighbor model (k=1) trained on the data.
     """
-    model = KNeighborsClassifier(n_neighbors=1)
-    model.fit(evidence, labels)
-    return model
+    raise NotImplementedError
 
 
 def evaluate(labels, predictions):
@@ -119,19 +85,7 @@ def evaluate(labels, predictions):
     representing the "true negative rate": the proportion of
     actual negative labels that were accurately identified.
     """
-    true_positive = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == predicted == 1)
-    true_negative = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == predicted == 0)
-    false_negative = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == 1 and predicted == 0)
-    false_positive = sum(1 for actual, predicted in zip(
-        labels, predictions) if actual == 0 and predicted == 1)
-
-    sensitivity = true_positive / (true_positive + false_negative)
-    specificity = true_negative / (true_negative + false_positive)
-
-    return (sensitivity, specificity)
+    raise NotImplementedError
 
 
 if __name__ == "__main__":
