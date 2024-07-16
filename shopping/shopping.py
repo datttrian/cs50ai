@@ -68,7 +68,7 @@ def load_data(filename):
         "Apr",
         "May",
         "June",
-        "July",
+        "Jul",
         "Aug",
         "Sep",
         "Oct",
