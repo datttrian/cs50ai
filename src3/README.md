@@ -84,6 +84,133 @@ function Hill-Climb(*problem*):
     - return *current*
   - *current* = *neighbor*
 
+```python
+import random
+
+# Define the positions of the houses
+houses = [(1, 3), (2, 1), (4, 2), (5, 4)]
+
+# Define a function to calculate the Manhattan distance between two points
+def manhattan_distance(point1, point2):
+    return abs(point1[0] - point2[0]) + abs(point1[1] - point2[1])
+
+# Define a function to calculate the total cost (sum of distances from each house to the nearest hospital)
+def calculate_cost(houses, hospitals):
+    total_cost = 0
+    for house in houses:
+        total_cost += min(manhattan_distance(house, hospital) for hospital in hospitals)
+    return total_cost
+
+# Define a function to get neighboring states by moving hospitals one step in any direction
+def get_neighbors(hospitals):
+    neighbors = []
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # Up, Right, Down, Left
+    for i, (hx, hy) in enumerate(hospitals):
+        for dx, dy in directions:
+            new_hospitals = hospitals[:]
+            new_hospitals[i] = (hx + dx, hy + dy)
+            neighbors.append(new_hospitals)
+    return neighbors
+
+# Hill Climbing Algorithm
+def hill_climbing(houses, initial_hospitals):
+    current_hospitals = initial_hospitals
+    current_cost = calculate_cost(houses, current_hospitals)
+    iteration = 0
+    
+    while True:
+        print(f"Iteration {iteration}:")
+        print(f"Current Hospitals: {current_hospitals}, Cost: {current_cost}")
+        
+        neighbors = get_neighbors(current_hospitals)
+        neighbor_costs = [calculate_cost(houses, neighbor) for neighbor in neighbors]
+        
+        for neighbor, cost in zip(neighbors, neighbor_costs):
+            print(f"Neighbor Hospitals: {neighbor}, Cost: {cost}")
+        
+        best_neighbor_index = neighbor_costs.index(min(neighbor_costs))
+        
+        if neighbor_costs[best_neighbor_index] >= current_cost:
+            print("No better neighbors found. Ending search.")
+            break
+        
+        current_hospitals = neighbors[best_neighbor_index]
+        current_cost = neighbor_costs[best_neighbor_index]
+        iteration += 1
+        print()
+    
+    return current_hospitals, current_cost
+
+# Initial random placement of hospitals
+initial_hospitals = [(random.randint(0, 5), random.randint(0, 5)) for _ in range(2)]
+
+# Perform hill climbing to find the best hospital locations
+best_hospitals, best_cost = hill_climbing(houses, initial_hospitals)
+
+print(f"Initial Hospitals: {initial_hospitals}")
+print(f"Best Hospitals: {best_hospitals}")
+print(f"Total Cost: {best_cost}")
+```
+
+    Iteration 0:
+    Current Hospitals: [(3, 5), (3, 2)], Cost: 9
+    Neighbor Hospitals: [(3, 6), (3, 2)], Cost: 10
+    Neighbor Hospitals: [(4, 5), (3, 2)], Cost: 8
+    Neighbor Hospitals: [(3, 4), (3, 2)], Cost: 8
+    Neighbor Hospitals: [(2, 5), (3, 2)], Cost: 10
+    Neighbor Hospitals: [(3, 5), (3, 3)], Cost: 10
+    Neighbor Hospitals: [(3, 5), (4, 2)], Cost: 10
+    Neighbor Hospitals: [(3, 5), (3, 1)], Cost: 10
+    Neighbor Hospitals: [(3, 5), (2, 2)], Cost: 8
+    
+    Iteration 1:
+    Current Hospitals: [(4, 5), (3, 2)], Cost: 8
+    Neighbor Hospitals: [(4, 6), (3, 2)], Cost: 9
+    Neighbor Hospitals: [(5, 5), (3, 2)], Cost: 7
+    Neighbor Hospitals: [(4, 4), (3, 2)], Cost: 7
+    Neighbor Hospitals: [(3, 5), (3, 2)], Cost: 9
+    Neighbor Hospitals: [(4, 5), (3, 3)], Cost: 9
+    Neighbor Hospitals: [(4, 5), (4, 2)], Cost: 9
+    Neighbor Hospitals: [(4, 5), (3, 1)], Cost: 9
+    Neighbor Hospitals: [(4, 5), (2, 2)], Cost: 7
+    
+    Iteration 2:
+    Current Hospitals: [(5, 5), (3, 2)], Cost: 7
+    Neighbor Hospitals: [(5, 6), (3, 2)], Cost: 8
+    Neighbor Hospitals: [(6, 5), (3, 2)], Cost: 8
+    Neighbor Hospitals: [(5, 4), (3, 2)], Cost: 6
+    Neighbor Hospitals: [(4, 5), (3, 2)], Cost: 8
+    Neighbor Hospitals: [(5, 5), (3, 3)], Cost: 8
+    Neighbor Hospitals: [(5, 5), (4, 2)], Cost: 8
+    Neighbor Hospitals: [(5, 5), (3, 1)], Cost: 8
+    Neighbor Hospitals: [(5, 5), (2, 2)], Cost: 6
+    
+    Iteration 3:
+    Current Hospitals: [(5, 4), (3, 2)], Cost: 6
+    Neighbor Hospitals: [(5, 5), (3, 2)], Cost: 7
+    Neighbor Hospitals: [(6, 4), (3, 2)], Cost: 7
+    Neighbor Hospitals: [(5, 3), (3, 2)], Cost: 7
+    Neighbor Hospitals: [(4, 4), (3, 2)], Cost: 7
+    Neighbor Hospitals: [(5, 4), (3, 3)], Cost: 7
+    Neighbor Hospitals: [(5, 4), (4, 2)], Cost: 7
+    Neighbor Hospitals: [(5, 4), (3, 1)], Cost: 7
+    Neighbor Hospitals: [(5, 4), (2, 2)], Cost: 5
+    
+    Iteration 4:
+    Current Hospitals: [(5, 4), (2, 2)], Cost: 5
+    Neighbor Hospitals: [(5, 5), (2, 2)], Cost: 6
+    Neighbor Hospitals: [(6, 4), (2, 2)], Cost: 6
+    Neighbor Hospitals: [(5, 3), (2, 2)], Cost: 6
+    Neighbor Hospitals: [(4, 4), (2, 2)], Cost: 6
+    Neighbor Hospitals: [(5, 4), (2, 3)], Cost: 6
+    Neighbor Hospitals: [(5, 4), (3, 2)], Cost: 6
+    Neighbor Hospitals: [(5, 4), (2, 1)], Cost: 6
+    Neighbor Hospitals: [(5, 4), (1, 2)], Cost: 6
+    No better neighbors found. Ending search.
+    Initial Hospitals: [(3, 5), (3, 2)]
+    Best Hospitals: [(5, 4), (2, 2)]
+    Total Cost: 5
+
 In this algorithm, we start with a current state. In some problems, we
 will know what the current state is, while, in others, we will have to
 start with selecting one randomly. Then, we repeat the following
@@ -110,20 +237,19 @@ sense, a hill climbing algorithm is short-sighted, often settling for
 solutions that are *better* than some others, but not necessarily the
 *best* of all possible solutions.
 
-**Local and Global Minima and Maxima**
+### Local and Global Minima and Maxima
 
 As mentioned above, a hill climbing algorithm can get stuck in local
-maxima or minima. A ***local* maximum** (plural: maxima) is a state that
+maxima or minima. A *local* **maximum** (plural: maxima) is a state that
 has a higher value than its *neighboring states*. As opposed to that, a
 ***global* maximum** is a state that has the highest value of *all
 states* in the state-space.
 
 ![Maxima](https://cs50.harvard.edu/ai/2020/notes/3/maxima.png)
 
-In contrast, a ***local* minimum** (plural: minima) is a state that has
+In contrast, a *local* **minimum** (plural: minima) is a state that has
 a lower value than its *neighboring states*. As opposed to that, a
-***global* minimum** is a state that has the lowest value of *all
-states* in the state-space.
+*global* **minimum** is a state that has the lowest value of *all states* in the state-space.
 
 ![Minima](https://cs50.harvard.edu/ai/2020/notes/3/minima.png)
 
@@ -140,7 +266,7 @@ any direction.
 
 ![Flat Local Maximum/Minimum and Shoulder](https://cs50.harvard.edu/ai/2020/notes/3/flatshoulder.png)
 
-**Hill Climbing Variants**
+### Hill Climbing Variants
 
 Due to the limitations of Hill Climbing, multiple variants have been
 thought of to overcome the problem of being stuck in local minima and
@@ -204,6 +330,58 @@ function Simulated-Annealing(*problem*, *max*):
         *current* = *neighbor*
 - return *current*
 
+```python
+import math
+
+# Define a temperature schedule function
+def temperature(t, max_iterations):
+    return max(0.1, float(max_iterations - t) / max_iterations)
+
+# Simulated Annealing Algorithm
+def simulated_annealing(houses, initial_hospitals, max_iterations=1000):
+    current_hospitals = initial_hospitals
+    current_cost = calculate_cost(houses, current_hospitals)
+    iteration = 0
+
+    for t in range(1, max_iterations + 1):
+        T = temperature(t, max_iterations)
+        neighbors = get_neighbors(current_hospitals)
+        neighbor = random.choice(neighbors)
+        neighbor_cost = calculate_cost(houses, neighbor)
+        delta_E = current_cost - neighbor_cost
+        
+        if delta_E > 0 or math.exp(delta_E / T) > random.random():
+            current_hospitals = neighbor
+            current_cost = neighbor_cost
+        
+        iteration += 1
+        if iteration % 100 == 0 or iteration == max_iterations:
+            print(f"Iteration {iteration}: Temperature: {T:.4f}, Current Hospitals: {current_hospitals}, Cost: {current_cost}")
+
+    return current_hospitals, current_cost
+
+# Perform simulated annealing to find the best hospital locations
+best_hospitals, best_cost = simulated_annealing(houses, initial_hospitals, max_iterations=1000)
+
+print(f"Initial Hospitals: {initial_hospitals}")
+print(f"Best Hospitals: {best_hospitals}")
+print(f"Total Cost: {best_cost}")
+```
+
+    Iteration 100: Temperature: 0.9000, Current Hospitals: [(5, 4), (1, 3)], Cost: 6
+    Iteration 200: Temperature: 0.8000, Current Hospitals: [(5, 5), (2, 2)], Cost: 6
+    Iteration 300: Temperature: 0.7000, Current Hospitals: [(3, 1), (5, 4)], Cost: 7
+    Iteration 400: Temperature: 0.6000, Current Hospitals: [(5, 2), (1, 1)], Cost: 6
+    Iteration 500: Temperature: 0.5000, Current Hospitals: [(5, 3), (2, 3)], Cost: 6
+    Iteration 600: Temperature: 0.4000, Current Hospitals: [(5, 4), (2, 2)], Cost: 5
+    Iteration 700: Temperature: 0.3000, Current Hospitals: [(7, 4), (2, 2)], Cost: 7
+    Iteration 800: Temperature: 0.2000, Current Hospitals: [(4, 2), (2, 3)], Cost: 6
+    Iteration 900: Temperature: 0.1000, Current Hospitals: [(5, 4), (2, 2)], Cost: 5
+    Iteration 1000: Temperature: 0.1000, Current Hospitals: [(5, 4), (2, 2)], Cost: 5
+    Initial Hospitals: [(3, 5), (3, 2)]
+    Best Hospitals: [(5, 4), (2, 2)]
+    Total Cost: 5
+
 The algorithm takes as input a problem and *max*, the number of times it
 should repeat itself. For each iteration, *T* is set using a Temperature
 function. This function return a higher value in the early iterations
@@ -226,7 +404,7 @@ current state). The more negative *ΔE*, the closer the resulting value
 to 0. The higher the temperature *T* is, the closer *ΔE/T* is to 0,
 making the probability closer to 1.
 
-**Traveling Salesman Problem**
+### Traveling Salesman Problem
 
 In the traveling salesman problem, the task is to connect all points
 while choosing the shortest possible distance. This is, for example,
@@ -305,6 +483,9 @@ else:
     print("No solution")
 ```
 
+    X1: 1.5 hours
+    X2: 6.25 hours
+
 ## Constraint Satisfaction
 
 Constraint Satisfaction problems are a class of problems where variables
@@ -313,8 +494,7 @@ need to be assigned values while satisfying some conditions.
 Constraints satisfaction problems have the following properties:
 
 - Set of variables (x₁, x₂, …, xₙ)
-- Set of domains for each variable {D₁, D₂,
-    …, Dₙ}
+- Set of domains for each variable {D₁, D₂, …, Dₙ}
 - Set of constraints C
 
 Sudoku can be represented as a constraint satisfaction problem, where
@@ -393,11 +573,49 @@ function Revise(*csp, X, Y*):
 
 - *revised* = *false*
 - for *x* in *X.domain*:
-  - if no *y* in *Y.domain* satisfies
-        constraint for (*X,Y*):
+  - if no *y* in *Y.domain* satisfies constraint for (*X,Y*):
     - delete *x* from *X.domain*
     - *revised* = true
 - return *revised*
+
+```python
+def revise(domains, constraints, X, Y):
+    revised = False
+    for x in domains[X][:]:
+        if not any(constraints[(X, Y)](x, y) for y in domains[Y]):
+            domains[X].remove(x)
+            revised = True
+    return revised
+
+# Example problem setup
+variables = ['A', 'B']
+domains = {
+    'A': ['Monday', 'Tuesday', 'Wednesday'],
+    'B': ['Monday', 'Tuesday', 'Wednesday']
+}
+constraints = {
+    ('A', 'B'): lambda a, b: a != b
+}
+
+# Apply unary constraints
+domains['A'].remove('Monday')
+domains['B'].remove('Monday')
+domains['B'].remove('Tuesday')
+
+print("Domains before revision:")
+print(domains)
+
+# Revise domains to ensure arc consistency
+revise(domains, constraints, 'A', 'B')
+
+print("Domains after revision:")
+print(domains)
+```
+
+    Domains before revision:
+    {'A': ['Tuesday', 'Wednesday'], 'B': ['Wednesday']}
+    Domains after revision:
+    {'A': ['Tuesday'], 'B': ['Wednesday']}
 
 This algorithm starts with tracking whether any change was made to X’s
 domain, using the variable *revised*. This will be useful in the next
@@ -421,6 +639,61 @@ function AC-3(*csp*):
             {*Y*}:
       - Enqueue(queue, (*Z,X*))
 - return true
+
+```python
+def ac3(variables, domains, neighbors, constraints):
+    queue = [(X, Y) for X in variables for Y in neighbors[X]]
+    while queue:
+        (X, Y) = queue.pop(0)
+        if revise(domains, constraints, X, Y):
+            if not domains[X]:
+                return False
+            for Z in neighbors[X]:
+                if Z != Y:
+                    queue.append((Z, X))
+    return True
+
+# Example problem setup
+variables = ['A', 'B', 'C']
+domains = {
+    'A': ['Monday', 'Tuesday', 'Wednesday'],
+    'B': ['Monday', 'Tuesday', 'Wednesday'],
+    'C': ['Monday', 'Tuesday', 'Wednesday']
+}
+neighbors = {
+    'A': ['B', 'C'],
+    'B': ['A', 'C'],
+    'C': ['A', 'B']
+}
+constraints = {
+    ('A', 'B'): lambda a, b: a != b,
+    ('A', 'C'): lambda a, c: a != c,
+    ('B', 'C'): lambda b, c: b != c,
+    ('B', 'A'): lambda b, a: b != a,
+    ('C', 'A'): lambda c, a: c != a,
+    ('C', 'B'): lambda c, b: c != b
+}
+
+# Apply unary constraints
+domains['A'].remove('Monday')
+domains['B'].remove('Monday')
+domains['B'].remove('Tuesday')
+
+print("Domains before AC-3:")
+print(domains)
+
+# Run AC-3 algorithm to ensure arc consistency
+if ac3(variables, domains, neighbors, constraints):
+    print("Domains after AC-3:")
+    print(domains)
+else:
+    print("AC-3 failed: no solution possible")
+```
+
+    Domains before AC-3:
+    {'A': ['Tuesday', 'Wednesday'], 'B': ['Wednesday'], 'C': ['Monday', 'Tuesday', 'Wednesday']}
+    Domains after AC-3:
+    {'A': ['Tuesday'], 'B': ['Wednesday'], 'C': ['Monday']}
 
 This algorithm adds all the arcs in the problem to a queue. Each time it
 considers an arc, it removes it from the queue. Then, it runs the Revise
@@ -493,7 +766,6 @@ function Backtrack(*assignment, csp*):
     - *remove* {*var = value*} from
             *assignment*
 - return failure
-
 In words, this algorithm starts with returning the current assignment if
 it is complete. This means that, if the algorithm is done, it will not
 perform any of the additional actions. Instead, it will just return the
@@ -532,7 +804,125 @@ In the source code section, you can find an implementation from scratch
 of the backtrack algorithm. However, this algorithm is widely used, and,
 as such, multiple libraries already contain an implementation of it.
 
-**Inference**
+```python
+"""
+Naive backtracking search without any heuristics or inference.
+"""
+
+VARIABLES = ["A", "B", "C", "D", "E", "F", "G"]
+CONSTRAINTS = [
+    ("A", "B"),
+    ("A", "C"),
+    ("B", "C"),
+    ("B", "D"),
+    ("B", "E"),
+    ("C", "E"),
+    ("C", "F"),
+    ("D", "E"),
+    ("E", "F"),
+    ("E", "G"),
+    ("F", "G"),
+]
+
+def backtrack(assignment):
+    """Runs backtracking search to find an assignment."""
+
+    # Check if assignment is complete
+    if len(assignment) == len(VARIABLES):
+        return assignment
+
+    # Try a new variable
+    var = select_unassigned_variable(assignment)
+    print(f"Selected Variable: {var}")
+
+    for value in ["Monday", "Tuesday", "Wednesday"]:
+        print(f"Trying {var} = {value}")
+        new_assignment = assignment.copy()
+        new_assignment[var] = value
+        if consistent(new_assignment):
+            print(f"{var} = {value} is consistent")
+            result = backtrack(new_assignment)
+            if result is not None:
+                return result
+        print(f"{var} = {value} did not work. Backtracking.")
+    return None
+
+def select_unassigned_variable(assignment):
+    """Chooses a variable not yet assigned, in order."""
+    for variable in VARIABLES:
+        if variable not in assignment:
+            return variable
+    return None
+
+def consistent(assignment):
+    """Checks to see if an assignment is consistent."""
+    for x, y in CONSTRAINTS:
+
+        # Only consider arcs where both are assigned
+        if x not in assignment or y not in assignment:
+            continue
+
+        # If both have same value, then not consistent
+        if assignment[x] == assignment[y]:
+            return False
+
+    # If nothing inconsistent, then assignment is consistent
+    return True
+
+solution = backtrack({})
+print("Solution:")
+print(solution)
+```
+
+    Selected Variable: A
+    Trying A = Monday
+    A = Monday is consistent
+    Selected Variable: B
+    Trying B = Monday
+    B = Monday did not work. Backtracking.
+    Trying B = Tuesday
+    B = Tuesday is consistent
+    Selected Variable: C
+    Trying C = Monday
+    C = Monday did not work. Backtracking.
+    Trying C = Tuesday
+    C = Tuesday did not work. Backtracking.
+    Trying C = Wednesday
+    C = Wednesday is consistent
+    Selected Variable: D
+    Trying D = Monday
+    D = Monday is consistent
+    Selected Variable: E
+    Trying E = Monday
+    E = Monday did not work. Backtracking.
+    Trying E = Tuesday
+    E = Tuesday did not work. Backtracking.
+    Trying E = Wednesday
+    E = Wednesday did not work. Backtracking.
+    D = Monday did not work. Backtracking.
+    Trying D = Tuesday
+    D = Tuesday did not work. Backtracking.
+    Trying D = Wednesday
+    D = Wednesday is consistent
+    Selected Variable: E
+    Trying E = Monday
+    E = Monday is consistent
+    Selected Variable: F
+    Trying F = Monday
+    F = Monday did not work. Backtracking.
+    Trying F = Tuesday
+    F = Tuesday is consistent
+    Selected Variable: G
+    Trying G = Monday
+    G = Monday did not work. Backtracking.
+    Trying G = Tuesday
+    G = Tuesday did not work. Backtracking.
+    Trying G = Wednesday
+    G = Wednesday is consistent
+    Solution:
+    {'A': 'Monday', 'B': 'Tuesday', 'C': 'Wednesday', 'D': 'Wednesday', 'E': 'Monday', 'F': 'Tuesday', 'G': 'Wednesday'}
+
+### Inference
 
 Although backtracking search is more efficient than simple search, it
 still takes a lot of computational power. Enforcing arc consistency, on
@@ -557,10 +947,8 @@ function Backtrack(*assignment, csp*):
     assignment, csp*):
   - if *value* consistent with
         *assignment*:
-    - **add {*var = value*} to
-            *assignment***
-    - ***inferences* =
-            Inference(*assignment, csp*)**
+    - **add {*var = value*} to** *assignment*
+    - *inferences* = **Inference**(*assignment, csp*)
     - if *inferences* ≠ *failure*:
       - add *inferences* to
                 *assignment*
@@ -568,9 +956,147 @@ function Backtrack(*assignment, csp*):
             csp*)
     - if *result* ≠ *failure*:
       - return *result*
-    - *remove* {*var = value*} **and
-            *inferences*** from *assignment*
+    - *remove* {*var = value*} **and** *inferences* from *assignment*
 - return failure
+
+```python
+"""
+Backtracking search with inference.
+"""
+
+DOMAINS = {
+    "A": ["Monday", "Tuesday", "Wednesday"],
+    "B": ["Monday", "Tuesday", "Wednesday"],
+    "C": ["Monday", "Tuesday", "Wednesday"],
+    "D": ["Monday", "Tuesday", "Wednesday"],
+    "E": ["Monday", "Tuesday", "Wednesday"],
+    "F": ["Monday", "Tuesday", "Wednesday"],
+    "G": ["Monday", "Tuesday", "Wednesday"]
+}
+
+def backtrack(assignment, csp):
+    """Runs backtracking search to find an assignment."""
+
+    # Check if assignment is complete
+    if len(assignment) == len(csp['variables']):
+        return assignment
+
+    # Select an unassigned variable
+    var = select_unassigned_variable(assignment, csp)
+    print(f"Selected Variable: {var}")
+
+    for value in csp['domains'][var]:
+        print(f"Trying {var} = {value}")
+        new_assignment = assignment.copy()
+        new_assignment[var] = value
+
+        if consistent(new_assignment, csp):
+            inferences = inference(new_assignment, csp, var)
+            if inferences is not None:
+                result = backtrack(new_assignment, csp)
+                if result is not None:
+                    return result
+        print(f"{var} = {value} did not work. Backtracking.")
+        assignment.pop(var, None)
+    return None
+
+def select_unassigned_variable(assignment, csp):
+    """Chooses a variable not yet assigned, in order."""
+    for variable in csp['variables']:
+        if variable not in assignment:
+            return variable
+    return None
+
+def consistent(assignment, csp):
+    """Checks to see if an assignment is consistent."""
+    for x, y in csp['constraints']:
+        if x in assignment and y in assignment and assignment[x] == assignment[y]:
+            return False
+    return True
+
+def inference(assignment, csp, var):
+    """Enforces arc consistency using AC-3 algorithm."""
+    queue = [(neighbor, var) for neighbor in csp['neighbors'][var]]
+    while queue:
+        (X, Y) = queue.pop(0)
+        if revise(csp, X, Y):
+            if not csp['domains'][X]:
+                return None
+            for Z in csp['neighbors'][X]:
+                if Z != Y:
+                    queue.append((Z, X))
+    return assignment
+
+def revise(csp, X, Y):
+    """Makes X arc-consistent with respect to Y."""
+    revised = False
+    for x in csp['domains'][X][:]:
+        if not any(csp['constraints'][(X, Y)](x, y) for y in csp['domains'][Y]):
+            csp['domains'][X].remove(x)
+            revised = True
+    return revised
+
+# Setup the problem
+csp = {
+    'variables': VARIABLES,
+    'domains': DOMAINS,
+    'neighbors': {var: [] for var in VARIABLES},
+    'constraints': {}
+}
+
+# Initialize constraints and neighbors
+for x, y in CONSTRAINTS:
+    csp['constraints'][(x, y)] = lambda x, y: x != y
+    csp['constraints'][(y, x)] = lambda y, x: y != x
+    csp['neighbors'][x].append(y)
+    csp['neighbors'][y].append(x)
+
+# Perform backtracking search with arc consistency
+solution = backtrack({}, csp)
+
+print("Solution:")
+print(solution)
+```
+
+    Selected Variable: A
+    Trying A = Monday
+    Selected Variable: B
+    Trying B = Monday
+    B = Monday did not work. Backtracking.
+    Trying B = Tuesday
+    Selected Variable: C
+    Trying C = Monday
+    C = Monday did not work. Backtracking.
+    Trying C = Tuesday
+    C = Tuesday did not work. Backtracking.
+    Trying C = Wednesday
+    Selected Variable: D
+    Trying D = Monday
+    Selected Variable: E
+    Trying E = Monday
+    E = Monday did not work. Backtracking.
+    Trying E = Tuesday
+    E = Tuesday did not work. Backtracking.
+    Trying E = Wednesday
+    E = Wednesday did not work. Backtracking.
+    D = Monday did not work. Backtracking.
+    Trying D = Tuesday
+    D = Tuesday did not work. Backtracking.
+    Trying D = Wednesday
+    Selected Variable: E
+    Trying E = Monday
+    Selected Variable: F
+    Trying F = Monday
+    F = Monday did not work. Backtracking.
+    Trying F = Tuesday
+    Selected Variable: G
+    Trying G = Monday
+    G = Monday did not work. Backtracking.
+    Trying G = Tuesday
+    G = Tuesday did not work. Backtracking.
+    Trying G = Wednesday
+    Solution:
+    {'A': 'Monday', 'B': 'Tuesday', 'C': 'Wednesday', 'D': 'Wednesday', 'E': 'Monday', 'F': 'Tuesday', 'G': 'Wednesday'}
 
 The Inference function runs the AC-3 algorithm as described. Its output
 is all the inferences that can be made through enforcing
