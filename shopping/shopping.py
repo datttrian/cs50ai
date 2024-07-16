@@ -76,7 +76,7 @@ def load_data(filename):
         "Dec",
     ]
 
-    with open(filename, "r") as file:
+    with open(filename, "r", encoding="utf-8") as file:
         reader = csv.reader(file)
         next(reader)
         for row in reader:
