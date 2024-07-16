@@ -438,7 +438,8 @@ disable=raw-checker-failed,
         too-few-public-methods,
         import-error,
         redefined-argument-from-local,
-        duplicate-code
+        duplicate-code,
+        invalid-name
         
 
 
