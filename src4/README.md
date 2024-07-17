@@ -304,13 +304,6 @@ we can predict whether new banknotes are genuine or not.
 import csv
 import random
 
-from sklearn import svm
-from sklearn.linear_model import Perceptron
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-
-# model = KNeighborsClassifier(n_neighbors=1)
-# model = svm.SVC()
 model = Perceptron()
 ```
 
@@ -322,16 +315,18 @@ input the number of neighbors it should consider.
 
 ```python
 # Read data in from file
-with open("banknotes.csv") as f:
+with open("banknotes.csv", encoding="utf-8") as f:
     reader = csv.reader(f)
     next(reader)
 
     data = []
     for row in reader:
-        data.append({
-            "evidence": [float(cell) for cell in row[:4]],
-            "label": "Authentic" if row[4] == "0" else "Counterfeit"
-        })
+        data.append(
+            {
+                "evidence": [float(cell) for cell in row[:4]],
+                "label": "Authentic" if row[4] == "0" else "Counterfeit",
+            }
+        )
 
 # Separate data into training and testing groups
 holdout = int(0.40 * len(data))
@@ -367,11 +362,72 @@ print(f"Incorrect: {incorrect}")
 print(f"Accuracy: {100 * correct / total:.2f}%")
 ```
 
+    Results for model Perceptron
+    Correct: 540
+    Incorrect: 8
+    Accuracy: 98.54%
+
 This manual version of running the algorithm can be found in the source
 code for this lecture under banknotes0.py. Since the algorithm is used
 often in a similar way, scikit-learn contains additional functions that
 make the code even more succinct and easy to use, and this version can
 be found under banknotes1.py.
+
+```python
+import csv
+
+from sklearn.linear_model import Perceptron
+from sklearn.model_selection import train_test_split
+
+model = Perceptron()
+# model = svm.SVC()
+# model = KNeighborsClassifier(n_neighbors=1)
+# model = GaussianNB()
+
+# Read data in from file
+with open("banknotes.csv", encoding="utf-8") as f:
+    reader = csv.reader(f)
+    next(reader)
+
+    data = []
+    for row in reader:
+        data.append(
+            {
+                "evidence": [float(cell) for cell in row[:4]],
+                "label": "Authentic" if row[4] == "0" else "Counterfeit",
+            }
+        )
+
+# Separate data into training and testing groups
+evidence = [row["evidence"] for row in data]
+labels = [row["label"] for row in data]
+
+X_training, X_testing, y_training, y_testing = train_test_split(
+    evidence, labels, test_size=0.4
+)
+
+# Fit model
+model.fit(X_training, y_training)
+
+# Make predictions on the testing set
+predictions = model.predict(X_testing)
+
+# Compute how well we performed
+correct = (y_testing == predictions).sum()
+incorrect = (y_testing != predictions).sum()
+total = len(predictions)
+
+# Print results
+print(f"Results for model {type(model).__name__}")
+print(f"Correct: {correct}")
+print(f"Incorrect: {incorrect}")
+print(f"Accuracy: {100 * correct / total:.2f}%")
+```
+
+    Results for model Perceptron
+    Correct: 542
+    Incorrect: 7
+    Accuracy: 98.72%
 
 ## Reinforcement Learning
 

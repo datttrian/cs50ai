@@ -9,7 +9,7 @@ model = Perceptron()
 # model = GaussianNB()
 
 # Read data in from file
-with open("banknotes.csv", encoding='utf-8') as f:
+with open("banknotes.csv", encoding="utf-8") as f:
     reader = csv.reader(f)
     next(reader)
 
