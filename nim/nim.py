@@ -5,7 +5,7 @@ import time
 
 class Nim():
 
-    def __init__(self, initial=[1, 3, 5, 7]):
+    def __init__(self, initial=None):
         """
         Initialize game board.
         Each game board has
@@ -13,6 +13,8 @@ class Nim():
             - `player`: 0 or 1 to indicate which player's turn
             - `winner`: None, 0, or 1 to indicate who the winner is
         """
+        if initial is None:
+            initial = [1, 3, 5, 7]
         self.piles = initial.copy()
         self.player = 0
         self.winner = None
@@ -55,11 +57,11 @@ class Nim():
 
         # Check for errors
         if self.winner is not None:
-            raise Exception("Game already won")
-        elif pile < 0 or pile >= len(self.piles):
-            raise Exception("Invalid pile")
-        elif count < 1 or count > self.piles[pile]:
-            raise Exception("Invalid number of objects")
+            raise ValueError("Game already won")
+        if pile < 0 or pile >= len(self.piles):
+            raise IndexError("Invalid pile")
+        if count < 1 or count > self.piles[pile]:
+            raise ValueError("Invalid number of objects")
 
         # Update pile
         self.piles[pile] -= count
@@ -82,7 +84,7 @@ class NimAI():
          - `state` is a tuple of remaining piles, e.g. (1, 1, 4, 4)
          - `action` is a tuple `(i, j)` for an action
         """
-        self.q = dict()
+        self.q = {}
         self.alpha = alpha
         self.epsilon = epsilon
 
@@ -101,8 +103,7 @@ class NimAI():
         Return the Q-value for the state `state` and the action `action`.
         If no Q-value exists yet in `self.q`, return 0.
         """
-        state_tuple = tuple(state)
-        return self.q.get((state_tuple, action), 0)
+        raise NotImplementedError
 
     def update_q_value(self, state, action, old_q, reward, future_rewards):
         """
@@ -119,8 +120,7 @@ class NimAI():
         `alpha` is the learning rate, and `new value estimate`
         is the sum of the current reward and estimated future rewards.
         """
-        new_value_estimate = reward + future_rewards
-        self.q[(tuple(state), action)] = old_q + self.alpha * (new_value_estimate - old_q)
+        raise NotImplementedError
 
     def best_future_reward(self, state):
         """
@@ -132,18 +132,7 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        state_tuple = tuple(state)
-        available_actions = Nim.available_actions(state)
-        if not available_actions:
-            return 0
-
-        best_reward = 0
-        for action in available_actions:
-            q_value = self.q.get((state_tuple, action), 0)
-            if q_value > best_reward:
-                best_reward = q_value
-
-        return best_reward
+        raise NotImplementedError
 
     def choose_action(self, state, epsilon=True):
         """
@@ -160,23 +149,7 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        available_actions = list(Nim.available_actions(state))
-        if not available_actions:
-            return None
-
-        if epsilon and random.random() < self.epsilon:
-            return random.choice(available_actions)
-        else:
-            state_tuple = tuple(state)
-            best_action = None
-            best_q_value = float('-inf')
-            for action in available_actions:
-                q_value = self.q.get((state_tuple, action), 0)
-                if q_value > best_q_value:
-                    best_q_value = q_value
-                    best_action = action
-
-            return best_action if best_action is not None else random.choice(available_actions)
+        raise NotImplementedError
 
 
 def train(n):
@@ -224,7 +197,7 @@ def train(n):
                 break
 
             # If game is continuing, no rewards yet
-            elif last[game.player]["state"] is not None:
+            if last[game.player]["state"] is not None:
                 player.update(
                     last[game.player]["state"],
                     last[game.player]["action"],

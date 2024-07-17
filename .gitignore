@@ -37,5 +37,5 @@ vendor/
 !.python-lint
 !devcontainer.json
 !.gitattributes
-
+!*.csv
 # Ignore files larger than 100M
