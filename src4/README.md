@@ -302,7 +302,7 @@ is genuine or counterfeit, which is external data provided by a human,
 coded as 0 and 1. Now we can train our model on this data set and see if
 we can predict whether new banknotes are genuine or not.
 
-``` highlight
+```python
 import csv
 import random
 
@@ -322,7 +322,7 @@ Vector Classifier (which we know as support vector machine). The
 KNeighborsClassifier uses the k-neighbors strategy, and requires as
 input the number of neighbors it should consider.
 
-``` highlight
+```python
 # Read data in from file
 with open("banknotes.csv") as f:
     reader = csv.reader(f)
