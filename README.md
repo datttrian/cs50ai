@@ -17,13 +17,13 @@
 
 ## Week 3
 
-- Lecture: Optimization
-- Problem Set: [Crossword](crossword)
+- Lecture: [Optimization](src3)
+- Problem Set: Crossword
 
 ## Week 4
 
-- Lecture: Learning
-- Problem Set: [Shopping](shopping), [Nim](nim)
+- Lecture: [Learning](src4)
+- Problem Set: [Shopping](shopping), Nim
 
 ## Week 5
 
