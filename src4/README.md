@@ -290,7 +290,7 @@ allow us to conveniently use machine learning algorithms. One of such
 libraries is scikit-learn.
 
 As an example, we are going to use a
-[CSV](https://cs50.harvard.edu/ai/2024/notes/4/https://en.wikipedia.org/wiki/Comma-separated_values) dataset of
+[CSV](https://en.wikipedia.org/wiki/Comma-separated_values) dataset of
 counterfeit banknotes.
 
 ![Banknotes](https://cs50.harvard.edu/ai/2024/notes/4/banknotes.png)
