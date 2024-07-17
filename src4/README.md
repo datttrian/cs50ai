@@ -229,10 +229,8 @@ the absolute value or the squared value of the observed value minus the
 predicted value (i.e. how far the prediction was from the observed
 value).
 
-- L₁: *L*(actual, predicted) = \|actual -
-    predicted\|
-- L₂: *L*(actual, predicted) = (actual -
-    predicted)²
+- L₁: *L*(actual, predicted) = \|actual - predicted\|
+- L₂: *L*(actual, predicted) = (actual - predicted)²
 
 One can choose the loss function that serves their goals best. L₂
 penalizes outliers more harshly than L₁ because it squares the the
