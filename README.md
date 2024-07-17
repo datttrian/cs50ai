@@ -28,9 +28,9 @@
 ## Week 5
 
 - Lecture: Neural Networks
-- Problem Set: [Traffic](traffic)
+- Problem Set: Traffic
 
 ## Week 6
 
 - Lecture: Language
-- Problem Set: [Parser](parser), [Attention](attention)
+- Problem Set: Parser, Attention
