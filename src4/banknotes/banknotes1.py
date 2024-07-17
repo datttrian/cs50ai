@@ -1,11 +1,7 @@
 import csv
-import random
 
-from sklearn import svm
 from sklearn.linear_model import Perceptron
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
 
 model = Perceptron()
 # model = svm.SVC()
@@ -13,16 +9,18 @@ model = Perceptron()
 # model = GaussianNB()
 
 # Read data in from file
-with open("banknotes.csv") as f:
+with open("banknotes.csv", encoding='utf-8') as f:
     reader = csv.reader(f)
     next(reader)
 
     data = []
     for row in reader:
-        data.append({
-            "evidence": [float(cell) for cell in row[:4]],
-            "label": "Authentic" if row[4] == "0" else "Counterfeit"
-        })
+        data.append(
+            {
+                "evidence": [float(cell) for cell in row[:4]],
+                "label": "Authentic" if row[4] == "0" else "Counterfeit",
+            }
+        )
 
 # Separate data into training and testing groups
 evidence = [row["evidence"] for row in data]
