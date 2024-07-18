@@ -1,8 +1,9 @@
+import sys
+import time
+
 import numpy as np
 import pygame
-import sys
 import tensorflow as tf
-import time
 
 # Check command-line arguments
 if len(sys.argv) != 2:
@@ -53,9 +54,7 @@ while True:
         row = []
         for j in range(COLS):
             rect = pygame.Rect(
-                OFFSET + j * CELL_SIZE,
-                OFFSET + i * CELL_SIZE,
-                CELL_SIZE, CELL_SIZE
+                OFFSET + j * CELL_SIZE, OFFSET + i * CELL_SIZE, CELL_SIZE, CELL_SIZE
             )
 
             # If cell has been written on, darken cell
@@ -79,10 +78,7 @@ while True:
                     handwriting[i + 1][j + 1] = 190 / 255
 
     # Reset button
-    resetButton = pygame.Rect(
-        30, OFFSET + ROWS * CELL_SIZE + 30,
-        100, 30
-    )
+    resetButton = pygame.Rect(30, OFFSET + ROWS * CELL_SIZE + 30, 100, 30)
     resetText = smallFont.render("Reset", True, BLACK)
     resetTextRect = resetText.get_rect()
     resetTextRect.center = resetButton.center
@@ -90,10 +86,7 @@ while True:
     screen.blit(resetText, resetTextRect)
 
     # Classify button
-    classifyButton = pygame.Rect(
-        150, OFFSET + ROWS * CELL_SIZE + 30,
-        100, 30
-    )
+    classifyButton = pygame.Rect(150, OFFSET + ROWS * CELL_SIZE + 30, 100, 30)
     classifyText = smallFont.render("Classify", True, BLACK)
     classifyTextRect = classifyText.get_rect()
     classifyTextRect.center = classifyButton.center
@@ -116,10 +109,7 @@ while True:
         classificationText = largeFont.render(str(classification), True, WHITE)
         classificationRect = classificationText.get_rect()
         grid_size = OFFSET * 2 + CELL_SIZE * COLS
-        classificationRect.center = (
-            grid_size + ((width - grid_size) / 2),
-            100
-        )
+        classificationRect.center = (grid_size + ((width - grid_size) / 2), 100)
         screen.blit(classificationText, classificationRect)
 
     pygame.display.flip()

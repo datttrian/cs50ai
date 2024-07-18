@@ -269,8 +269,10 @@ from genuine notes.
 
 ```python
 import csv
+
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
+
 ```
 
 We import TensorFlow and call it tf (to make the code shorter).
@@ -475,6 +477,7 @@ to recognize digits.
 
 ```python
 import sys
+
 import tensorflow as tf
 
 # Use MNIST handwriting dataset
