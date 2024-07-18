@@ -23,7 +23,7 @@
 ## Week 4
 
 - Lecture: [Learning](src4)
-- Problem Set: [Shopping](shopping), Nim
+- Problem Set: [Shopping](shopping), [Nim](nim)
 
 ## Week 5
 
