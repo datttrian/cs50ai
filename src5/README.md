@@ -30,33 +30,31 @@ need to create some sort of threshold based on the value it produces.
 One way to do this is with a step function, which gives 0 before a
 certain threshold is reached and 1 after the threshold is reached.
 
-![Step Function](step.png)
+![Step Function](https://cs50.harvard.edu/ai/2020/notes/5/step.png)
 
 Another way to go about this is with a logistic function, which gives as
 output any real number from 0 to 1, thus expressing graded confidence in
 its judgment.
 
-![Logistic Function](logistic.png)
+![Logistic Function](https://cs50.harvard.edu/ai/2020/notes/5/logistic.png)
 
 Another possible function is Rectified Linear Unit (ReLU), which allows
 the output to be any positive value. If the value is negative, ReLU sets
 it to 0.
 
-![Rectified Linear Unit](relu.png)
+![Rectified Linear Unit](https://cs50.harvard.edu/ai/2020/notes/5/relu.png)
 
 Whichever function we choose to use, we learned last lecture that the
 inputs are modified by weights in addition to the bias, and the sum of
 those is passed to an activation function. This stays true for simple
 neural networks.
 
-## Neural Net
-
-Structure</a>
+## Neural Network Structure
 
 A neural network can be thought of as a representation of the idea
 above, where a function sums up inputs to produce an output.
 
-![Neural Network Structure](nnstructure.png)
+![Neural Network Structure](https://cs50.harvard.edu/ai/2020/notes/5/nnstructure.png)
 
 The two white units on the left are the input and the unit on the right
 is an output. The inputs are connected to the output by a weighted edge.
@@ -133,7 +131,7 @@ unit by an edge with a weight of 1. The output unit then uses function
 *g(-1 + 1x₁ + 2x₂)* with a threshold of 0 to output either 0 or 1 (false
 or true).
 
-![Neural Network of Or Function](nnor.png)
+![Neural Network of Or Function](https://cs50.harvard.edu/ai/2020/notes/5/nnor.png)
 
 For example, in the case where *x₁* = *x₂* = 0, the sum is (-1). This is
 below the threshold, so the function *g* will output 0. However, if
@@ -187,7 +185,7 @@ For example, we might want to know more than “will it rain today?” We
 can use some inputs to generate probabilities for different kinds of
 weather, and then just choose the weather that is most probable.
 
-![Neural Network for Weather](weather.png)
+![Neural Network for Weather](https://cs50.harvard.edu/ai/2020/notes/5/weather.png)
 
 This can be done with any number of inputs and outputs, where each input
 is connected to each output, and where the outputs represent decisions
@@ -204,11 +202,9 @@ another (e.g. left picture). However, often, data are not linearly
 separable (e.g. right picture). In this case, we turn to multilayer
 neural networks to model data non-linearly.
 
-![Linear and Non-Linear Models](linearnonlinear.png)
+![Linear and Non-Linear Models](https://cs50.harvard.edu/ai/2020/notes/5/linearnonlinear.png)
 
-## Multilayer Ne
-
-Networks</a>
+## Multilayer Neural Networks
 
 A multilayer neural network is an artificial neural network with an
 input layer, an output layer, and at least one **hidden** layer. While
@@ -220,7 +216,7 @@ of these values is weighted and further propagated to the next layer,
 repeating the process until the output layer is reached. Through hidden
 layers, it is possible to model non-linear data.
 
-![Multilayer Neural Network](multilayer.png)
+![Multilayer Neural Network](https://cs50.harvard.edu/ai/2020/notes/5/multilayer.png)
 
 ## Backpropagation
 
@@ -242,7 +238,7 @@ This can be extended to any number of hidden layers, creating **deep
 neural networks**, which are neural networks that have more than one
 hidden layer.
 
-![Deep Neural Network](deepnn.png)
+![Deep Neural Network](https://cs50.harvard.edu/ai/2020/notes/5/deepnn.png)
 
 ## Overfitting
 
@@ -254,7 +250,7 @@ over-reliance on any one unit in the network. Throughout training, the
 neural network will assume different forms, each time dropping some
 other units and then using them again:
 
-![Dropout](dropout.png)
+![Dropout](https://cs50.harvard.edu/ai/2020/notes/5/dropout.png)
 
 Note that after the training is finished, the whole neural network will
 be used again.
@@ -271,7 +267,7 @@ We will now turn to an example of how we can use TensorFlow to perform
 the task we discussed last lecture: distinguishing counterfeit notes
 from genuine notes.
 
-``` highlight
+```python
 import csv
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
@@ -279,7 +275,7 @@ from sklearn.model_selection import train_test_split
 
 We import TensorFlow and call it tf (to make the code shorter).
 
-``` highlight
+```python
 # Read data in from file
 with open("banknotes.csv") as f:
     reader = csv.reader(f)
@@ -304,7 +300,7 @@ We provide the CSV data to the model. Our work is often required in
 making the data fit the format that the library requires. The difficult
 part of actually coding the model is already implemented for us.
 
-``` highlight
+```python
 # Create a neural network
 model = tf.keras.models.Sequential()
 ```
@@ -313,7 +309,7 @@ Keras is an api that different machine learning algorithms access. A
 sequential model is one where layers follow each other (like the ones we
 have seen so far).
 
-``` highlight
+```python
 # Add a hidden layer with 8 units, with ReLU activation
 model.add(tf.keras.layers.Dense(8, input_shape=(4,), activation="relu"))
 ```
@@ -323,7 +319,7 @@ to all the nodes from the previous layer. In generating our hidden
 layers we create 8 dense layers, each having 4 input neurons, using the
 ReLU activation function mentioned above.
 
-``` highlight
+```python
 # Add output layer with 1 unit, with sigmoid activation
 model.add(tf.keras.layers.Dense(1, activation="sigmoid"))
 ```
@@ -332,7 +328,7 @@ In our output layer, we want to create one dense layer that uses a
 sigmoid activation function, an activation function where the output is
 a value between 0 and 1.
 
-``` highlight
+```python
 # Train neural network
 model.compile(
     optimizer="adam",
@@ -381,7 +377,7 @@ alters the image and can help the neural network process it.
 
 Let’s consider the following example:
 
-![Image Convolution](convolution.png)
+![Image Convolution](https://cs50.harvard.edu/ai/2020/notes/5/convolution.png)
 
 The kernel is the blue matrix, and the image is the big matrix on the
 left. The resulting filtered image is the small matrix on the bottom
@@ -397,7 +393,7 @@ produces a filtered image with the values we see on the bottom right.
 Different kernels can achieve different tasks. For edge detection, the
 following kernel is often used:
 
-![Edge Detection Kernel](kernel.png)
+![Edge Detection Kernel](https://cs50.harvard.edu/ai/2020/notes/5/kernel.png)
 
 The idea here is that when the pixel is similar to all its neighbors,
 they should cancel each other, giving a value of 0. Therefore, the more
@@ -405,13 +401,13 @@ similar the pixels, the darker the part of the image, and the more
 different they are the lighter it is. Applying this kernel to an image
 (left) results in an image with pronounced edges (right):
 
-![Edge Detection](edgedetection.png)
+![Edge Detection](https://cs50.harvard.edu/ai/2020/notes/5/edgedetection.png)
 
 Let’s consider an implementation of image convolution. We are using the
 PIL library (stands for Python Imaging Library) that can do most of the
 hard work for us.
 
-``` highlight
+```python
 import math
 import sys
 
@@ -447,7 +443,7 @@ in the same region. For example, if we divide the left square (below)
 into four 2X2 squares, by max-pooling from this input, we get the small
 square on the right.
 
-![Max-Pooling](maxpooling.png)
+![Max-Pooling](https://cs50.harvard.edu/ai/2020/notes/5/maxpooling.png)
 
 ## Convolutional Neural Networks
 
@@ -460,7 +456,7 @@ the output. Then, the resulting images are pooled, after which the
 pixels are fed to a traditional neural network as inputs (a process
 called **flattening**).
 
-![Convolutional Neural Network](convolutionalnn.png)
+![Convolutional Neural Network](https://cs50.harvard.edu/ai/2020/notes/5/convolutionalnn.png)
 
 The convolution and pooling steps can be repeated multiple times to
 extract additional features and reduce the size of the input to the
@@ -477,7 +473,7 @@ models on. We will be using MNIST, which contains pictures of black and
 white handwritten digits. We will train our convolutional neural network
 to recognize digits.
 
-``` highlight
+```python
 import sys
 import tensorflow as tf
 
@@ -533,7 +529,7 @@ model.evaluate(x_test,  y_test, verbose=2)
 Since the model takes time to train, we can save the already trained
 model to use it later.
 
-``` highlight
+```python
 # Save model to file
 if len(sys.argv) == 2:
     filename = sys.argv[1]
@@ -553,7 +549,7 @@ have discussed so far, where input data is provided to the network,
 which eventually produces some output. A diagram of how feed-forward
 neural networks work can be seen below.
 
-![Feed-Forward Neural Networks Diagram](ffnndiagram.png)
+![Feed-Forward Neural Networks Diagram](https://cs50.harvard.edu/ai/2020/notes/5/ffnndiagram.png)
 
 As opposed to that, **Recurrent Neural Networks** consist of a
 non-linear structure, where the network uses its own output as input.
@@ -567,7 +563,7 @@ In the captioning task, a network would process the input to produce an
 output, and then continue processing from that point on, producing
 another output, and repeating as much as necessary.
 
-![Recurrent Neural Network](recurrent.png)
+![Recurrent Neural Network](https://cs50.harvard.edu/ai/2020/notes/5/recurrent.png)
 
 Recurrent neural networks are helpful in cases where the network deals
 with sequences and not a single individual object. Above, the neural
