@@ -143,6 +143,7 @@ class NimAI:
 
         for action in possible_actions:
             q_value = self.get_q_value(state, action)
+
             max_value = max(q_value, max_value)
 
         return max_value
@@ -236,7 +237,7 @@ def train(n):
     return player
 
 
-def play(ai, human_player=None):
+def play(ai_player, human_player=None):
     """
     Play human game against the AI.
     `human_player` can be set to 0 or 1 to specify whether
@@ -277,7 +278,7 @@ def play(ai, human_player=None):
         # Have AI make a move
         else:
             print("AI's Turn")
-            pile, count = ai.choose_action(game.piles, epsilon=False)
+            pile, count = ai_player.choose_action(game.piles, epsilon=False)
             print(f"AI chose to take {count} from pile {pile}.")
 
         # Make move
