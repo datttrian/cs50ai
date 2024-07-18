@@ -95,7 +95,7 @@ class NimAI:
         """
         old = self.get_q_value(old_state, action)
         best_future = self.best_future_reward(new_state)
-        self.update_q_value(old_state, action, old, reward, best_future)
+        self.update_q_value((old_state, action, old), reward, best_future)
 
     def get_q_value(self, state, action):
         """
@@ -105,11 +105,11 @@ class NimAI:
         key = (tuple(state), action)
         return self.q.get(key, 0)
 
-    def update_q_value(self, state, action, old_q, reward, future_rewards):
+    def update_q_value(self, state_action_old_q, reward, future_rewards):
         """
         Update the Q-value for the state `state` and the action `action`
         given the previous Q-value `old_q`, a current reward `reward`,
-        and an estiamte of future rewards `future_rewards`.
+        and an estimate of future rewards `future_rewards`.
 
         Use the formula:
 
@@ -120,6 +120,7 @@ class NimAI:
         `alpha` is the learning rate, and `new value estimate`
         is the sum of the current reward and estimated future rewards.
         """
+        state, action, old_q = state_action_old_q
         key = (tuple(state), action)
         new_q_value = old_q + self.alpha * ((reward + future_rewards) - old_q)
         self.q[key] = new_q_value
@@ -143,7 +144,6 @@ class NimAI:
 
         for action in possible_actions:
             q_value = self.get_q_value(state, action)
-
             max_value = max(q_value, max_value)
 
         return max_value
@@ -174,7 +174,6 @@ class NimAI:
         q_values = {}
         for action in possible_actions:
             q_value = self.get_q_value(state, action)
-
             q_values[action] = q_value
 
         best_action = max(q_values, key=q_values.get)
