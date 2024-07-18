@@ -1,9 +1,8 @@
-import math
 import random
 import time
 
 
-class Nim():
+class Nim:
 
     def __init__(self, initial=None):
         """
@@ -72,7 +71,7 @@ class Nim():
             self.winner = self.player
 
 
-class NimAI():
+class NimAI:
 
     def __init__(self, alpha=0.5, epsilon=0.1):
         """
@@ -103,7 +102,8 @@ class NimAI():
         Return the Q-value for the state `state` and the action `action`.
         If no Q-value exists yet in `self.q`, return 0.
         """
-        raise NotImplementedError
+        key = (tuple(state), action)
+        return self.q.get(key, 0)
 
     def update_q_value(self, state, action, old_q, reward, future_rewards):
         """
@@ -120,7 +120,9 @@ class NimAI():
         `alpha` is the learning rate, and `new value estimate`
         is the sum of the current reward and estimated future rewards.
         """
-        raise NotImplementedError
+        key = (tuple(state), action)
+        new_q_value = old_q + self.alpha * ((reward + future_rewards) - old_q)
+        self.q[key] = new_q_value
 
     def best_future_reward(self, state):
         """
@@ -132,7 +134,19 @@ class NimAI():
         Q-value in `self.q`. If there are no available actions in
         `state`, return 0.
         """
-        raise NotImplementedError
+        possible_actions = Nim.available_actions(state)
+
+        if not possible_actions:
+            return 0
+
+        max_value = -float("inf")
+
+        for action in possible_actions:
+            q_value = self.get_q_value(state, action)
+
+            max_value = max(q_value, max_value)
+
+        return max_value
 
     def choose_action(self, state, epsilon=True):
         """
@@ -149,7 +163,22 @@ class NimAI():
         If multiple actions have the same Q-value, any of those
         options is an acceptable return value.
         """
-        raise NotImplementedError
+        possible_actions = Nim.available_actions(state)
+
+        if not possible_actions:
+            return None
+
+        if epsilon and random.uniform(0, 1) < self.epsilon:
+            return random.choice(list(possible_actions))
+
+        q_values = {}
+        for action in possible_actions:
+            q_value = self.get_q_value(state, action)
+
+            q_values[action] = q_value
+
+        best_action = max(q_values, key=q_values.get)
+        return best_action
 
 
 def train(n):
@@ -165,10 +194,7 @@ def train(n):
         game = Nim()
 
         # Keep track of last move made by either player
-        last = {
-            0: {"state": None, "action": None},
-            1: {"state": None, "action": None}
-        }
+        last = {0: {"state": None, "action": None}, 1: {"state": None, "action": None}}
 
         # Game loop
         while True:
@@ -192,7 +218,7 @@ def train(n):
                     last[game.player]["state"],
                     last[game.player]["action"],
                     new_state,
-                    1
+                    1,
                 )
                 break
 
@@ -202,7 +228,7 @@ def train(n):
                     last[game.player]["state"],
                     last[game.player]["action"],
                     new_state,
-                    0
+                    0,
                 )
 
     print("Done training")
@@ -211,7 +237,7 @@ def train(n):
     return player
 
 
-def play(ai, human_player=None):
+def play(ai_player, human_player=None):
     """
     Play human game against the AI.
     `human_player` can be set to 0 or 1 to specify whether
@@ -252,7 +278,7 @@ def play(ai, human_player=None):
         # Have AI make a move
         else:
             print("AI's Turn")
-            pile, count = ai.choose_action(game.piles, epsilon=False)
+            pile, count = ai_player.choose_action(game.piles, epsilon=False)
             print(f"AI chose to take {count} from pile {pile}.")
 
         # Make move
