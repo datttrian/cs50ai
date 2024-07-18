@@ -291,7 +291,3 @@ def play(ai_player, human_player=None):
             winner = "Human" if game.winner == human_player else "AI"
             print(f"Winner is {winner}")
             return
-
-
-ai = train(10000)
-play(ai)
