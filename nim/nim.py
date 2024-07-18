@@ -143,9 +143,7 @@ class NimAI:
 
         for action in possible_actions:
             q_value = self.get_q_value(state, action)
-
-            if q_value > max_value:
-                max_value = q_value
+            max_value = max(q_value, max_value)
 
         return max_value
 
