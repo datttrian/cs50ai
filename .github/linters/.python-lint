@@ -439,8 +439,7 @@ disable=raw-checker-failed,
         import-error,
         redefined-argument-from-local,
         duplicate-code,
-        invalid-name,
-        too-many-arguments
+        invalid-name
         
 
 

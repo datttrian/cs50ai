@@ -27,7 +27,7 @@
 
 ## Week 5
 
-- Lecture: Neural Networks
+- Lecture: [Neural Networks](src5)
 - Problem Set: Traffic
 
 ## Week 6

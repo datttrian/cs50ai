@@ -38,4 +38,5 @@ vendor/
 !devcontainer.json
 !.gitattributes
 !*.csv
+!*.sh
 # Ignore files larger than 100M
