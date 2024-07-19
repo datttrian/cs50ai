@@ -1,7 +1,8 @@
 import sys
 
-from crossword import Crossword, Variable
 from PIL import Image, ImageDraw, ImageFont
+
+from crossword import Crossword, Variable
 
 
 class CrosswordCreator:
