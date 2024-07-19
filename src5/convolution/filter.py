@@ -1,5 +1,7 @@
 import sys
 
+from matplotlib.pyplot import imshow, show
+
 from PIL import Image, ImageFilter
 
 # Ensure correct usage
@@ -15,4 +17,5 @@ filtered = image.filter(
 )
 
 # Show resulting image
-filtered.show()
+imshow(filtered)
+show()
