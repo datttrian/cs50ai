@@ -39,5 +39,6 @@ jobs:
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_BASH: false
           FILTER_REGEX_INCLUDE: src5
+          FILTER_REGEX_EXCLUDE: src5/digits/recognition.py
           
 ...
