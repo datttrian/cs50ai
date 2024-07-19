@@ -1,5 +1,7 @@
 import sys
 
+from PIL import Image, ImageDraw, ImageFont
+
 from crossword import Crossword, Variable
 
 
@@ -24,10 +26,10 @@ class CrosswordCreator:
         ]
         for variable, word in assignment.items():
             direction = variable.direction
-            for k in range(len(word)):
+            for k, letter in enumerate(word):
                 i = variable.i + (k if direction == Variable.DOWN else 0)
                 j = variable.j + (k if direction == Variable.ACROSS else 0)
-                letters[i][j] = word[k]
+                letters[i][j] = letter
         return letters
 
     def print(self, assignment):
@@ -47,7 +49,6 @@ class CrosswordCreator:
         """
         Save crossword assignment to an image file.
         """
-        from PIL import Image, ImageDraw, ImageFont
 
         cell_size = 100
         cell_border = 2
@@ -95,7 +96,7 @@ class CrosswordCreator:
         """
         self.enforce_node_consistency()
         self.ac3()
-        return self.backtrack(dict())
+        return self.backtrack({})
 
     def enforce_node_consistency(self):
         """
