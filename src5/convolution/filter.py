@@ -17,5 +17,4 @@ filtered = image.filter(
 )
 
 # Show resulting image
-imshow(filtered)
-show()
+filtered.show()
