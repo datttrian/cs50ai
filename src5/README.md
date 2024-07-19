@@ -159,14 +159,14 @@ networks allow us to compute these weights based on the training data.
 To do this, we use the gradient descent algorithm, which works the
 following way:
 
-- <span class="fa-li"></span>Start with a random choice of weights.
+- Start with a random choice of weights.
     This is our naive starting place, where we don’t know how much we
     should weight each input.
-- <span class="fa-li"></span>Repeat:
-  - <span class="fa-li"></span>Calculate the gradient based on all
+- Repeat:
+  - Calculate the gradient based on all
         data points that will lead to decreasing loss. Ultimately, the
         gradient is a vector (a sequence of numbers).
-  - <span class="fa-li"></span>Update weights according to the
+  - Update weights according to the
         gradient.
 
 The problem with this kind of algorithm is that it requires to calculate
@@ -226,13 +226,13 @@ units, calculating the gradient descent for the weights of the previous
 layer, and repeating the process until the input layer is reached. In
 pseudocode, we can describe the algorithm as follows:
 
-- <span class="fa-li"></span>Calculate error for output layer
-- <span class="fa-li"></span>For each layer, starting with output
+- Calculate error for output layer
+- For each layer, starting with output
     layer and moving inwards towards earliest hidden layer:
-  - <span class="fa-li"></span>Propagate error back one layer. In
+  - Propagate error back one layer. In
         other words, the current layer that’s being considered sends the
         errors to the preceding layer.
-  - <span class="fa-li"></span>Update weights.
+  - Update weights.
 
 This can be extended to any number of hidden layers, creating **deep
 neural networks**, which are neural networks that have more than one
