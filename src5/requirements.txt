@@ -1,7 +1,5 @@
-tensorflow
-numpy
-pkgconfig
-libhdf5-dev
 h5py==3.11.0
-tensorflow
-scikit-learn
+numpy==1.24.3
+pkgconfig==1.5.5
+scikit-learn==1.3.2
+tensorflow==2.13.1
