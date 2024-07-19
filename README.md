@@ -18,7 +18,7 @@
 ## Week 3
 
 - Lecture: [Optimization](src3)
-- Problem Set: Crossword
+- Problem Set: [Crossword](crossword)
 
 ## Week 4
 

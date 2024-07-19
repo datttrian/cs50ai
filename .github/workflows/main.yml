@@ -38,7 +38,5 @@ jobs:
           VALIDATE_MARKDOWN: false
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_BASH: false
-          FILTER_REGEX_INCLUDE: src5
-          FILTER_REGEX_EXCLUDE: src5/digits/recognition.py
-          
+          FILTER_REGEX_INCLUDE: crossword
 ...

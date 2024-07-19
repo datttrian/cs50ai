@@ -1,6 +1,7 @@
 import sys
 
-from crossword import *
+from crossword import Crossword, Variable
+from PIL import Image, ImageDraw, ImageFont
 
 
 class CrosswordCreator:
@@ -11,8 +12,7 @@ class CrosswordCreator:
         """
         self.crossword = crossword
         self.domains = {
-            var: self.crossword.words.copy()
-            for var in self.crossword.variables
+            var: self.crossword.words.copy() for var in self.crossword.variables
         }
 
     def letter_grid(self, assignment):
@@ -25,10 +25,10 @@ class CrosswordCreator:
         ]
         for variable, word in assignment.items():
             direction = variable.direction
-            for k in range(len(word)):
+            for k, letter in enumerate(word):
                 i = variable.i + (k if direction == Variable.DOWN else 0)
                 j = variable.j + (k if direction == Variable.ACROSS else 0)
-                letters[i][j] = word[k]
+                letters[i][j] = letter
         return letters
 
     def print(self, assignment):
@@ -48,7 +48,7 @@ class CrosswordCreator:
         """
         Save crossword assignment to an image file.
         """
-        from PIL import Image, ImageDraw, ImageFont
+
         cell_size = 100
         cell_border = 2
         interior_size = cell_size - 2 * cell_border
@@ -57,30 +57,34 @@ class CrosswordCreator:
         # Create a blank canvas
         img = Image.new(
             "RGBA",
-            (self.crossword.width * cell_size,
-             self.crossword.height * cell_size),
-            "black"
+            (self.crossword.width * cell_size, self.crossword.height * cell_size),
+            "black",
         )
-        font = ImageFont.truetype("crossword/assets/fonts/OpenSans-Regular.ttf", 80)
+        font = ImageFont.truetype("assets/fonts/OpenSans-Regular.ttf", 80)
         draw = ImageDraw.Draw(img)
 
         for i in range(self.crossword.height):
             for j in range(self.crossword.width):
 
                 rect = [
-                    (j * cell_size + cell_border,
-                     i * cell_size + cell_border),
-                    ((j + 1) * cell_size - cell_border,
-                     (i + 1) * cell_size - cell_border)
+                    (j * cell_size + cell_border, i * cell_size + cell_border),
+                    (
+                        (j + 1) * cell_size - cell_border,
+                        (i + 1) * cell_size - cell_border,
+                    ),
                 ]
                 if self.crossword.structure[i][j]:
                     draw.rectangle(rect, fill="white")
                     if letters[i][j]:
                         _, _, w, h = draw.textbbox((0, 0), letters[i][j], font=font)
                         draw.text(
-                            (rect[0][0] + ((interior_size - w) / 2),
-                             rect[0][1] + ((interior_size - h) / 2) - 10),
-                            letters[i][j], fill="black", font=font
+                            (
+                                rect[0][0] + ((interior_size - w) / 2),
+                                rect[0][1] + ((interior_size - h) / 2) - 10,
+                            ),
+                            letters[i][j],
+                            fill="black",
+                            font=font,
                         )
 
         img.save(filename)
@@ -91,7 +95,7 @@ class CrosswordCreator:
         """
         self.enforce_node_consistency()
         self.ac3()
-        return self.backtrack(dict())
+        return self.backtrack({})
 
     def enforce_node_consistency(self):
         """
@@ -175,13 +179,15 @@ class CrosswordCreator:
         The first value in the list, for example, should be the one
         that rules out the fewest values among the neighbors of `var`.
         """
+
         def conflicts(value):
             return sum(
                 1
                 for neighbor in self.crossword.neighbors(var)
                 if neighbor not in assignment
                 for neighbor_value in self.domains[neighbor]
-                if value in self.domains[var] and not self.consistent({var: value, neighbor: neighbor_value})
+                if value in self.domains[var]
+                and not self.consistent({var: value, neighbor: neighbor_value})
             )
 
         return sorted(self.domains[var], key=conflicts)
@@ -195,7 +201,13 @@ class CrosswordCreator:
         return values.
         """
         unassigned = [v for v in self.crossword.variables if v not in assignment]
-        return min(unassigned, key=lambda var: (len(self.domains[var]), -len(self.crossword.neighbors(var))))
+        return min(
+            unassigned,
+            key=lambda var: (
+                len(self.domains[var]),
+                -len(self.crossword.neighbors(var)),
+            ),
+        )
 
     def backtrack(self, assignment):
         """
