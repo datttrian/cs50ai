@@ -272,14 +272,13 @@ import csv
 
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-
 ```
 
 We import TensorFlow and call it tf (to make the code shorter).
 
 ```python
 # Read data in from file
-with open("banknotes.csv") as f:
+with open("banknotes/banknotes.csv") as f:
     reader = csv.reader(f)
     next(reader)
 
@@ -342,6 +341,54 @@ model.fit(X_training, y_training, epochs=20)
 # Evaluate how well model performs
 model.evaluate(X_testing, y_testing, verbose=2)
 ```
+
+    Epoch 1/20
+    26/26 [==============================] - 0s 649us/step - loss: 1.3290 - accuracy: 0.2017
+    Epoch 2/20
+    26/26 [==============================] - 0s 589us/step - loss: 1.0877 - accuracy: 0.2394
+    Epoch 3/20
+    26/26 [==============================] - 0s 562us/step - loss: 0.9076 - accuracy: 0.3171
+    Epoch 4/20
+    26/26 [==============================] - 0s 536us/step - loss: 0.7893 - accuracy: 0.4459
+    Epoch 5/20
+    26/26 [==============================] - 0s 514us/step - loss: 0.7058 - accuracy: 0.5456
+    Epoch 6/20
+    26/26 [==============================] - 0s 538us/step - loss: 0.6342 - accuracy: 0.6002
+    Epoch 7/20
+    26/26 [==============================] - 0s 521us/step - loss: 0.5685 - accuracy: 0.6501
+    Epoch 8/20
+    26/26 [==============================] - 0s 525us/step - loss: 0.5074 - accuracy: 0.6731
+    Epoch 9/20
+    26/26 [==============================] - 0s 512us/step - loss: 0.4528 - accuracy: 0.7096
+    Epoch 10/20
+    26/26 [==============================] - 0s 521us/step - loss: 0.4060 - accuracy: 0.7655
+    Epoch 11/20
+    26/26 [==============================] - 0s 806us/step - loss: 0.3667 - accuracy: 0.8214
+    Epoch 12/20
+    26/26 [==============================] - 0s 637us/step - loss: 0.3341 - accuracy: 0.8542
+    Epoch 13/20
+    26/26 [==============================] - 0s 671us/step - loss: 0.3055 - accuracy: 0.8834
+    Epoch 14/20
+    26/26 [==============================] - 0s 714us/step - loss: 0.2808 - accuracy: 0.8943
+    Epoch 15/20
+    26/26 [==============================] - 0s 585us/step - loss: 0.2597 - accuracy: 0.9174
+    Epoch 16/20
+    26/26 [==============================] - 0s 598us/step - loss: 0.2420 - accuracy: 0.9368
+    Epoch 17/20
+    26/26 [==============================] - 0s 569us/step - loss: 0.2257 - accuracy: 0.9465
+    Epoch 18/20
+    26/26 [==============================] - 0s 546us/step - loss: 0.2113 - accuracy: 0.9526
+    Epoch 19/20
+    26/26 [==============================] - 0s 525us/step - loss: 0.1987 - accuracy: 0.9575
+    Epoch 20/20
+    26/26 [==============================] - 0s 498us/step - loss: 0.1872 - accuracy: 0.9611
+    18/18 - 0s - loss: 0.1878 - accuracy: 0.9581 - 64ms/epoch - 4ms/step
+
+
+
+
+
+    [0.18779660761356354, 0.9581056237220764]
 
 Finally, we compile the model, specifying which algorithm should
 optimize it, what type of loss function we use, and how we want to
@@ -432,6 +479,27 @@ filtered = image.filter(ImageFilter.Kernel(
 # Show resulting image
 filtered.show()
 ```
+
+```python
+!python convolution/filter.py convolution/bridge.png
+```
+
+    Figure(640x480)
+
+```python
+from PIL import Image
+import matplotlib.pyplot as plt
+
+# Open the image file
+img = Image.open('convolution/filtered_image.png')
+
+# Display the image
+plt.imshow(img)
+plt.axis('off')  # Hide the axis
+plt.show()
+```
+
+![png](notebook_files/notebook_24_0.png)
 
 Still, processing the image in a neural network is computationally
 expensive due to the number of pixels that serve as input to the neural
@@ -529,6 +597,41 @@ model.fit(x_train, y_train, epochs=10)
 model.evaluate(x_test,  y_test, verbose=2)
 ```
 
+    Downloading data from https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz
+    11490434/11490434 [==============================] - 1s 0us/step
+    Epoch 1/10
+
+
+    2024-07-19 08:31:01.935571: W tensorflow/tsl/framework/cpu_allocator_impl.cc:83] Allocation of 188160000 exceeds 10% of free system memory.
+
+
+    1875/1875 [==============================] - 9s 5ms/step - loss: 0.2613 - accuracy: 0.9216
+    Epoch 2/10
+    1875/1875 [==============================] - 7s 4ms/step - loss: 0.1078 - accuracy: 0.9679
+    Epoch 3/10
+    1875/1875 [==============================] - 8s 4ms/step - loss: 0.0832 - accuracy: 0.9748
+    Epoch 4/10
+    1875/1875 [==============================] - 8s 5ms/step - loss: 0.0663 - accuracy: 0.9795
+    Epoch 5/10
+    1875/1875 [==============================] - 8s 4ms/step - loss: 0.0579 - accuracy: 0.9823
+    Epoch 6/10
+    1875/1875 [==============================] - 8s 4ms/step - loss: 0.0501 - accuracy: 0.9845
+    Epoch 7/10
+    1875/1875 [==============================] - 8s 4ms/step - loss: 0.0430 - accuracy: 0.9865
+    Epoch 8/10
+    1875/1875 [==============================] - 9s 5ms/step - loss: 0.0382 - accuracy: 0.9871
+    Epoch 9/10
+    1875/1875 [==============================] - 7s 4ms/step - loss: 0.0343 - accuracy: 0.9887
+    Epoch 10/10
+    1875/1875 [==============================] - 7s 4ms/step - loss: 0.0312 - accuracy: 0.9900
+    313/313 - 0s - loss: 0.0389 - accuracy: 0.9895 - 413ms/epoch - 1ms/step
+
+
+
+
+
+    [0.03893917053937912, 0.9894999861717224]
+
 Since the model takes time to train, we can save the already trained
 model to use it later.
 
@@ -539,6 +642,14 @@ if len(sys.argv) == 2:
     model.save(filename)
     print(f"Model saved to {filename}.")
 ```
+
+    INFO:tensorflow:Assets written to: --f=/home/vscode/.local/share/jupyter/runtime/kernel-v2-445L097fdWo5YpA.json/assets
+
+
+    INFO:tensorflow:Assets written to: --f=/home/vscode/.local/share/jupyter/runtime/kernel-v2-445L097fdWo5YpA.json/assets
+
+
+    Model saved to --f=/home/vscode/.local/share/jupyter/runtime/kernel-v2-445L097fdWo5YpA.json.
 
 Now, if we run a program that receives hand-drawn digits as input, it
 will be able to classify and output the digit using the model. For an
