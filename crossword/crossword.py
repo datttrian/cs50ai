@@ -42,7 +42,7 @@ class Crossword:
     def __init__(self, structure_file, words_file):
 
         # Determine structure of crossword
-        with open(structure_file) as f:
+        with open(structure_file, encoding="utf-8") as f:
             contents = f.read().splitlines()
             self.height = len(contents)
             self.width = max(len(line) for line in contents)
@@ -60,7 +60,7 @@ class Crossword:
                 self.structure.append(row)
 
         # Save vocabulary list
-        with open(words_file) as f:
+        with open(words_file, encoding="utf-8") as f:
             self.words = set(f.read().upper().splitlines())
 
         # Determine variable set
@@ -104,7 +104,7 @@ class Crossword:
         # For any pair of variables v1, v2, their overlap is either:
         #    None, if the two variables do not overlap; or
         #    (i, j), where v1's ith character overlaps v2's jth character
-        self.overlaps = dict()
+        self.overlaps = {}
         for v1 in self.variables:
             for v2 in self.variables:
                 if v1 == v2:
