@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.spatial.distance import cosine
 
-with open("words.txt", encoding="utf-8") as f:
+with open("vectors/words.txt", encoding="utf-8") as f:
     words = {}
     for line in f:
         row = line.split()
