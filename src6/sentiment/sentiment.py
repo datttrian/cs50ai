@@ -1,6 +1,7 @@
-import nltk
 import os
 import sys
+
+import nltk
 
 
 def main():
@@ -25,14 +26,15 @@ def main():
     # Classify a new sample
     classifier = nltk.NaiveBayesClassifier.train(training)
     s = input("s: ")
-    result = (classify(classifier, s, words))
+    result = classify(classifier, s, words)
     for key in result.samples():
         print(f"{key}: {result.prob(key):.4f}")
 
 
 def extract_words(document):
     return set(
-        word.lower() for word in nltk.word_tokenize(document)
+        word.lower()
+        for word in nltk.word_tokenize(document)
         if any(c.isalpha() for c in word)
     )
 
@@ -40,30 +42,21 @@ def extract_words(document):
 def load_data(directory):
     result = []
     for filename in ["positives.txt", "negatives.txt"]:
-        with open(os.path.join(directory, filename)) as f:
-            result.append([
-                extract_words(line)
-                for line in f.read().splitlines()
-            ])
+        with open(os.path.join(directory, filename), encoding="utf-8") as f:
+            result.append([extract_words(line) for line in f.read().splitlines()])
     return result
 
 
 def generate_features(documents, words, label):
     features = []
     for document in documents:
-        features.append(({
-            word: (word in document)
-            for word in words
-        }, label))
+        features.append(({word: (word in document) for word in words}, label))
     return features
 
 
 def classify(classifier, document, words):
     document_words = extract_words(document)
-    features = {
-        word: (word in document_words)
-        for word in words
-    }
+    features = {word: (word in document_words) for word in words}
     return classifier.prob_classify(features)
 
 

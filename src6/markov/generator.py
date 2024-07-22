@@ -1,10 +1,11 @@
-import markovify
 import sys
+
+import markovify
 
 # Read text from file
 if len(sys.argv) != 2:
     sys.exit("Usage: python generator.py sample.txt")
-with open(sys.argv[1]) as f:
+with open(sys.argv[1], encoding="utf-8") as f:
     text = f.read()
 
 # Train model

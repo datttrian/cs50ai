@@ -1,8 +1,8 @@
+import os
+import sys
 from collections import Counter
 
 import nltk
-import os
-import sys
 
 
 def main():
@@ -29,11 +29,13 @@ def load_data(directory):
     # Read all files and extract words
     for filename in os.listdir(directory):
         with open(os.path.join(directory, filename)) as f:
-            contents.extend([
-                word.lower() for word in
-                nltk.word_tokenize(f.read())
-                if any(c.isalpha() for c in word)
-            ])
+            contents.extend(
+                [
+                    word.lower()
+                    for word in nltk.word_tokenize(f.read())
+                    if any(c.isalpha() for c in word)
+                ]
+            )
     return contents
 
 

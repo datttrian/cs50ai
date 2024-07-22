@@ -1,6 +1,5 @@
-from scipy.spatial.distance import cosine
-
 import numpy as np
+from scipy.spatial.distance import cosine
 
 with open("words.txt") as f:
     words = dict()
@@ -16,13 +15,9 @@ def distance(w1, w2):
 
 
 def closest_words(embedding):
-    distances = {
-        w: distance(embedding, words[w])
-        for w in words
-    }
+    distances = {w: distance(embedding, words[w]) for w in words}
     return sorted(distances, key=lambda w: distances[w])[:10]
 
 
 def closest_word(embedding):
     return closest_words(embedding)[0]
-
