@@ -1,1 +1,3 @@
+*.html linguist-vendored
 *.ipynb linguist-vendored
+*.sh linguist-vendored
