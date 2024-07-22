@@ -1,6 +1,5 @@
 from scipy.spatial.distance import cosine
 
-import math
 import numpy as np
 
 with open("words.txt") as f:

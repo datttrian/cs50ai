@@ -141,7 +141,7 @@ generates a graphic representation (draw).
 
 ![Syntactic Trees](https://cs50.harvard.edu/ai/2024/notes/6/trees.png)
 
-## -grams
+## n-grams
 
 An *n*-gram is a sequence of *n* items from a sample of text. In a
 **character *n*-gram**, the items are characters, and in a **word

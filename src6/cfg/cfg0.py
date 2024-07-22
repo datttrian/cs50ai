@@ -1,6 +1,7 @@
 import nltk
 
-grammar = nltk.CFG.fromstring("""
+grammar = nltk.CFG.fromstring(
+    """
     S -> NP VP
 
     NP -> D N | N
@@ -9,7 +10,8 @@ grammar = nltk.CFG.fromstring("""
     D -> "the" | "a"
     N -> "she" | "city" | "car"
     V -> "saw" | "walked"
-""")
+"""
+)
 
 parser = nltk.ChartParser(grammar)
 

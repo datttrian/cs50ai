@@ -1,6 +1,5 @@
 from collections import Counter
 
-import math
 import nltk
 import os
 import sys
