@@ -105,7 +105,8 @@ algorithm with rules for the grammar:
 ```python
 import nltk
 
-grammar = nltk.CFG.fromstring("""
+grammar = nltk.CFG.fromstring(
+    """
     S -> NP VP
 
     NP -> D N | N
@@ -114,7 +115,8 @@ grammar = nltk.CFG.fromstring("""
     D -> "the" | "a"
     N -> "she" | "city" | "car"
     V -> "saw" | "walked"
-""")
+"""
+)
 
 parser = nltk.ChartParser(grammar)
 ```
@@ -130,16 +132,88 @@ sentence = input("Sentence: ").split()
 try:
     for tree in parser.parse(sentence):
         tree.pretty_print()
-        tree.draw()
 except ValueError:
     print("No parse tree possible.")
+
 ```
+
+             S              
+      _______|___            
+     |           VP         
+     |    _______|___        
+     NP  |           NP     
+     |   |        ___|___    
+     N   V       D       N  
+     |   |       |       |   
+    she saw     the     city
 
 After giving the algorithm an input sentence split into a list of words,
 the function prints the resulting syntactic tree (pretty_print) and also
 generates a graphic representation (draw).
 
 ![Syntactic Trees](https://cs50.harvard.edu/ai/2024/notes/6/trees.png)
+
+```python
+import nltk
+
+grammar = nltk.CFG.fromstring(
+    """
+    S -> NP VP
+
+    AP -> A | A AP
+    NP -> N | D NP | AP NP | N PP
+    PP -> P NP
+    VP -> V | V NP | V NP PP
+
+    A -> "big" | "blue" | "small" | "dry" | "wide"
+    D -> "the" | "a" | "an"
+    N -> "she" | "city" | "car" | "street" | "dog" | "binoculars"
+    P -> "on" | "over" | "before" | "below" | "with"
+    V -> "saw" | "walked"
+"""
+)
+
+parser = nltk.ChartParser(grammar)
+
+sentence = input("Sentence: ").split()
+try:
+    for tree in parser.parse(sentence):
+        tree.pretty_print()
+except ValueError:
+    print("No parse tree possible.")
+```
+
+         S                                     
+      ___|___________                           
+     |               VP                        
+     |    ___________|________                  
+     |   |       |            PP               
+     |   |       |        ____|___              
+     |   |       NP      |        NP           
+     |   |    ___|___    |     ___|______       
+     NP  |   |       NP  |    |          NP    
+     |   |   |       |   |    |          |      
+     N   V   D       N   P    D          N     
+     |   |   |       |   |    |          |      
+    she saw the     dog with the     binoculars
+    
+         S                                     
+      ___|_______                               
+     |           VP                            
+     |    _______|___                           
+     |   |           NP                        
+     |   |    _______|____                      
+     |   |   |            NP                   
+     |   |   |    ________|___                  
+     |   |   |   |            PP               
+     |   |   |   |    ________|___              
+     |   |   |   |   |            NP           
+     |   |   |   |   |         ___|______       
+     NP  |   |   |   |        |          NP    
+     |   |   |   |   |        |          |      
+     N   V   D   N   P        D          N     
+     |   |   |   |   |        |          |      
+    she saw the dog with     the     binoculars
 
 ## n-grams
 
@@ -161,6 +235,22 @@ probability. For example, your smartphone suggests words to you based on
 a probability distribution derived from the last few words you typed.
 Thus, a helpful step in natural language processing is breaking the
 sentence into n-grams.
+
+```python
+!python ngrams/ngrams.py 2 ngrams/holmes
+```
+
+    Loading data...
+    1158: ('of', 'the')
+    879: ('in', 'the')
+    521: ('it', 'was')
+    498: ('to', 'the')
+    463: ('it', 'is')
+    457: ('i', 'have')
+    405: ('that', 'i')
+    378: ('at', 'the')
+    370: ('and', 'i')
+    332: ('and', 'the')
 
 ## Tokenization
 
@@ -197,6 +287,20 @@ sentences. Eventually, using Markov models, we are able to generate text
 that is often grammatical and sounding superficially similar to human
 language output. However, these sentences lack actual meaning and
 purpose.
+
+```python
+!python markov/generator.py markov/shakespeare.txt
+```
+
+    Farewell, my dearest Thisby dear.
+    
+    Sir, you and other LORDS; at another, with hers OBERON.
+    
+    This is the greatest men in Kendal green came at my back to school in Wittenberg, It is requir'd You do it With sweet rehearsal of my friend, faithful and anointed queen.
+    
+    Methinks I so should term them- and the aerial blue An indistinct regard.
+    
+    I have found'red nine score and the rest.
 
 ## Bag-of-Words Model
 
@@ -297,6 +401,85 @@ smoothing, **Laplace Smoothing** adds 1 to each value in our
 distribution, pretending that all values have been observed at least
 once.
 
+```python
+import os
+import sys
+
+import nltk
+
+
+def main():
+
+    # Read data from files
+    if len(sys.argv) != 2:
+        sys.exit("Usage: python sentiment.py corpus")
+    positives, negatives = load_data("sentiment/corpus")
+
+    # Create a set of all words
+    words = set()
+    for document in positives:
+        words.update(document)
+    for document in negatives:
+        words.update(document)
+
+    # Extract features from text
+    training = []
+    training.extend(generate_features(positives, words, "Positive"))
+    training.extend(generate_features(negatives, words, "Negative"))
+
+    # Classify a new sample
+    classifier = nltk.NaiveBayesClassifier.train(training)
+    s = input("s: ")
+    result = classify(classifier, s, words)
+    for key in result.samples():
+        print(f"{key}: {result.prob(key):.4f}")
+
+
+def extract_words(document):
+    return set(
+        word.lower()
+        for word in nltk.word_tokenize(document)
+        if any(c.isalpha() for c in word)
+    )
+
+
+def load_data(directory):
+    result = []
+    for filename in ["positives.txt", "negatives.txt"]:
+        with open(os.path.join(directory, filename), encoding="utf-8") as f:
+            result.append([extract_words(line) for line in f.read().splitlines()])
+    return result
+
+
+def generate_features(documents, words, label):
+    features = []
+    for document in documents:
+        features.append(({word: (word in document) for word in words}, label))
+    return features
+
+
+def classify(classifier, document, words):
+    document_words = extract_words(document)
+    features = {word: (word in document_words) for word in words}
+    return classifier.prob_classify(features)
+
+
+if __name__ == "__main__":
+    main()
+
+```
+
+    Positive: 0.9241
+    Negative: 0.0759
+
+```python
+if __name__ == "__main__":
+    main()
+```
+
+    Positive: 0.0438
+    Negative: 0.9562
+
 ## Word Representation
 
 We want to represent word meanings in our AI. As we’ve seen before, it
@@ -361,7 +544,7 @@ This neural network turns out to be quite powerful. At the end of the
 process, every word ends up being just a vector, or a sequence of
 numbers. For example,
 
-book: $-0.226776 -0.155999 -0.048995 -0.569774 0.053220 0.124401
+book: $[-0.226776 -0.155999 -0.048995 -0.569774 0.053220 0.124401
 -0.091108 -0.606255 -0.114630 0.473384 0.061061 0.551323 -0.245151
 -0.014248 -0.210003 0.316162 0.340426 0.232053 0.386477 -0.025104
 -0.024492 0.342590 0.205586 -0.554390 -0.037832 -0.212766 -0.048781
@@ -375,7 +558,39 @@ book: $-0.226776 -0.155999 -0.048995 -0.569774 0.053220 0.124401
 0.370489 -0.372362 0.102479 0.547047 0.020831 -0.202521 -0.180814
 0.035923 -0.296322 -0.062603 0.232734 0.191323 0.251916 0.150993
 -0.024009 0.129037 -0.033097 0.029713 0.125488 -0.018356 -0.226277
-0.437586 0.004913$
+0.437586 0.004913]$
+
+```python
+from vectors.vectors import *
+
+words["books"]
+```
+
+    array([-2.807500e-02,  1.389900e-01, -1.247990e-01, -6.530260e-01,
+           -9.997000e-03,  4.460050e-01, -4.330270e-01, -5.738260e-01,
+           -8.352800e-02,  5.572320e-01,  1.770960e-01,  5.558660e-01,
+           -2.561450e-01,  2.667560e-01, -1.030250e-01,  3.036520e-01,
+            2.375330e-01,  2.188730e-01,  3.600540e-01,  2.499900e-01,
+           -3.761940e-01,  6.574720e-01,  9.664000e-02, -5.642030e-01,
+           -1.094780e-01, -6.022120e-01,  1.047600e-02, -1.510490e-01,
+            1.123330e-01, -3.909700e-02,  4.213900e-02,  6.661100e-02,
+           -1.172780e-01,  7.880700e-02, -3.891830e-01, -3.143310e-01,
+            2.120360e-01, -3.989880e-01, -2.841770e-01, -2.219240e-01,
+           -1.530810e-01,  4.205950e-01,  2.302700e-02,  2.656270e-01,
+           -1.786180e-01, -7.330000e-04, -8.099100e-02,  2.130000e-02,
+            1.757470e-01,  1.006242e+00,  4.782700e-01, -1.995300e-01,
+           -5.899500e-02, -1.358600e-01, -1.480700e-02, -4.497000e-02,
+            2.570150e-01, -2.532290e-01, -1.901030e-01,  7.539600e-02,
+           -3.092270e-01, -8.611500e-02, -5.799090e-01, -4.079630e-01,
+            2.027140e-01,  1.035400e-01,  4.474260e-01,  1.341270e-01,
+           -4.936000e-03,  3.169560e-01,  2.962200e-02, -3.665200e-02,
+            3.351400e-02, -2.034150e-01,  3.198540e-01,  3.540500e-02,
+           -2.890330e-01,  3.036660e-01, -7.442160e-01,  2.947550e-01,
+            4.552740e-01, -3.378620e-01,  2.740200e-01, -7.113560e-01,
+            1.819190e-01, -1.458400e-01, -2.496370e-01,  2.203900e-01,
+            3.314080e-01,  1.969190e-01,  1.335200e-01, -9.748300e-02,
+            1.683990e-01, -3.545960e-01,  1.482530e-01,  1.195520e-01,
+           -1.700290e-01, -8.414800e-02,  3.639250e-01, -3.021800e-01])
 
 By themselves, these numbers don’t mean much. But by finding which other
 words in the corpus have the most similar vectors, we can run a function
@@ -395,6 +610,45 @@ get *burritos*. By using neural networks and distributed representations
 for words, we get our AI to understand semantic similarities between
 words in the language, bringing us one step closer to AIs that can
 understand and produce human language.
+
+```python
+distance(words["books"], words["novel"])
+```
+
+    0.5026172435744487
+
+```python
+distance(words["books"], words["breakfast"])
+```
+
+    0.7500175287917794
+
+```python
+distance(words["lunch"], words["breakfast"])
+```
+
+    0.2006302059301045
+
+```python
+closest_words(words["book"])[:10]
+```
+
+    ['book',
+     'books',
+     'essay',
+     'memoir',
+     'essays',
+     'novella',
+     'anthology',
+     'blurb',
+     'autobiography',
+     'audiobook']
+
+```python
+closest_word(words["king"] - words["man"] + words["woman"])
+```
+
+    'queen'
 
 ## Neural Networks
 
