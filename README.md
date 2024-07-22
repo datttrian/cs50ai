@@ -32,5 +32,5 @@
 
 ## Week 6
 
-- Lecture: Language
+- Lecture: [Language](src6)
 - Problem Set: Parser, Attention
