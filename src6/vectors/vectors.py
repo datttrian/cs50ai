@@ -15,8 +15,8 @@ def distance(w1, w2):
 
 
 def closest_words(embedding):
-    distances = {w: distance(embedding, words[w]) for w in words}
-    return sorted(distances, key=lambda w: distances[w])[:10]
+    distances = {w: distance(embedding, emb) for w, emb in words.items()}
+    return sorted(distances, key=distances.get)[:10]
 
 
 def closest_word(embedding):
