@@ -28,7 +28,7 @@ def load_data(directory):
 
     # Read all files and extract words
     for filename in os.listdir(directory):
-        with open(os.path.join(directory, filename)) as f:
+        with open(os.path.join(directory, filename), encoding="utf-8") as f:
             contents.extend(
                 [
                     word.lower()

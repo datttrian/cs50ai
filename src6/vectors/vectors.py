@@ -1,8 +1,8 @@
 import numpy as np
 from scipy.spatial.distance import cosine
 
-with open("words.txt") as f:
-    words = dict()
+with open("words.txt", encoding="utf-8") as f:
+    words = {}
     for line in f:
         row = line.split()
         word = row[0]
