@@ -402,81 +402,32 @@ distribution, pretending that all values have been observed at least
 once.
 
 ```python
-import os
-import sys
-
 import nltk
-
-
-def main():
-
-    # Read data from files
-    if len(sys.argv) != 2:
-        sys.exit("Usage: python sentiment.py corpus")
-    positives, negatives = load_data("sentiment/corpus")
-
-    # Create a set of all words
-    words = set()
-    for document in positives:
-        words.update(document)
-    for document in negatives:
-        words.update(document)
-
-    # Extract features from text
-    training = []
-    training.extend(generate_features(positives, words, "Positive"))
-    training.extend(generate_features(negatives, words, "Negative"))
-
-    # Classify a new sample
-    classifier = nltk.NaiveBayesClassifier.train(training)
-    s = input("s: ")
-    result = classify(classifier, s, words)
-    for key in result.samples():
-        print(f"{key}: {result.prob(key):.4f}")
-
-
-def extract_words(document):
-    return set(
-        word.lower()
-        for word in nltk.word_tokenize(document)
-        if any(c.isalpha() for c in word)
-    )
-
-
-def load_data(directory):
-    result = []
-    for filename in ["positives.txt", "negatives.txt"]:
-        with open(os.path.join(directory, filename), encoding="utf-8") as f:
-            result.append([extract_words(line) for line in f.read().splitlines()])
-    return result
-
-
-def generate_features(documents, words, label):
-    features = []
-    for document in documents:
-        features.append(({word: (word in document) for word in words}, label))
-    return features
-
-
-def classify(classifier, document, words):
-    document_words = extract_words(document)
-    features = {word: (word in document_words) for word in words}
-    return classifier.prob_classify(features)
-
-
-if __name__ == "__main__":
-    main()
-
+nltk.download('punkt')
 ```
 
+    [nltk_data] Downloading package punkt to /root/nltk_data...
+    [nltk_data]   Unzipping tokenizers/punkt.zip.
+
+
+
+
+
+    True
+
+```python
+!python upgraded-lamp/sentiment/sentiment.py upgraded-lamp/sentiment/corpus
+```
+
+    s: i enjoyed it
     Positive: 0.9241
     Negative: 0.0759
 
 ```python
-if __name__ == "__main__":
-    main()
+!python upgraded-lamp/sentiment/sentiment.py upgraded-lamp/sentiment/corpus
 ```
 
+    s: kind of overpriced
     Positive: 0.0438
     Negative: 0.9562
 
