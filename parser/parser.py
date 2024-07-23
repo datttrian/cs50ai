@@ -16,10 +16,12 @@ V -> "smiled" | "tell" | "were"
 """
 
 NONTERMINALS = """
-S -> NP VP
-VP -> V | V NP| V NP PP | VP Conj VP
-NP -> N | Det N | Det Adj N
-PP -> P NP
+S -> PART | PART Conj PART
+PART -> NP VP | NP Adv VP | VP
+NP -> N | NA N
+NA -> Det | Adj | NA NA
+VP -> V | V SUPP
+SUPP -> NP | P | Adv | SUPP SUPP | SUPP SUPP SUPP
 """
 
 grammar = nltk.CFG.fromstring(NONTERMINALS + TERMINALS)
@@ -80,7 +82,8 @@ def np_chunk(tree):
     np_chunks = []
     for subtree in tree.subtrees(lambda t: t.label() == "NP"):
         if not any(
-            child.label() == "NP" for child in subtree.subtrees(lambda t: t != subtree)
+            child.label() == "NP"
+            for child in subtree.subtrees(lambda t, s=subtree: t != s)
         ):
             np_chunks.append(subtree)
     return np_chunks
