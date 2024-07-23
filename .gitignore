@@ -35,6 +35,7 @@ vendor/
 !Makefile
 !main.yml
 !.python-lint
+!.mypy.ini
 !devcontainer.json
 !.gitattributes
 !*.csv
