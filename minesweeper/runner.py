@@ -1,6 +1,7 @@
-import pygame
 import sys
 import time
+
+import pygame
 
 from minesweeper import Minesweeper, MinesweeperAI
 
