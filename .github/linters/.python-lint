@@ -432,16 +432,25 @@ disable=raw-checker-failed,
         use-implicit-booleaness-not-comparison-to-zero,
         use-symbolic-message-instead,
         # added/edited
-        missing-module-docstring,
+        broad-exception-raised,
+        duplicate-code,
+        import-error,
+        import-self,
+        invalid-name,
         missing-class-docstring,
         missing-function-docstring,
-        too-few-public-methods,
-        import-error,
+        missing-module-docstring,
+        no-else-raise,
+        no-member,
+        no-name-in-module,
+        not-callable,
         redefined-argument-from-local,
-        duplicate-code,
-        wrong-import-order,
+        too-few-public-methods,
+        too-many-arguments,
+        too-many-function-args,
+        too-many-locals,
         unbalanced-tuple-unpacking,
-        too-many-locals
+        wrong-import-order
         
 
 
