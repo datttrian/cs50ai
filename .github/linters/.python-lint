@@ -440,7 +440,8 @@ disable=raw-checker-failed,
         redefined-argument-from-local,
         duplicate-code,
         wrong-import-order,
-        unbalanced-tuple-unpacking
+        unbalanced-tuple-unpacking,
+        too-many-locals
         
 
 

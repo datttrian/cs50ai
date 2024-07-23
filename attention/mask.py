@@ -1,6 +1,6 @@
 import sys
-import tensorflow as tf
 
+import tensorflow as tf
 from PIL import Image, ImageDraw, ImageFont
 from transformers import AutoTokenizer, TFBertForMaskedLM
 
@@ -45,7 +45,6 @@ def get_mask_token_index(mask_token_id, inputs):
     Return the index of the token with the specified `mask_token_id`, or
     `None` if not present in the `inputs`.
     """
-    # TODO: Implement this function
     input_ids = inputs["input_ids"].numpy()[0]
     for index, token_id in enumerate(input_ids):
         if token_id == mask_token_id:
@@ -53,16 +52,13 @@ def get_mask_token_index(mask_token_id, inputs):
     return None
 
 
-
 def get_color_for_attention_score(attention_score):
     """
     Return a tuple of three integers representing a shade of gray for the
     given `attention_score`. Each value should be in the range [0, 255].
     """
-    # TODO: Implement this function
     intensity = int(attention_score * 255)
     return (intensity, intensity, intensity)
-
 
 
 def visualize_attentions(tokens, attentions):
@@ -75,7 +71,6 @@ def visualize_attentions(tokens, attentions):
     include both the layer number (starting count from 1) and head number
     (starting count from 1).
     """
-    # TODO: Update this function to produce diagrams for all layers and heads.
     num_layers = len(attentions)
     num_heads = len(attentions[0][0])
 
@@ -85,7 +80,7 @@ def visualize_attentions(tokens, attentions):
                 layer_index + 1,
                 head_index + 1,
                 tokens,
-                attentions[layer_index][0][head_index].numpy()
+                attentions[layer_index][0][head_index].numpy(),
             )
 
 
@@ -113,7 +108,7 @@ def generate_diagram(layer_number, head_number, tokens, attention_weights):
             (image_size - PIXELS_PER_WORD, PIXELS_PER_WORD + i * GRID_SIZE),
             token,
             fill="white",
-            font=FONT
+            font=FONT,
         )
         token_image = token_image.rotate(90)
         img.paste(token_image, mask=token_image)
@@ -124,7 +119,7 @@ def generate_diagram(layer_number, head_number, tokens, attention_weights):
             (PIXELS_PER_WORD - width, PIXELS_PER_WORD + i * GRID_SIZE),
             token,
             fill="white",
-            font=FONT
+            font=FONT,
         )
 
     # Draw each word
