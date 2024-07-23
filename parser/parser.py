@@ -18,7 +18,7 @@ V -> "smiled" | "tell" | "were"
 NONTERMINALS = """
 S -> NP VP
 VP -> V | V NP| V NP PP | VP Conj VP
-NP -> N | Det N
+NP -> N | Det N | Det Adj N
 PP -> P NP
 """
 
@@ -66,7 +66,8 @@ def preprocess(sentence):
     and removing any word that does not contain at least one alphabetic
     character.
     """
-    raise NotImplementedError
+    words = nltk.word_tokenize(sentence.lower())
+    return [word for word in words if any(char.isalpha() for char in word)]
 
 
 def np_chunk(tree):
