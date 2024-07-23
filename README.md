@@ -1,5 +1,7 @@
 # CS50’s Introduction to Artificial Intelligence with Python
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/datttrian/cs50ai)
+
 ## Week 0
 
 - Lecture: [Search](src0)
