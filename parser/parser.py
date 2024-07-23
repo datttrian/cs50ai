@@ -1,5 +1,6 @@
-import nltk
 import sys
+
+import nltk
 
 TERMINALS = """
 Adj -> "country" | "dreadful" | "enigmatical" | "little" | "moist" | "red"
@@ -26,7 +27,7 @@ def main():
 
     # If filename specified, read sentence from file
     if len(sys.argv) == 2:
-        with open(sys.argv[1]) as f:
+        with open(sys.argv[1], encoding="utf-8") as f:
             s = f.read()
 
     # Otherwise, get sentence as input
