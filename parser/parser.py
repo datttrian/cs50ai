@@ -1,6 +1,6 @@
-import nltk
 import sys
-from nltk.tree import Tree
+
+import nltk
 
 TERMINALS = """
 Adj -> "country" | "dreadful" | "enigmatical" | "little" | "moist" | "red"
@@ -16,11 +16,12 @@ V -> "smiled" | "tell" | "were"
 """
 
 NONTERMINALS = """
-S -> NP VP | S Conj S
-NP -> Det N | Det AdjP N | N | AdjP N | NP PP
-VP -> V | V NP | V PP | V NP PP | VP Conj VP
-AdjP -> Adj | Adj AdjP
-PP -> P NP
+S -> PART | PART Conj PART
+PART -> NP VP | NP Adv VP | VP
+NP -> N | NA N
+NA -> Det | Adj | NA NA
+VP -> V | V SUPP
+SUPP -> NP | P | Adv | SUPP SUPP | SUPP SUPP SUPP
 """
 
 grammar = nltk.CFG.fromstring(NONTERMINALS + TERMINALS)
@@ -31,7 +32,7 @@ def main():
 
     # If filename specified, read sentence from file
     if len(sys.argv) == 2:
-        with open(sys.argv[1]) as f:
+        with open(sys.argv[1], encoding="utf-8") as f:
             s = f.read()
 
     # Otherwise, get sentence as input
@@ -79,8 +80,11 @@ def np_chunk(tree):
     noun phrases as subtrees.
     """
     np_chunks = []
-    for subtree in tree.subtrees(lambda t: t.label() == 'NP'):
-        if not any(child.label() == 'NP' for child in subtree.subtrees(lambda t: t != subtree)):
+    for subtree in tree.subtrees(lambda t: t.label() == "NP"):
+        if not any(
+            child.label() == "NP"
+            for child in subtree.subtrees(lambda t, s=subtree: t != s)
+        ):
             np_chunks.append(subtree)
     return np_chunks
 
